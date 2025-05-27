@@ -48,8 +48,8 @@
             <!-- Tiket Event -->
             <div class="p-4 rounded-xl">
                 <h4 class="text-base font-semibold mb-2">Tiket Event</h4>
-                <a href="#" class="block text-center bg-gradient-to-r from-tertiary-hard to-violet-600 text-white py-2 rounded-lg font-semibold hover:opacity-90 transition">
-                    BELI TIKET
+                <a href="https://www.instagram.com/nazmihakimz/" target="_blank" class="block text-center bg-gradient-to-r from-tertiary-hard to-violet-600 text-white py-2 rounded-lg font-semibold hover:opacity-90 transition">
+                    PEMBELIAN TIKET
                 </a>
             </div>
         </aside>
