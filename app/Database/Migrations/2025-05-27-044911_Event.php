@@ -50,12 +50,12 @@ class Event extends Migration
         ]);
 
         $this->forge->addKey('id_event', true);
-        $this->forge->addForeignKey('id_organizer', 'organizer', 'id_organizer', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('id_admin', 'admin', 'id_admin', 'CASCADE', 'CASCADE');
         $this->forge->createTable('event', true);
     }
 
     public function down()
     {
-        //
+        $this->forge->dropTable('event', true);
     }
 }
