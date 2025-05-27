@@ -28,20 +28,32 @@ class Auth extends Controller
     public function login() {
         // validasi input
         if (!$this->validate([
-            'username' => [
+            'username_admin' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} harus diisi',
                 ]
             ],
-            'email' => [
+            'nama_admin' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} harus diisi',
+                ]
+            ],
+            'username_admin' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} harus diisi',
+                ]
+            ],
+            'email_admin' => [
                 'rules' => 'required|valid_email',
                 'errors' => [
                     'required' => '{field} harus diisi',
                     'valid_email' => 'format {field} tidak valid',
                     ]
                 ],
-            'password' => [
+            'password_admin' => [
                 'rules' => 'required|min_length[6]',
                 'errors' => [
                     'required' => '{field} harus diisi',
@@ -59,21 +71,21 @@ class Auth extends Controller
         $session = session();
         $model = $this->adminModel;
 
-        $username = $this->request->getPost('username');
-        $email = $this->request->getPost('email');
-        $password = $this->request->getPost('password');
+        $username_admin = $this->request->getPost('username_admin');
+        $email_admin = $this->request->getPost('email_admin');
+        $passwor_admin = $this->request->getPost('password_admin');
 
-        $user = $model->where('username', $username)->first();
+        $admin = $model->where('username_admin', $username_admin)->first();
 
-        if ($user) {
-            if (password_verify($password, $user['password'])) {
+        if ($admin) {
+            if (password_verify($passwor_admin, $admin['password'])) {
                 $session->set([
-                    'user_id' => $user['id'],
-                    'username' => $user['username'],
-                    'email' => $user['email'],
+                    'admin_id' => $admin['id'],
+                    'username_admin' => $admin['username_admin'],
+                    'email_admin' => $admin['email'],
                     'logged_in' => true
                 ]);
-                return redirect()->to('/user');
+                return redirect()->to('/admin');
             } else {
                 return redirect()->to('/login');
             }
@@ -90,7 +102,7 @@ class Auth extends Controller
 
     public function showRegister() {
         $data = [
-            'title' => 'Halaman Register'
+            'title' => 'Halaman Register Admin'
         ];
 
         echo view('layout/header');
@@ -101,23 +113,28 @@ class Auth extends Controller
     public function register() {
         // validasi input
         if (!$this->validate([
-            'username' => [
-                'rules' => 'required|min_length[4]|is_unique[user.username]',
+            'nama_admin' => [
+                'rules' => 'required|is_unique[admin.username_admin]',
                 'errors' => [
                     'required' => '{field} harus diisi',
-                    'min_length[4]' => '{field} minimal 4 huruf',
                     'is_unique' => '{field} sudah terdaftar',
                 ]
             ],
-            'email' => [
-                'rules' => 'required|valid_email|is_unique[user.email]',
+            'username_admin' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} harus diisi',
+                ]
+            ],
+            'email_admin' => [
+                'rules' => 'required|valid_email|is_unique[admin.email_admin]',
                 'errors' => [
                     'required' => '{field} harus diisi',
                     'valid_email' => '{field} harus diisi',
                     'is_unique' => '{field} sudah terdaftar',
                     ]
                 ],
-            'password' => [
+            'password_admin' => [
                 'rules' => 'required|min_length[6]',
                 'errors' => [
                     'required' => '{field} harus diisi',
@@ -125,7 +142,7 @@ class Auth extends Controller
                 ]
             ],
             'password_confirm' => [
-                'rules' => 'required|matches[password]',
+                'rules' => 'required|matches[password_admin]',
                 'errors' => [
                     'required' => 'konfirmasi password harus diisi',
                     'matches[password]' => '{field} tidak sama',
@@ -142,19 +159,19 @@ class Auth extends Controller
         $session = session();
         $model = $this->adminModel;
 
-        $username = $this->request->getPost('username');
-        $email = $this->request->getPost('email');
-        $password = $this->request->getPost('password');
+        $username_admin = $this->request->getPost('username_admin');
+        $email_admin = $this->request->getPost('email_admin');
+        $password_admin = $this->request->getPost('password_admin');
         $confirm  = $this->request->getPost('password_confirm');
 
         // simpan user baru
         $model->save([
-            'username' => $username,
-            'email' => $email,
-            'password' => password_hash($password, PASSWORD_DEFAULT),
+            'username_admin' => $username_admin,
+            'email_admin' => $email_admin,
+            'password_admin' => password_hash($password_admin, PASSWORD_DEFAULT),
         ]);
 
-        $session->setFlashdata('pesan', 'Registrasi berhasil, silakan login');
+        $session->setFlashdata('pesan', 'Registrasi Admin berhasil, silakan login');
         return redirect()->to('/login');
     }
 }
