@@ -1,7 +1,8 @@
 <?php 
 
 namespace App\Controllers;
-use App\Models\UserModel;
+
+use App\Models\AdminModel;
 
 class Admin extends BaseController
 {
@@ -9,23 +10,23 @@ class Admin extends BaseController
 
     public function __construct()
     {
-        // $this->userModel = new UserModel();
+        $this->userModel = new AdminModel();
     }
 
     public function index()
     {
         // Cek apakah user sudah login
-        if (!session()->has('username')) {
+        if (!session()->has('username_admin')) {
             return redirect()->to('/login');
         }
 
         // Ambil data dari session
         $data = [
-            'title' => 'Dashboard User',
-            'username' => session()->get('username'),
-            'email' => session()->get('email'),
+            'title' => 'Dashboard Admin',
+            'username_admin' => session()->get('username_admin'),
+            'email_admin' => session()->get('email_admin'),
         ];
 
-        return view('user/index', $data);
+        return view('admin/index', $data);
     }
 }
