@@ -13,6 +13,10 @@ class Event extends Migration
                 'type'           => 'INT',
                 'auto_increment' => true,
             ],
+            'id_admin' => [
+                'type'       => 'INT',
+                'unsigned' => true
+            ],
             'judul_event' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 150,
@@ -40,12 +44,15 @@ class Event extends Migration
             ],
             'sponsor' => [
                 'type'       => 'TEXT',
+                'null' => true
             ],
             'guest_star'    => [
                 'type'       => 'TEXT',
+                'null' => true
             ],
             'booth_list' => [
                 'type'       => 'TEXT',
+                'null' => true
             ]
         ]);
 
