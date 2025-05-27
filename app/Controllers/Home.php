@@ -4,8 +4,13 @@ namespace App\Controllers;
 
 class Home extends BaseController
 {
-    public function index(): string
+    public function index()
     {
-        return view('welcome_message');
+        $data = [
+            'title' => 'Jvent'
+        ];
+        echo view('layout/header', $data);
+        echo view('home/index');
+        echo view('layout/footer');
     }
 }
