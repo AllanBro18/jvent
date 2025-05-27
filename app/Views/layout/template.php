@@ -8,10 +8,11 @@
 </head>
 <body>
     <!-- PARSIAL -->
-    
+    <?php if ($title === 'Halaman Login Admin') : ?>
+        <?= $this->include('user/login') ?> 
+    <?php endif; ?>
+    <?= $this->include('layout/sidebar') ?> 
 
     <?= $this->renderSection('content'); ?>
-
-    <script src="/js/script.js"></script>
 </body>
 </html>

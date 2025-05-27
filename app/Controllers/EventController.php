@@ -7,7 +7,7 @@ class EventController extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'Event-Event'
+            'title' => 'Jvent'
         ];
         echo view('layout/header', $data);
         echo view('event/index');
@@ -21,6 +21,16 @@ class EventController extends BaseController
         ];
         echo view('layout/header', $data);
         echo view('event/detail');
+        echo view('layout/footer');
+    }
+    
+    public function filter()
+    {
+        $data = [
+            'title' => 'Filter Event'
+        ];
+        echo view('layout/header', $data);
+        echo view('event/filter');
         echo view('layout/footer');
     }
 }

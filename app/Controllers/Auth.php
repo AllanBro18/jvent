@@ -2,22 +2,22 @@
 
 namespace App\Controllers;
 
-use App\Models\UserModel;
+use App\Models\AdminModel;
 use CodeIgniter\Controller;
 
 class Auth extends Controller 
 {
-    protected $userModel;
+    protected $adminModel;
 
     public function __construct()
     {
-        // $this->userModel = new UserModel();
+        $this->adminModel = new AdminModel();
     }
 
     public function index() 
     {
         $data = [
-            'title' => 'Halaman Login'
+            'title' => 'Halaman Login Admin'
         ];
 
         echo view('layout/header');
@@ -57,7 +57,7 @@ class Auth extends Controller
         }
 
         $session = session();
-        $model = $this->userModel;
+        $model = $this->adminModel;
 
         $username = $this->request->getPost('username');
         $email = $this->request->getPost('email');
@@ -140,7 +140,7 @@ class Auth extends Controller
         }
         
         $session = session();
-        $model = $this->userModel;
+        $model = $this->adminModel;
 
         $username = $this->request->getPost('username');
         $email = $this->request->getPost('email');

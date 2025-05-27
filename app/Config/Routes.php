@@ -5,6 +5,6 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'Home::index');
-$routes->get('events', 'EventController::index');
+$routes->get('/', 'EventController::index');
+$routes->get('events', 'EventController::filter');
 $routes->get('detail', 'EventController::detail');
