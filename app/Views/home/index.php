@@ -5,14 +5,15 @@
     <div class="py-10 ml-24 w-72 relative z-10 text-white">
         <h1 class="py-2 text-3xl font-bold">Temukan Event Anime Terdekat di Banjarmasin</h1>
         <p class="py-2 font-thin">Subheading Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptas quos consectetur, autem error quod, ullam rerum dicta aperiam</p>
-        <button class="px-4 py-2 bg-tertiary-hard rounded-lg hover:bg-blue-800"><a href="/events"> Jelajahi Event Sekarang </a></button>
+        <a href="/events" class="px-4 py-2 text-center bg-gradient-to-r from-tertiary-hard to-blue-800 text-white rounded-lg font-semibold hover:opacity-90 transition">
+            Jelajahi Event Sekarang
+        </a>
     </div>
 </section>
 
 <section class="mt-10 min-h-screen px-10">
-    <div class="flex justify-between">
+    <div class="flex">
         <h1 class="text-2xl font-bold text-white">Event Populer</h1>
-        <button class="px-2 py-1 text-xs font-light bg-tertiary-hard text-white rounded-lg hover:bg-blue-800"><a href="/events"> Lihat Semua </a></button>
     </div>
     <div class="flex flex-row justify-around mt-5">
         <div class="max-w-xs mr-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
@@ -91,16 +92,12 @@
         <div class="grid text-center">
             <div class="w-72 text-white">
                 <h1 class="py-4 text-2xl font-bold">Punya Event? Tampilkan di Jvent Sekarang</h1>
-                <button class="px-4 py-1 rounded-lg bg-tertiary-soft hover:bg-purple-700">Daftarkan Event Anda</button>
+                <a href="#" class="px-2 py-2 text-center bg-gradient-to-r from-tertiary-soft to-violet-600 text-white rounded-lg font-semibold hover:opacity-90 transition">
+                    Daftarkan Event Anda
+                </a>
             </div>
         </div>
     </div>
 
     <!-- cardview -->
 </section>
-
-<footer>
-    <div class="bg-white text-center">
-        <p>Copyright by @Jvent</p>
-    </div>
-</footer>
