@@ -9,6 +9,7 @@ class EventModel extends Model {
     protected $allowedFields = [
         'id_admin', 
         'judul_event', 
+        'slug',
         'tanggal_event', 
         'lokasi_event', 
         'harga_tiket', 
@@ -19,6 +20,13 @@ class EventModel extends Model {
         'guest_star', 
         'booth_list'
     ];
+
+    public function getEvent ($slug = false) {
+        if ($slug == false) {
+            return $this->findAll();
+        }
+        return $this->where(['slug' => $slug])->first();
+    }
 }
 
 ?>

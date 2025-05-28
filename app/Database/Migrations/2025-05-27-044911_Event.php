@@ -21,6 +21,10 @@ class Event extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => 150,
             ],
+            'slug' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 150,
+            ],
             'tanggal_event' => [
                 'type'       => 'DATE',
             ],

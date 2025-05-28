@@ -6,7 +6,13 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'EventController::index');
-$routes->get('events', 'EventController::filter');
+
+// Create Event
+$routes->get('event', 'EventController::filter');
+$routes->get('/event/create', 'EventController::create');
+$routes->post('/event/save', 'EventController::save');
+$routes->get('/event/(:any)', 'EventController::detail/$1');
+
 $routes->get('detail', 'EventController::detail');
 
 
