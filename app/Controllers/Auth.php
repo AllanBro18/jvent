@@ -20,20 +20,14 @@ class Auth extends Controller
             'title' => 'Halaman Login Admin'
         ];
 
-        echo view('layout/header');
-        echo view('login/login_view', $data);
+        echo view('layout/header', $data);
+        echo view('login/login_view');
         echo view('layout/footer');
     }
 
     public function login() {
         // validasi input
         if (!$this->validate([
-            'username_admin' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => '{field} harus diisi',
-                ]
-            ],
             'nama_admin' => [
                 'rules' => 'required',
                 'errors' => [
@@ -71,18 +65,21 @@ class Auth extends Controller
         $session = session();
         $model = $this->adminModel;
 
+        $nama_admin = $this->request->getPost('nama_admin');
         $username_admin = $this->request->getPost('username_admin');
         $email_admin = $this->request->getPost('email_admin');
-        $passwor_admin = $this->request->getPost('password_admin');
+        $password_admin = $this->request->getPost('password_admin');
 
         $admin = $model->where('username_admin', $username_admin)->first();
 
         if ($admin) {
-            if (password_verify($passwor_admin, $admin['password'])) {
+            if (password_verify($password_admin, $admin['password_admin'])) {
                 $session->set([
-                    'admin_id' => $admin['id'],
+                    'admin_id' => $admin['id_admin'],
+                    'nama_admin' => $admin['nama_admin'],
                     'username_admin' => $admin['username_admin'],
-                    'email_admin' => $admin['email'],
+                    'email_admin' => $admin['email_admin'],
+                    'password_admin' => $admin['password_admin'],
                     'logged_in' => true
                 ]);
                 return redirect()->to('/admin');
@@ -105,8 +102,8 @@ class Auth extends Controller
             'title' => 'Halaman Register Admin'
         ];
 
-        echo view('layout/header');
-        echo view('register/register_view', $data);
+        echo view('layout/header', $data);
+        echo view('register/register_view');
         echo view('layout/footer');
     }
 
@@ -159,6 +156,7 @@ class Auth extends Controller
         $session = session();
         $model = $this->adminModel;
 
+        $nama_admin = $this->request->getPost('nama_admin');
         $username_admin = $this->request->getPost('username_admin');
         $email_admin = $this->request->getPost('email_admin');
         $password_admin = $this->request->getPost('password_admin');
@@ -166,6 +164,7 @@ class Auth extends Controller
 
         // simpan user baru
         $model->save([
+            'nama_admin' => $nama_admin,
             'username_admin' => $username_admin,
             'email_admin' => $email_admin,
             'password_admin' => password_hash($password_admin, PASSWORD_DEFAULT),

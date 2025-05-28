@@ -145,7 +145,7 @@ class EventController extends BaseController
     public function detail($slug)
     {
         $data = [
-            'title' => 'Detail Event',
+            'title' => 'Event ' . $slug,
             'event' => $this->eventModel->getEvent($slug),
         ];
 
