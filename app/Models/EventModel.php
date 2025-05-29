@@ -10,6 +10,7 @@ class EventModel extends Model {
         'id_admin', 
         'judul_event', 
         'slug',
+        'gambar_event',
         'tanggal_event', 
         'lokasi_event', 
         'harga_tiket', 

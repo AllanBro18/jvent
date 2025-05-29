@@ -42,6 +42,15 @@ class EventController extends BaseController
                     'is_unique' => '{field} event sudah terdaftar',
                 ]
             ],
+            'gambar_event' => [ // validasi gambar
+                'rules' => 'uploaded[gambar_event]|max_size[gambar_event,500]|is_image[gambar_event]|mime_in[gambar_event,image/jpg,image/jpeg,image/png]',
+                'errors' => [
+                    'uploaded' => 'Pilih gambar event terlebih dahulu.',
+                    'max_size' => 'Ukuran gambar terlalu besar (maks 500KB).',
+                    'is_image' => 'Yang Anda pilih bukan gambar.',
+                    'mime_in' => 'Format gambar harus JPG, JPEG, atau PNG.',
+                ]
+            ],
             'tanggal_event' => [
                 'rules' => 'required',
                 'errors' => [
@@ -104,6 +113,13 @@ class EventController extends BaseController
             return redirect()->back()->withInput()->with('validation', $validation);
         }
 
+        // ambil file gambar dari input
+        $fileGambar = $this->request->getFile('gambar_event');
+
+        // simpan gambar ke folder
+        $namaGambar = $fileGambar->getRandomName(); // Buat nama random untuk gambar
+        $fileGambar->move('uploads/images', $namaGambar);
+
         // slug dari input judul buku 
         $slug = url_title($this->request->getVar('judul_event'), '-', true);
         
@@ -111,6 +127,7 @@ class EventController extends BaseController
         $this->eventModel->save([
             'id_admin' => session()->get('id_admin'),
             'judul_event' => $this->request->getVar('judul_event'),
+            'gambar_event' => $namaGambar,
             'slug' => $slug,
             'tanggal_event' => $this->request->getVar('tanggal_event'),
             'lokasi_event' => $this->request->getVar('lokasi_event'),

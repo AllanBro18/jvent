@@ -18,6 +18,20 @@
             />
         </div>
 
+        <!-- Gambar Event -->
+        <div>
+            <label for="gambar_event" class="block mb-2 text-white text-sm font-medium">Gambar Event</label>
+            <input
+                type="file"
+                id="gambar_event"
+                name="gambar_event"
+                class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main <?= \Config\Services::validation()->hasError('gambar_event') ? 'border-red-500' : '' ?>"
+            />
+            <?php if(\Config\Services::validation()->hasError('gambar_event')): ?>
+                <p class="text-red-500 text-xs mt-1"><?= \Config\Services::validation()->getError('gambar_event') ?></p>
+            <?php endif; ?>
+        </div>
+
         <!-- Tanggal Event -->
         <div>
             <label for="tanggal_event" class="block mb-2 text-white text-sm font-medium">Tanggal Event</label>
