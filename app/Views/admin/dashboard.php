@@ -15,18 +15,18 @@
                     <a href="/dashboard/pengaturan" class="block text-gray-300 hover:text-white">Pengaturan</a>
                 </nav>
             </div>
-
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 p-4 sm:p-8">
+        <main class="flex-1 p-5 sm:p-8">
             <!-- Header -->
             <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
                 <h2 class="text-xl sm:text-2xl font-semibold">Event Saya</h2>
-            <div class="flex items-center gap-3">
-                <button class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition">Buat Event</button>
-                <div class="bg-gray-700 px-3 py-2 rounded text-sm">Event Organizer</div>
-            </div>
+                <div class="flex items-center gap-3">
+                    <div class="bg-gray-700 px-3 py-2 rounded text-sm"><?= esc($username_admin) ?></div>
+                    <button class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition">Buat Event</button>
+                    <a href="/logout" class="bg-red-600 px-4 py-2 rounded hover:bg-red-700">Logout</a>
+                </div>
             </div>
 
             <!-- Search and Sort -->
@@ -59,39 +59,22 @@
 
             <!-- Event Cards -->
             <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                <div class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
-                    <a href="/event/<?= "Test" ?>" target="_blank">
-                        <img class="w-full h-48 object-cover" src="/assets/images/hero.jpg" alt="Event Image" />
-                    </a>
-                    <div class="p-5">
-                        <a href="/event/<?= "Test" ?>" target="_blank">
-                            <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white"> <?= "Test" ?> </h5>
-                        </a>
-                        <p class="mb-1 text-sm text-gray-700 dark:text-gray-400"><?= "Test" ?></p>
-                        <p class="mb-1 text-sm text-gray-700 dark:text-gray-400"><?= "Test" ?></p>
-                        <p class="mb-3 text-lg font-bold text-gray-900 dark:text-white">Rp<?= "Test" ?></p>
-                        <div class="flex items-center border-t pt-3 border-secondary-main">
-                            <img class="w-10 h-10 rounded-full shadow mr-3" src="/assets/images/hero.jpg" alt="Organizer" />
-                            <p class="text-sm text-gray-700 dark:text-gray-400">Imagi</p>
-                        </div>
-                    </div>
-                </div>
+                
                 <?php for ($i = 0; $i < 3; $i++): ?>
-                    <div class="bg-gray-800 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
-                        <img src="/assets/images/hero.jpg" alt="Event" class="w-full h-40 object-cover">
-                        <div class="p-4 space-y-2">
-                            <h3 class="text-lg font-semibold">World Music Festival</h3>
-                            
-                            <div class="text-sm text-gray-300 flex items-center gap-2">
-                                📅 25–27 July, 2025 &bull; 📍Valencia, ES
-                                </div>
-                                    <p class="text-sm font-bold text-white">
-                                    <?= $i === 0 ? 'Rp.100.000' : 'Gratis' ?>
-                                    </p>
-                                <div class="flex items-center gap-2 mt-3">
-                                
-                                <img src="https://i.pravatar.cc/30" class="rounded-full w-7 h-7" alt="User">
-                                <span class="text-sm text-gray-300">Imagi</span>
+                    <div class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
+                        <a href="/event/<?= "Test" ?>" target="_blank">
+                            <img class="w-full h-48 object-cover" src="/assets/images/hero.jpg" alt="Event Image" />
+                        </a>
+                        <div class="p-5">
+                            <a href="/event/<?= "Test" ?>" target="_blank">
+                                <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white"> <?= "Test" ?> </h5>
+                            </a>
+                            <p class="mb-1 text-sm text-gray-700 dark:text-gray-400"><?= "Test" ?></p>
+                            <p class="mb-1 text-sm text-gray-700 dark:text-gray-400"><?= "Test" ?></p>
+                            <p class="mb-3 text-lg font-bold text-gray-900 dark:text-white">Rp<?= "Test" ?></p>
+                            <div class="flex items-center border-t pt-3 border-secondary-main">
+                                <img class="w-10 h-10 rounded-full shadow mr-3" src="/assets/images/hero.jpg" alt="Organizer" />
+                                <p class="text-sm text-gray-700 dark:text-gray-400">Imagi</p>
                             </div>
                         </div>
                     </div>
