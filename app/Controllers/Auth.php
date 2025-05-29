@@ -60,6 +60,7 @@ class Auth extends Controller
 
         if ($admin && password_verify($password_admin, $admin['password_admin'])) {
             $session->set([
+                'id_admin'       => $admin['id_admin'],
                 'username_admin' => $admin['username_admin'],
                 'password_admin' => $admin['password_admin'],
                 'logged_in' => true
@@ -90,38 +91,39 @@ class Auth extends Controller
         // validasi input
         if (!$this->validate([
             'nama_admin' => [
-                'rules' => 'required|is_unique[admin.username_admin]',
+                'rules' => 'required|is_unique[admin.nama_admin]',
                 'errors' => [
-                    'required' => '{field} harus diisi',
-                    'is_unique' => '{field} sudah terdaftar',
+                    'required' => 'nama admin harus diisi',
+                    'is_unique' => 'nama admin sudah terdaftar',
                 ]
             ],
             'username_admin' => [
-                'rules' => 'required',
+                'rules' => 'requiredis_unique[admin.username_admin]',
                 'errors' => [
-                    'required' => '{field} harus diisi',
+                    'required' => 'username harus diisi',
+                    'is_unique' => 'username sudah terdaftar',
                 ]
             ],
             'email_admin' => [
                 'rules' => 'required|valid_email|is_unique[admin.email_admin]',
                 'errors' => [
-                    'required' => '{field} harus diisi',
-                    'valid_email' => '{field} harus diisi',
-                    'is_unique' => '{field} sudah terdaftar',
+                    'required' => 'email harus diisi',
+                    'valid_email' => 'email harus valid',
+                    'is_unique' => 'email sudah terdaftar',
                     ]
                 ],
             'password_admin' => [
                 'rules' => 'required|min_length[6]',
                 'errors' => [
-                    'required' => '{field} harus diisi',
-                    'min_length[6]' => '{field} minimal 6 huruf',
+                    'required' => 'password harus diisi',
+                    'min_length[6]' => 'password minimal 6 huruf',
                 ]
             ],
             'password_confirm' => [
                 'rules' => 'required|matches[password_admin]',
                 'errors' => [
                     'required' => 'konfirmasi password harus diisi',
-                    'matches[password]' => '{field} tidak sama',
+                    'matches[password]' => 'konfirmasi password tidak sama',
                 ]
             ],
         ])) { // jika tidak valid
@@ -139,7 +141,7 @@ class Auth extends Controller
         $username_admin = $this->request->getPost('username_admin');
         $email_admin = $this->request->getPost('email_admin');
         $password_admin = $this->request->getPost('password_admin');
-        $confirm  = $this->request->getPost('password_confirm');
+        // $confirm  = $this->request->getPost('password_confirm');
 
         // simpan user baru
         $model->save([

@@ -109,7 +109,7 @@ class EventController extends BaseController
         
         // data diambil per key dan dikirim ke model
         $this->eventModel->save([
-            'id_admin' => $this->request->getVar('id_admin'),
+            'id_admin' => session()->get('id_admin'),
             'judul_event' => $this->request->getVar('judul_event'),
             'slug' => $slug,
             'tanggal_event' => $this->request->getVar('tanggal_event'),

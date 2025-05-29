@@ -13,7 +13,7 @@ $routes->get('/event/create', 'EventController::create', ['filter' => 'authGuard
 $routes->post('/event/save', 'EventController::save');
 $routes->get('/event/(:any)', 'EventController::detail/$1');
 
-$routes->get('detail', 'EventController::detail');
+$routes->get('/event/(:any)', 'EventController::detail/$1', ['filter' => 'authGuard']);
 
 
 // LOGIN for ADMIN

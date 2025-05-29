@@ -18,6 +18,7 @@ class Admin extends BaseController
         $data = [
             'title' => 'Dashboard Admin',
             'event' => $event->getEvent(),
+            'id_admin' => session()->get('id_admin'),
             'username_admin' => session()->get('username_admin'),
             'email_admin' => session()->get('email_admin'),
         ];

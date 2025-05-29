@@ -1,5 +1,7 @@
 <section class="text-white min-h-screen">
     <div class="flex flex-col md:flex-row">
+        <p><?= $id_admin ?></p>
+        <p><?= $username_admin ?></p>
         <!-- Sidebar -->
         <aside class="md:w-1/5 w-full md:h-screen bg-secondary-main hidden md:block text-center">
             <h2 class="font-bold text-3xl bg-gray-700 text-secondary-second pb-2">

@@ -8,18 +8,6 @@
 
         <!-- Judul Event -->
         <div>
-            <label for="id_admin" class="block mb-2 text-white text-sm font-medium">ID Admin lee</label>
-            <input 
-                type="number" 
-                id="id_admin" 
-                name="id_admin" 
-                autofocus
-                class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
-            />
-        </div>
-
-        <!-- Judul Event -->
-        <div>
             <label for="judul_event" class="block mb-2 text-white text-sm font-medium">Nama Event</label>
             <input 
                 type="text" 
