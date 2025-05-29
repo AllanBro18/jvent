@@ -17,11 +17,13 @@ $routes->get('detail', 'EventController::detail');
 
 
 // LOGIN for ADMIN
-$routes->get('login', 'Auth::index');
-$routes->get('/auth/login', 'Auth::login');
-$routes->get('/auth/logout', 'Auth::logout');
+$routes->get('login', 'Auth::login');
+$routes->post('login', 'Auth::loginPost');
+$routes->get('logout', 'Auth::logout');
 
-$routes->get('/admin', 'Admin::index', ['filter' => 'authGuard']);
+// $routes->get('/admin', 'Admin::index');
+$routes->get('/dashboard', 'Admin::dashboard', ['filter' => 'authGuard']);
+$routes->get('/dashboard2', 'Admin::dashboard2', ['filter' => 'authGuard']);
 
 $routes->get('/register', 'Auth::showRegister');
 $routes->get('/auth/register', 'Auth::register');

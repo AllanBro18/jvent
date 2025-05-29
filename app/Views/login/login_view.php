@@ -15,16 +15,16 @@
         <?php endif; ?>
 
         <!-- Login Form -->
-        <form action="<?= base_url('/auth/login') ?>" method="post" class="space-y-4" autocomplete="off">
+        <form action="<?= base_url('/login') ?>" method="post" class="space-y-4" autocomplete="off">
             <input
                 type="text"
-                name="username"
+                name="username_admin"
                 placeholder="Username"
                 required
                 class="w-full px-4 py-3 rounded-md border border-gray-500 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-tertiary-soft">
             <input
                 type="password"
-                name="password"
+                name="password_admin"
                 placeholder="Password"
                 required
                 class="w-full px-4 py-3 rounded-md border border-gray-500 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-tertiary-soft">

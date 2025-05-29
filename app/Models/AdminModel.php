@@ -6,10 +6,9 @@
         protected $table = 'admin';
         protected $primaryKey = 'id_admin';
         protected $allowedFields = [
-            'id_admin',
-            'nama_admin',
+            // 'nama_admin',
             'username_admin',
-            'email_admin',
+            // 'email_admin',
             'password_admin'
         ];
     }

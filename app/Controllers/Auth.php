@@ -14,7 +14,7 @@ class Auth extends Controller
         $this->adminModel = new AdminModel();
     }
 
-    public function index() 
+    public function login() 
     {
         $data = [
             'title' => 'Halaman Login Admin'
@@ -25,28 +25,16 @@ class Auth extends Controller
         echo view('layout/footer');
     }
 
-    public function login() {
+    public function loginPost () {
+        // dd($this->request->getPost());
         // validasi input
         if (!$this->validate([
-            'nama_admin' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => '{field} harus diisi',
-                ]
-            ],
             'username_admin' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} harus diisi',
                 ]
             ],
-            'email_admin' => [
-                'rules' => 'required|valid_email',
-                'errors' => [
-                    'required' => '{field} harus diisi',
-                    'valid_email' => 'format {field} tidak valid',
-                    ]
-                ],
             'password_admin' => [
                 'rules' => 'required|min_length[6]',
                 'errors' => [
@@ -65,29 +53,20 @@ class Auth extends Controller
         $session = session();
         $model = $this->adminModel;
 
-        $nama_admin = $this->request->getPost('nama_admin');
         $username_admin = $this->request->getPost('username_admin');
-        $email_admin = $this->request->getPost('email_admin');
         $password_admin = $this->request->getPost('password_admin');
 
         $admin = $model->where('username_admin', $username_admin)->first();
 
-        if ($admin) {
-            if (password_verify($password_admin, $admin['password_admin'])) {
-                $session->set([
-                    'admin_id' => $admin['id_admin'],
-                    'nama_admin' => $admin['nama_admin'],
-                    'username_admin' => $admin['username_admin'],
-                    'email_admin' => $admin['email_admin'],
-                    'password_admin' => $admin['password_admin'],
-                    'logged_in' => true
-                ]);
-                return redirect()->to('/admin');
-            } else {
-                return redirect()->to('/login');
-            }
+        if ($admin && password_verify($password_admin, $admin['password_admin'])) {
+            $session->set([
+                'username_admin' => $admin['username_admin'],
+                'password_admin' => $admin['password_admin'],
+                'logged_in' => true
+            ]);
+            return redirect()->to('/dashboard');
         } else {
-            return redirect()->to('/login');
+            return redirect()->back()->with('error', 'Username atau Password Salah!');
         }
     }
 
