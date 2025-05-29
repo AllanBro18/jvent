@@ -62,25 +62,25 @@
             <!-- Event Cards -->
             <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 
-                <?php for ($i = 0; $i < 3; $i++): ?>
+                <?php foreach ($event as $e): ?>
                     <div class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
                         <a href="/event/<?= "Test" ?>" target="_blank">
                             <img class="w-full h-48 object-cover" src="/assets/images/hero.jpg" alt="Event Image" />
                         </a>
                         <div class="p-5">
-                            <a href="/event/<?= "Test" ?>" target="_blank">
-                                <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white"> <?= "Test" ?> </h5>
+                            <a href="/event/<?= $e['slug'] ?>" target="_blank">
+                                <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white"> <?= $e['judul_event'] ?> </h5>
                             </a>
-                            <p class="mb-1 text-sm text-gray-700 dark:text-gray-400"><?= "Test" ?></p>
-                            <p class="mb-1 text-sm text-gray-700 dark:text-gray-400"><?= "Test" ?></p>
-                            <p class="mb-3 text-lg font-bold text-gray-900 dark:text-white">Rp<?= "Test" ?></p>
+                            <p class="mb-1 text-sm text-gray-700 dark:text-gray-400"><?= $e['tanggal_event'] ?></p>
+                            <p class="mb-1 text-sm text-gray-700 dark:text-gray-400"><?= $e['lokasi_event'] ?></p>
+                            <p class="mb-3 text-lg font-bold text-gray-900 dark:text-white">Rp<?= $e['harga_tiket'] ?></p>
                             <div class="flex items-center border-t pt-3 border-secondary-main">
                                 <img class="w-10 h-10 rounded-full shadow mr-3" src="/assets/images/hero.jpg" alt="Organizer" />
                                 <p class="text-sm text-gray-700 dark:text-gray-400">Imagi</p>
                             </div>
                         </div>
                     </div>
-                <?php endfor; ?>
+                <?php endforeach; ?>
             </div>
 
             <!-- Footer Text -->

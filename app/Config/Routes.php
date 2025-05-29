@@ -25,5 +25,10 @@ $routes->get('logout', 'Auth::logout');
 $routes->get('/dashboard', 'Admin::dashboard', ['filter' => 'authGuard']);
 $routes->get('/dashboard2', 'Admin::dashboard2', ['filter' => 'authGuard']);
 
-$routes->get('/register', 'Auth::showRegister');
-$routes->get('/auth/register', 'Auth::register');
+$routes->get('register', 'Auth::showRegister');
+$routes->post('register', 'Auth::register');
+
+// ALERT MESSAGE
+$routes->get('alert/login', 'Alert::login');   // Contoh alert login diperlukan
+$routes->get('alert/success', 'Alert::success'); // Contoh alert sukses
+$routes->get('alert/error', 'Alert::error');     // Contoh alert error
