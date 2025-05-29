@@ -25,6 +25,11 @@ class Event extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => 150,
             ],
+            'gambar_event' => [ // Field untuk menyimpan gambar
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+                'null'       => true, 
+            ],
             'tanggal_event' => [
                 'type'       => 'DATE',
             ],
