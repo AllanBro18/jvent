@@ -69,14 +69,21 @@
     <!-- Mobile Menu -->
     <div id="mobileMenu" class="hidden md:hidden bg-gradient-to-b from-primary to-secondary-main text-white py-8 px-6">
         <div class="flex flex-col items-center space-y-4">
-            <a href="/event/create" class="flex items-center space-x-2 text-white hover:text-secondary-second">
-                <svg class="h-5 w-5 text-secondary-second" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 7V3M16 7V3M4 11h16M4 19h16M4 15h16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span>Buat Event</span>
+            <a href="/event/create"
+            class="flex items-center space-x-1 text-sm text-white font-medium transition-all duration-300 px-3 py-2 rounded-lg hover:scale-105 hover:shadow-lg hover:backdrop-blur-sm bg-white/5 hover:bg-white/10">
+            <svg class="h-5 w-5 text-secondary-second" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path d="M8 7V3M16 7V3M4 11h16M4 19h16M4 15h16"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Buat Event</span>
             </a>
-            <a href="/event" class="flex items-center space-x-2 text-white hover:text-secondary-second">
-                <svg class="h-5 w-5 text-secondary-second" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <a href="/event"
+            class="flex items-center space-x-1 text-sm text-white font-medium transition-all duration-300 px-3 py-2 rounded-lg hover:scale-105 hover:shadow-lg hover:backdrop-blur-sm bg-white/5 hover:bg-white/10">
+                <svg class="h-5 w-5 text-secondary-second" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
                 <span>Jelajah</span>
             </a>
-            <button class="border border-blue-500 text-blue-500 px-4 py-1 rounded-full hover:bg-blue-100">Sign In</button>
         </div>
     </div>
