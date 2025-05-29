@@ -3,7 +3,7 @@
         <!-- Sidebar -->
         <aside class="md:w-1/5 w-full md:h-screen bg-secondary-main hidden md:block text-center">
             <h2 class="font-bold text-3xl bg-gray-700 text-secondary-second pb-2">
-                Jvent
+                <a href="/">Jvent</a>
             </h2>
 
             <!-- Wrapper Dropdown -->
@@ -23,8 +23,8 @@
             <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
                 <h2 class="text-xl sm:text-2xl font-semibold">Event Saya</h2>
                 <div class="flex items-center gap-3">
-                    <div class="bg-gray-700 px-3 py-2 rounded text-sm"><?= esc($username_admin) ?></div>
-                    <button class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition">Buat Event</button>
+                    <div class="bg-gray-700 px-4 py-2 rounded"><?= esc($username_admin) ?></div>
+                    <a href="/event/create" class="bg-gradient-to-r from-tertiary-soft to-violet-600 hover:opacity-90 text-white px-4 py-2 rounded hover:bg-purple-700 transition">Buat Event</a>
                     <a href="/logout" class="bg-red-600 px-4 py-2 rounded hover:bg-red-700">Logout</a>
                 </div>
             </div>
@@ -34,16 +34,16 @@
                 <div class="w-full sm:w-1/2 relative">
                     <input
                     type="text"
-                    placeholder="Cari event disini"
-                    class="w-full py-2 pl-10 pr-4 rounded bg-gray-700 placeholder-gray-300 text-white focus:outline-none"
-                    >
-                    <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1116.65 16.65z" />
+                    placeholder="Cari event kamu disini"
+                    class="w-full py-2 pl-10 pr-4 rounded bg-gray-700 placeholder-gray-300 text-white focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"/>
                     </svg>
                 </div>
                 <div>
                     <label class="mr-2 text-sm text-gray-300">Urutkan:</label>
-                    <select class="bg-purple-600 text-white py-2 px-4 rounded text-sm">
+                    <select class="bg-secondary-main text-white py-2 px-4 rounded text-sm">
                         <option>Waktu Mulai (Terdekat)</option>
                         <option>Nama Event (A-Z)</option>
                         <option>Terbaru</option>
@@ -53,8 +53,8 @@
 
             <!-- Tabs -->
             <div class="flex gap-6 mb-6 border-b border-gray-700 text-sm sm:text-base">
-                <button class="border-b-2 border-white pb-2 font-semibold">EVENT AKTIF</button>
-                <button class="text-gray-400 pb-2 hover:text-white">EVENT LALU</button>
+                <a href="#" class="border-b-2 border-white pb-2 font-semibold">EVENT AKTIF</a>
+                <a href="#" class="text-gray-400 pb-2 hover:text-white">EVENT LALU</a>
             </div>
 
             <!-- Event Cards -->
@@ -83,7 +83,7 @@
 
             <!-- Footer Text -->
             <div class="mt-10 text-center space-y-3">
-                <button class="bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded font-semibold">Buat Event</button>
+                <button class="bg-gradient-to-r from-tertiary-soft to-violet-600 hover:opacity-90 px-6 py-3 rounded font-semibold">Buat Event</button>
                 <p class="text-lg font-semibold">Hai, terima kasih telah menggunakan Jvent</p>
                 <p class="text-sm text-gray-400">Silahkan Buat Event Mu dengan klik Button Diatas!</p>
             </div>

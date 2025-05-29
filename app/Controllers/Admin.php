@@ -24,7 +24,6 @@ class Admin extends BaseController
 
         echo view('layout/header', $data);
         echo view('admin/dashboard', $data);
-        echo view('layout/footer');
     }
     
     public function dashboard2 ()
@@ -45,6 +44,5 @@ class Admin extends BaseController
 
         echo view('layout/header', $data);
         echo view('admin/dashboard2', $data);
-        echo view('layout/footer');
     }
 }

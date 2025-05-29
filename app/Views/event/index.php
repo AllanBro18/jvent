@@ -5,7 +5,7 @@
     <div class="py-10 ml-24 w-72 relative z-10 text-white">
         <h1 class="py-2 text-3xl font-bold">Temukan Event Anime Terdekat di Banjarmasin</h1>
         <p class="py-2 font-thin">Subheading Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptas quos consectetur, autem error quod, ullam rerum dicta aperiam</p>
-        <a href="/events" class="px-4 py-2 text-center bg-gradient-to-r from-tertiary-hard to-blue-800 text-white rounded-lg font-semibold hover:opacity-90 transition">
+        <a href="/event" class="px-4 py-2 text-center bg-gradient-to-r from-tertiary-hard to-blue-800 text-white rounded-lg font-semibold hover:opacity-90 transition">
             Jelajahi Event Sekarang
         </a>
     </div>

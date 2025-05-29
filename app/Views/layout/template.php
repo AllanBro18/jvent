@@ -15,7 +15,7 @@
     <?php if ($title === 'Halaman Login Admin') : ?>
         <?= $this->include('user/login') ?> 
     <?php endif; ?>
-    <?= $this->include('layout/sidebar') ?> 
+    <?= $this->include('layout/navbar') ?> 
 
     <?= $this->renderSection('content'); ?>
 </body>
