@@ -26,20 +26,19 @@ class Auth extends Controller
     }
 
     public function loginPost () {
-        // dd($this->request->getPost());
         // validasi input
         if (!$this->validate([
             'username_admin' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => '{field} harus diisi',
+                    'required' => 'username harus diisi',
                 ]
             ],
             'password_admin' => [
                 'rules' => 'required|min_length[6]',
                 'errors' => [
-                    'required' => '{field} harus diisi',
-                    'min_length[6]' => '{field} minimal 6 huruf',
+                    'required' => 'password harus diisi',
+                    'min_length[6]' => 'password minimal 6 huruf',
                 ]
             ]
         ])) { // jika tidak valid
@@ -90,15 +89,8 @@ class Auth extends Controller
     public function register() {
         // validasi input
         if (!$this->validate([
-            'nama_admin' => [
-                'rules' => 'required|is_unique[admin.nama_admin]',
-                'errors' => [
-                    'required' => 'nama admin harus diisi',
-                    'is_unique' => 'nama admin sudah terdaftar',
-                ]
-            ],
             'username_admin' => [
-                'rules' => 'requiredis_unique[admin.username_admin]',
+                'rules' => 'required|is_unique[admin.username_admin]',
                 'errors' => [
                     'required' => 'username harus diisi',
                     'is_unique' => 'username sudah terdaftar',
@@ -125,8 +117,9 @@ class Auth extends Controller
                     'required' => 'konfirmasi password harus diisi',
                     'matches[password]' => 'konfirmasi password tidak sama',
                 ]
-            ],
+            ]
         ])) { // jika tidak valid
+            dd("Berhasil sampai sini");
             // pesan kesalahan
             $validation = \Config\Services::validation();
 
@@ -137,7 +130,6 @@ class Auth extends Controller
         $session = session();
         $model = $this->adminModel;
 
-        $nama_admin = $this->request->getPost('nama_admin');
         $username_admin = $this->request->getPost('username_admin');
         $email_admin = $this->request->getPost('email_admin');
         $password_admin = $this->request->getPost('password_admin');
@@ -145,7 +137,6 @@ class Auth extends Controller
 
         // simpan user baru
         $model->save([
-            'nama_admin' => $nama_admin,
             'username_admin' => $username_admin,
             'email_admin' => $email_admin,
             'password_admin' => password_hash($password_admin, PASSWORD_DEFAULT),

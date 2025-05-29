@@ -13,28 +13,52 @@
         <form action="<?= base_url('/register') ?>" method="post" class="space-y-4">
             <input 
                 type="text" 
-                name="username" 
+                name="username_admin" 
                 placeholder="Username" 
-                required
-                class="w-full px-4 py-3 rounded-md border border-gray-400 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-tertiary-soft" />
+                class="w-full px-4 py-3 rounded-md border border-gray-400 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-tertiary-soft" 
+                />
+            <?php if (session('validation') && session('validation')->hasError('username_admin')) : ?>
+                <p class="mt-1 text-sm text-red-500">
+                <?= session('validation')->getError('username_admin'); ?>
+                </p>
+            <?php endif; ?>
+
             <input 
                 type="email" 
-                name="email" 
+                name="email_admin" 
                 placeholder="Email" 
-                required
-                class="w-full px-4 py-3 rounded-md border border-gray-400 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-tertiary-soft" />
+                class="w-full px-4 py-3 rounded-md border border-gray-400 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-tertiary-soft" 
+                />
+            <?php if (session('validation') && session('validation')->hasError('email_admin')) : ?>
+                <p class="mt-1 text-sm text-red-500">
+                <?= session('validation')->getError('email_admin'); ?>
+                </p>
+            <?php endif; ?>
+
             <input 
                 type="password" 
-                name="password" 
+                name="password_admin" 
                 placeholder="Password" 
-                required
-                class="w-full px-4 py-3 rounded-md border border-gray-400 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-tertiary-soft" />
+                class="w-full px-4 py-3 rounded-md border border-gray-400 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-tertiary-soft" 
+                />
+            <?php if (session('validation') && session('validation')->hasError('password_admin')) : ?>
+                <p class="mt-1 text-sm text-red-500">
+                <?= session('validation')->getError('password_admin'); ?>
+                </p>
+            <?php endif; ?>
+
             <input 
                 type="password" 
-                name="pass_confirm" 
+                name="password_confirm" 
                 placeholder="Re-enter Password" 
-                required
-                class="w-full px-4 py-3 rounded-md border border-gray-400 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-tertiary-soft" />
+                class="w-full px-4 py-3 rounded-md border border-gray-400 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-tertiary-soft" 
+                />
+            <?php if (session('validation') && session('validation')->hasError('password_confirm')) : ?>
+                <p class="mt-1 text-sm text-red-500">
+                <?= session('validation')->getError('password_confirm'); ?>
+                </p>
+            <?php endif; ?>
+
             <button type="submit"
                 class="w-full px-2 py-3 text-center bg-gradient-to-r from-tertiary-soft to-violet-600 text-white rounded-lg font-semibold hover:opacity-90 transition">
                 Register
