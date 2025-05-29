@@ -7,10 +7,9 @@ class EventModel extends Model {
     protected $table = 'event';
     protected $primaryKey = 'id_event';
     protected $allowedFields = [
-        'id_admin', 
         'judul_event', 
+        'gambar_event', 
         'slug',
-        'gambar_event',
         'tanggal_event', 
         'lokasi_event', 
         'harga_tiket', 
@@ -19,7 +18,8 @@ class EventModel extends Model {
         'deskripsi_event', 
         'sponsor', 
         'guest_star', 
-        'booth_list'
+        'booth_list',
+        'id_admin', 
     ];
 
     public function getEvent ($slug = false) {

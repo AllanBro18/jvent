@@ -125,7 +125,6 @@ class EventController extends BaseController
         
         // data diambil per key dan dikirim ke model
         $this->eventModel->save([
-            'id_admin' => session()->get('id_admin'),
             'judul_event' => $this->request->getVar('judul_event'),
             'gambar_event' => $namaGambar,
             'slug' => $slug,
@@ -138,6 +137,7 @@ class EventController extends BaseController
             'sponsor' => $this->request->getVar('sponsor'),
             'guest_star' => $this->request->getVar('guest_star'),
             'booth_list' => $this->request->getVar('booth_list'),
+            'id_admin' => session()->get('id_admin'),
         ]);
 
         // flash data
