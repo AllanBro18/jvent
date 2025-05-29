@@ -38,8 +38,8 @@ class EventController extends BaseController
             'judul_event' => [
                 'rules' => 'required|is_unique[event.judul_event]',
                 'errors' => [
-                    'required' => '{field} event harus diisi',
-                    'is_unique' => '{field} event sudah terdaftar',
+                    'required' => 'Judul event harus diisi',
+                    'is_unique' => 'Event sudah terdaftar',
                 ]
             ],
             'gambar_event' => [ // validasi gambar
@@ -118,7 +118,7 @@ class EventController extends BaseController
 
         // simpan gambar ke folder
         $namaGambar = $fileGambar->getRandomName(); // Buat nama random untuk gambar
-        $fileGambar->move('uploads/images', $namaGambar);
+        $fileGambar->move(FCPATH . 'uploads/images', $namaGambar);
 
         // slug dari input judul buku 
         $slug = url_title($this->request->getVar('judul_event'), '-', true);

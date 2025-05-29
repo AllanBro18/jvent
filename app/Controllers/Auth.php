@@ -118,8 +118,8 @@ class Auth extends Controller
                     'matches[password]' => 'konfirmasi password tidak sama',
                 ]
             ]
-        ])) { // jika tidak valid
-            dd("Berhasil sampai sini");
+        ])) { 
+            // jika tidak valid
             // pesan kesalahan
             $validation = \Config\Services::validation();
 
