@@ -61,6 +61,7 @@ class Auth extends Controller
             $session->set([
                 'id_admin'       => $admin['id_admin'],
                 'username_admin' => $admin['username_admin'],
+                'email_admin' => $admin['email_admin'],
                 'password_admin' => $admin['password_admin'],
                 'logged_in' => true
             ]);

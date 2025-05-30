@@ -59,4 +59,15 @@ abstract class BaseController extends Controller
         // session akan terus berjalan
         session();
     }
+
+    // Admin Session 
+    protected function getAdminSession()
+    {
+        return [
+            'id_admin' => session()->get('id_admin'),
+            'username_admin' => session()->get('username_admin'),
+            'email_admin' => session()->get('email_admin'),
+        ];
+    }
+
 }

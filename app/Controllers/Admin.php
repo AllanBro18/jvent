@@ -6,6 +6,13 @@ use App\Models\EventModel;
 
 class Admin extends BaseController
 {
+    protected $eventModel;
+
+    public function __construct()
+    {
+        $this->eventModel = new EventModel();
+    }
+
     public function dashboard ()
     {
         // Cek apakah admin sudah login
@@ -13,14 +20,10 @@ class Admin extends BaseController
             return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
         }
 
-        $event = new EventModel();
-        
         $data = [
             'title' => 'Dashboard Admin',
-            'event' => $event->getEvent(),
-            'id_admin' => session()->get('id_admin'),
-            'username_admin' => session()->get('username_admin'),
-            'email_admin' => session()->get('email_admin'),
+            'event' => $this->eventModel->getEvent(),
+            ...$this->getAdminSession(), // spread array
         ];
 
         return view('admin/dashboard', $data);
@@ -39,6 +42,7 @@ class Admin extends BaseController
     {
         $data = [
             'title' => 'Dashboard Pengaturan',
+            ...$this->getAdminSession(), // spread array
         ];
 
         return view('admin/pengaturan', $data);
