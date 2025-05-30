@@ -23,7 +23,8 @@ $routes->get('logout', 'Auth::logout');
 
 // $routes->get('/admin', 'Admin::index');
 $routes->get('/dashboard', 'Admin::dashboard', ['filter' => 'authGuard']);
-$routes->get('/dashboard2', 'Admin::dashboard2', ['filter' => 'authGuard']);
+$routes->get('/dashboard/info', 'Admin::info', ['filter' => 'authGuard']);
+$routes->get('/dashboard/pengaturan', 'Admin::pengaturan', ['filter' => 'authGuard']);
 
 $routes->get('register', 'Auth::showRegister');
 $routes->post('register', 'Auth::register');

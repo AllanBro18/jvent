@@ -119,7 +119,6 @@ class Auth extends Controller
                 ]
             ]
         ])) { // jika tidak valid
-            dd("Berhasil sampai sini");
             // pesan kesalahan
             $validation = \Config\Services::validation();
 

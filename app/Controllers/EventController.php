@@ -29,7 +29,7 @@ class EventController extends BaseController
             'validation' => \Config\Services::validation(),
         ];
 
-        return view('event/create', $data);
+        echo view('event/create', $data);
     }
 
     public function save () {

@@ -1,24 +1,7 @@
-<section class="text-white min-h-screen">
-    <div class="flex flex-col md:flex-row">
-        <p><?= $id_admin ?></p>
-        <p><?= $username_admin ?></p>
-        <!-- Sidebar -->
-        <aside class="md:w-1/5 w-full md:h-screen bg-secondary-main hidden md:block text-center">
-            <h2 class="font-bold text-3xl bg-gray-700 text-secondary-second pb-2">
-                <a href="/">Jvent</a>
-            </h2>
+<?= $this->extend('layout/template') ?>
 
-            <!-- Wrapper Dropdown -->
-            <div class="relative mt-5">
-                <nav class="space-y-4 text-white text-base">
-                    <a href="/dashboard" class="block font-semibold">Dashboard</a>
-                    <a href="/dashboard/event" class="block text-gray-300 hover:text-white">Event Saya</a>
-                    <a href="/dashboard/info" class="block text-gray-300 hover:text-white">Informasi Dasar</a>
-                    <a href="/dashboard/pengaturan" class="block text-gray-300 hover:text-white">Pengaturan</a>
-                </nav>
-            </div>
-        </aside>
-
+<?= $this->section('content'); ?>
+    <div class="flex-1 flex-col md:flex-row">
         <!-- Main Content -->
         <main class="flex-1 p-5 sm:p-8">
             <!-- Header -->
@@ -91,4 +74,4 @@
             </div>
         </main>
     </div>
-</section>
+<?= $this->endSection() ?>

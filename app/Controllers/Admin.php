@@ -23,27 +23,27 @@ class Admin extends BaseController
             'email_admin' => session()->get('email_admin'),
         ];
 
-        echo view('layout/header', $data);
+        // echo view('layout/header', $data);
         echo view('admin/dashboard', $data);
     }
     
-    public function dashboard2 ()
+    public function info ()
     {
-        // Cek apakah admin sudah login
-        if (!session()->has('username_admin')) {
-            return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
-        }
-
-        $event = new EventModel();
-
         $data = [
-            'title' => 'Dashboard Admin 2',
-            'event' => $event->getEvent(),
-            'username_admin' => session()->get('username_admin'),
-            'email_admin' => session()->get('email_admin'),
+            'title' => 'Dashboard Info',
         ];
 
-        echo view('layout/header', $data);
-        echo view('admin/dashboard2', $data);
+        // echo view('layout/header', $data);
+        echo view('admin/info', $data);
+    }
+    
+    public function pengaturan ()
+    {
+        $data = [
+            'title' => 'Dashboard Pengaturan',
+        ];
+
+        // echo view('layout/header', $data);
+        echo view('admin/pengaturan', $data);
     }
 }

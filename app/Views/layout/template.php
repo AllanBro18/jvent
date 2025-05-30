@@ -12,11 +12,12 @@
 </head>
 <body class="bg-primary font-inter">
     <!-- PARSIAL -->
-    <?php if ($title === 'Halaman Login Admin') : ?>
-        <?= $this->include('user/login') ?> 
+     <!-- PARSIAL -->
+    <?php if ($title === 'Dashboard Admin') : ?>
+        <?= $this->include('layout/sidebar') ?> 
     <?php endif; ?>
-    <?= $this->include('layout/navbar') ?> 
-
+    
     <?= $this->renderSection('content'); ?>
+
 </body>
 </html>

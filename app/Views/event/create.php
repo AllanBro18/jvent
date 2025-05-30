@@ -1,6 +1,3 @@
-<?= $this->extend('layout/template') ?>
-
-<?= $this->section('content') ?>
 <section class="max-w-4xl mx-auto p-6 border-2 rounded-lg shadow-md border-secondary-main mt-10">
     <!-- Include Alert View -->
     <?= view('components/alert') ?>
@@ -139,5 +136,3 @@
 
     </form>
 </section>
-
-<?= $this->endSection() ?>
