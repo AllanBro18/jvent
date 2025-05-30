@@ -20,9 +20,9 @@ class Auth extends Controller
             'title' => 'Halaman Login Admin'
         ];
 
-        echo view('layout/header', $data);
-        echo view('login/login_view');
-        echo view('layout/footer');
+        return view('layout/header', $data)
+        . view('login/login_view')
+        . view('layout/footer');
     }
 
     public function loginPost () {

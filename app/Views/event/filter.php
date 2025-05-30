@@ -45,7 +45,7 @@
                     <!-- Card Template (ulangi sesuai kebutuhan) -->
                     <div class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
                         <a href="/event/<?= esc($e['slug']) ?>" target="_blank">
-                            <img class="w-full h-48 object-cover" src="/assets/images/hero.jpg" alt="Event Image" />
+                            <img class="w-full h-48 object-cover" src="/uploads/images/<?= $e['gambar_event'] ?>" alt="Event Image" />
                         </a>
                         <div class="p-5">
                             <a href="/event/<?= esc($e['slug']) ?>" target="_blank">

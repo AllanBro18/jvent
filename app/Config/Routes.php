@@ -11,8 +11,6 @@ $routes->get('/', 'EventController::index');
 $routes->get('event', 'EventController::filter');
 $routes->get('/event/create', 'EventController::create', ['filter' => 'authGuard']);
 $routes->post('/event/save', 'EventController::save');
-$routes->get('/event/(:any)', 'EventController::detail/$1');
-
 $routes->get('/event/(:any)', 'EventController::detail/$1', ['filter' => 'authGuard']);
 
 

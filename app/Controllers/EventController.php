@@ -15,21 +15,23 @@ class EventController extends BaseController
 
     public function index()
     {
-        $data = [
-            'title' => 'Jvent'
-        ];
-        echo view('layout/header', $data);
-        echo view('event/index');
-        echo view('layout/footer');
+        return 
+        view('layout/header', ['title' => 'Jvent'])
+        . view('event/index')
+        . view('layout/footer');
     }
 
     public function create () {
-        $data = [
-            'title' => 'Form Tambah Data Event',
-            'validation' => \Config\Services::validation(),
-        ];
+        $validation = \Config\Services::validation();
+        // jika ada flashdata dari validasi sebelumnya
+        if (session()->getFlashdata('validation')) {
+            $validation = session()->getFlashdata('validation');
+        }
 
-        echo view('event/create', $data);
+        return view('event/create', [
+            'title' => 'Form Tambah Data Event',
+            'validation' => $validation,
+        ]);
     }
 
     public function save () {
@@ -108,21 +110,32 @@ class EventController extends BaseController
         ])) { // jika tidak valid
             // pesan kesalahan
             $validation = \Config\Services::validation();
+            dd($validation->getErrors());
 
             // input pengguna dan validasi yang didapat akan dikembalikan menjadi pesan
             return redirect()->back()->withInput()->with('validation', $validation);
         }
+
+        $session = session();
 
         // ambil file gambar dari input
         $fileGambar = $this->request->getFile('gambar_event');
 
         // simpan gambar ke folder
         $namaGambar = $fileGambar->getRandomName(); // Buat nama random untuk gambar
+        
+        if (!$fileGambar->isValid()) {
+            return redirect()->back()->withInput()->with('error', $fileGambar->getErrorString());
+        }
         $fileGambar->move(FCPATH . 'uploads/images', $namaGambar);
 
-        // slug dari input judul buku 
+        // slug dari input judul event 
         $slug = url_title($this->request->getVar('judul_event'), '-', true);
         
+        if (!$session->has('id_admin')) {
+            return redirect()->to('/login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
         // data diambil per key dan dikirim ke model
         $this->eventModel->save([
             'judul_event' => $this->request->getVar('judul_event'),
@@ -137,11 +150,11 @@ class EventController extends BaseController
             'sponsor' => $this->request->getVar('sponsor'),
             'guest_star' => $this->request->getVar('guest_star'),
             'booth_list' => $this->request->getVar('booth_list'),
-            'id_admin' => session()->get('id_admin'),
+            'id_admin' => $session->get('id_admin'),
         ]);
 
         // flash data
-        session()->setFlashdata('pesan', 'Event berhasil ditambahkan...');
+        $session->setFlashdata('pesan', 'Event berhasil ditambahkan...');
 
         return redirect()->to('/event');
     }
@@ -149,30 +162,22 @@ class EventController extends BaseController
     public function filter()
     {
         $event = $this->eventModel->getEvent();
-
-        $data = [
-            'title' => 'Filter Event',
-            'event' => $event,
-        ];
-        echo view('layout/header', $data);
-        echo view('event/filter', $data);
-        echo view('layout/footer');
+        return view('layout/header', ['title' => 'Filter Event'])
+        . view('event/filter', ['event' => $event])
+        . view('layout/footer');
     }
 
     public function detail($slug)
     {
-        $data = [
-            'title' => 'Event ' . $slug,
-            'event' => $this->eventModel->getEvent($slug),
-        ];
+        $event = $this->eventModel->getEvent($slug);
 
         // cek jika event tidak ada
-        if (empty($data['event'])) {
+        if (empty($event)) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Judul Event ' . $slug . ' tidak ditemukan');
         } 
 
-        echo view('layout/header', $data);
-        echo view('event/detail', $data);
-        echo view('layout/footer');
+        return view('layout/header', ['title' => $slug])
+        . view('event/detail', ['event' => $event])
+        . view('layout/footer');
     }
 }

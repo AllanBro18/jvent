@@ -1,10 +1,12 @@
+
 <?= $this->extend('layout/template') ?>
 
 <?= $this->section('content'); ?>
 <section class="max-w-4xl mx-auto p-6 border-2 rounded-lg shadow-md border-secondary-main mt-10">
-    
+    <?php $validation = session('validation'); ?>
     <h2 class="text-2xl text-secondary-second font-semibold mb-6 border-b-2 border-secondary-main">Tambah Event Baru</h2>
-    <form action="/event/save" method="post" class="grid grid-cols-1 md:grid-cols-2 gap-6" enctype="multipart/form-data">
+    <form action="<?= base_url('/event/save') ?>" method="post" class="grid grid-cols-1 md:grid-cols-2 gap-6" enctype="multipart/form-data">
+        <?= form_open_multipart('/event/save'); ?>
         <?= csrf_field() ?>
 
         <!-- Judul Event -->
@@ -15,15 +17,15 @@
                 id="judul_event" 
                 name="judul_event" 
                 autofocus
+                value="<?= old('judul_event'); ?>"
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
-            />
-            <?php if (session('validation') && session('validation')->hasError('judul_event')) : ?>
-                    <p class="mt-1 text-sm text-red-500">
-                    <?= session('validation')->getError('judul_event'); ?>
-                    </p>
-                <?php endif; ?>
+            >
+            <?php if (isset($validation)) : ?>
+                <div class="text-danger">
+                    <?= $validation->getError('judul_event'); ?>
+                </div>
+            <?php endif; ?>
         </div>
-        
 
         <!-- Gambar Event -->
         <div>
@@ -48,6 +50,7 @@
                 type="date" 
                 id="tanggal_event" 
                 name="tanggal_event" 
+                value="<?= old('tanggal_event'); ?>"
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
             />
             <?php if (session('validation') && session('validation')->hasError('tanggal_event')) : ?>
@@ -64,6 +67,7 @@
                 type="text" 
                 id="lokasi_event" 
                 name="lokasi_event" 
+                value="<?= old('lokasi_event'); ?>"
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
             />
             <?php if (session('validation') && session('validation')->hasError('lokasi_event')) : ?>
@@ -80,6 +84,7 @@
                 type="number" 
                 id="harga_tiket" 
                 name="harga_tiket" 
+                value="<?= old('harga_tiket'); ?>"
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
             />
             <?php if (session('validation') && session('validation')->hasError('harga_tiket')) : ?>
@@ -96,6 +101,7 @@
                 type="text" 
                 id="kategori_tiket" 
                 name="kategori_tiket" 
+                value="<?= old('kategori_tiket'); ?>"
                 placeholder="Berbayar/Gratis"
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
             />
@@ -113,6 +119,7 @@
                 type="url" 
                 id="link_tiket" 
                 name="link_tiket" 
+                value="<?= old('link_tiket'); ?>"
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
             />
             <?php if (session('validation') && session('validation')->hasError('link_tiket')) : ?>
@@ -127,8 +134,10 @@
             <label for="deskripsi_event" class="block mb-2 text-white text-sm font-medium">Deskripsi Event</label>
             <textarea 
                 name="deskripsi_event" 
+                value="<?= old('deskripsi_event'); ?>
                 rows="4" 
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main">
+                <?= old('deskripsi_event'); ?>
             </textarea>
             <?php if (session('validation') && session('validation')->hasError('deskripsi_event')) : ?>
                 <p class="mt-1 text-sm text-red-500">
@@ -144,6 +153,7 @@
                 name="sponsor" 
                 rows="2" 
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main">
+                <?= old('sponsor'); ?>
             </textarea>
             <?php if (session('validation') && session('validation')->hasError('sponsor')) : ?>
                 <p class="mt-1 text-sm text-red-500">
@@ -159,6 +169,7 @@
                 name="guest_star" 
                 rows="2" 
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main">
+                <?= old('guest_star'); ?>
             </textarea>
             <?php if (session('validation') && session('validation')->hasError('guest_star')) : ?>
                 <p class="mt-1 text-sm text-red-500">
@@ -172,6 +183,7 @@
             <label for="booth_list" class="block mb-2 text-white text-sm font-medium">Booth List</label>
             <textarea 
                 name="booth_list" 
+                value="<?= old('booth_list'); ?>"
                 rows="2" 
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main">
             </textarea>
