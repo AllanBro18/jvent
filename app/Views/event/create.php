@@ -4,7 +4,7 @@
 <section class="max-w-4xl mx-auto p-6 border-2 rounded-lg shadow-md border-secondary-main mt-10">
     
     <h2 class="text-2xl text-secondary-second font-semibold mb-6 border-b-2 border-secondary-main">Tambah Event Baru</h2>
-    <form action="/event/save" method="post" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <form action="/event/save" method="post" class="grid grid-cols-1 md:grid-cols-2 gap-6" enctype="multipart/form-data">
         <?= csrf_field() ?>
 
         <!-- Judul Event -->
@@ -17,7 +17,13 @@
                 autofocus
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
             />
+            <?php if (session('validation') && session('validation')->hasError('judul_event')) : ?>
+                    <p class="mt-1 text-sm text-red-500">
+                    <?= session('validation')->getError('judul_event'); ?>
+                    </p>
+                <?php endif; ?>
         </div>
+        
 
         <!-- Gambar Event -->
         <div>
@@ -28,8 +34,10 @@
                 name="gambar_event"
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main <?= \Config\Services::validation()->hasError('gambar_event') ? 'border-red-500' : '' ?>"
             />
-            <?php if(\Config\Services::validation()->hasError('gambar_event')): ?>
-                <p class="text-red-500 text-xs mt-1"><?= \Config\Services::validation()->getError('gambar_event') ?></p>
+            <?php if (session('validation') && session('validation')->hasError('gambar_event')) : ?>
+                <p class="mt-1 text-sm text-red-500">
+                <?= session('validation')->getError('gambar_event'); ?>
+                </p>
             <?php endif; ?>
         </div>
 
@@ -42,6 +50,11 @@
                 name="tanggal_event" 
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
             />
+            <?php if (session('validation') && session('validation')->hasError('tanggal_event')) : ?>
+                <p class="mt-1 text-sm text-red-500">
+                <?= session('validation')->getError('tanggal_event'); ?>
+                </p>
+            <?php endif; ?>
         </div>
 
         <!-- Lokasi Event -->
@@ -53,6 +66,11 @@
                 name="lokasi_event" 
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
             />
+            <?php if (session('validation') && session('validation')->hasError('lokasi_event')) : ?>
+                <p class="mt-1 text-sm text-red-500">
+                <?= session('validation')->getError('lokasi_event'); ?>
+                </p>
+            <?php endif; ?>
         </div>
 
         <!-- Harga Tiket -->
@@ -64,6 +82,11 @@
                 name="harga_tiket" 
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
             />
+            <?php if (session('validation') && session('validation')->hasError('harga_tiket')) : ?>
+                <p class="mt-1 text-sm text-red-500">
+                <?= session('validation')->getError('harga_tiket'); ?>
+                </p>
+            <?php endif; ?>
         </div>
 
         <!-- Kategori Tiket -->
@@ -76,6 +99,11 @@
                 placeholder="Berbayar/Gratis"
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
             />
+            <?php if (session('validation') && session('validation')->hasError('kategori_tiket')) : ?>
+                <p class="mt-1 text-sm text-red-500">
+                <?= session('validation')->getError('kategori_tiket'); ?>
+                </p>
+            <?php endif; ?>
         </div>
 
         <!-- Link Tiket -->
@@ -87,6 +115,11 @@
                 name="link_tiket" 
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
             />
+            <?php if (session('validation') && session('validation')->hasError('link_tiket')) : ?>
+                <p class="mt-1 text-sm text-red-500">
+                <?= session('validation')->getError('link_tiket'); ?>
+                </p>
+            <?php endif; ?>
         </div>
 
         <!-- Deskripsi Event -->
@@ -97,6 +130,11 @@
                 rows="4" 
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main">
             </textarea>
+            <?php if (session('validation') && session('validation')->hasError('deskripsi_event')) : ?>
+                <p class="mt-1 text-sm text-red-500">
+                <?= session('validation')->getError('deskripsi_event'); ?>
+                </p>
+            <?php endif; ?>
         </div>
 
         <!-- Sponsor -->
@@ -107,6 +145,11 @@
                 rows="2" 
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main">
             </textarea>
+            <?php if (session('validation') && session('validation')->hasError('sponsor')) : ?>
+                <p class="mt-1 text-sm text-red-500">
+                <?= session('validation')->getError('sponsor'); ?>
+                </p>
+            <?php endif; ?>
         </div>
 
         <!-- Guest Star -->
@@ -117,6 +160,11 @@
                 rows="2" 
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main">
             </textarea>
+            <?php if (session('validation') && session('validation')->hasError('guest_star')) : ?>
+                <p class="mt-1 text-sm text-red-500">
+                <?= session('validation')->getError('guest_star'); ?>
+                </p>
+            <?php endif; ?>
         </div>
 
         <!-- Booth List -->
@@ -127,6 +175,11 @@
                 rows="2" 
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main">
             </textarea>
+            <?php if (session('validation') && session('validation')->hasError('booth_list')) : ?>
+                <p class="mt-1 text-sm text-red-500">
+                <?= session('validation')->getError('booth_list'); ?>
+                </p>
+            <?php endif; ?>
         </div>
 
         <!-- Submit Button -->
