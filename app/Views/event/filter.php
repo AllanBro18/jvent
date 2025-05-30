@@ -62,6 +62,11 @@
                     </div>
                 <?php endforeach; ?>
             </div>
+            <div class="mt-5 flex justify-end">
+                <?= $pager->links('event', 'event_pagination') ?>
+            </div>
         </main>
+
     </div>
+
 </section>

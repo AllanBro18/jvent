@@ -25,6 +25,18 @@ class EventController extends BaseController
         . view('layout/footer');
     }
 
+    public function filter()
+    {
+        $data = [
+            'event' => $this->eventModel->paginate(8, 'event'),
+            'pager' => $this->eventModel->pager,
+        ];
+
+        return view('layout/header', ['title' => 'Filter Event'])
+        . view('event/filter', $data)
+        . view('layout/footer');
+    }
+
     public function create () {
         $validation = \Config\Services::validation();
         // jika ada flashdata dari validasi sebelumnya
@@ -160,15 +172,6 @@ class EventController extends BaseController
         $session->setFlashdata('pesan', 'Event berhasil ditambahkan...');
 
         return redirect()->to('/event');
-    }
-    
-    public function filter()
-    {
-        $event = $this->eventModel->getEvent();
-        
-        return view('layout/header', ['title' => 'Filter Event'])
-        . view('event/filter', ['event' => $event])
-        . view('layout/footer');
     }
 
     public function detail($slug)
