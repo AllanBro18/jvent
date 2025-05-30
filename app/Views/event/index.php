@@ -15,76 +15,62 @@
     <div class="flex">
         <h1 class="text-2xl font-bold text-white">Event Populer</h1>
     </div>
-    <div class="flex flex-row justify-around mt-5">
-        <div class="max-w-xs mr-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-            <a href="#">
-                <img class="rounded-t-lg" src="/assets/images/hero.jpg" alt="" />
-            </a>
-            <div class="p-5">
-                <a href="#">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">IT Matsuri 2025</h5>
-                </a>
-                <p class="mb-2 font-normal text-gray-700 dark:text-gray-400">27 Mei 2025</p>
-                <p class="mb-2 font-normal text-gray-700 dark:text-gray-400">Universitas Lambung Mangkurat</p>
-                <p class="mb-3 text-xl font-bold text-gray-900 dark:text-white">Rp.50.000</p>
-                <div class="flex items-center justify-start border-t-2 border-secondary-main">
-                    <img class="w-12 h-12 mb-3 mr-3 mt-2 rounded-full shadow-lg" src="/assets/images/hero.jpg" alt="Bonnie image"/>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Imagi</p>
+    <div class="mt-5">
+        <div class="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <?php if (count($event) == 0) :  ?>
+                <p>Data event masih kosong</p>    
+            <?php endif; ?>
+            <?php foreach ($event as $e) : ?>
+                <!-- Card Template (ulangi sesuai kebutuhan) -->
+                <div class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
+                    <a href="/event/<?= esc($e['slug']) ?>" target="_blank">
+                        <img class="w-full h-48 object-cover" src="/uploads/images/<?= $e['gambar_event'] ?>" alt="Event Image" />
+                    </a>
+                    <div class="p-5">
+                        <a href="/event/<?= esc($e['slug']) ?>" target="_blank">
+                            <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white"> <?= esc($e['judul_event']) ?> </h5>
+                        </a>
+                        <p class="mb-1 text-sm text-gray-700 dark:text-gray-400">📍<?= esc($e['tanggal_event']) ?></p>
+                        <p class="mb-1 text-sm text-gray-700 dark:text-gray-400">📅<?= esc($e['lokasi_event']) ?></p>
+                        <p class="mb-3 text-lg font-bold text-gray-900 dark:text-white">🏷️Rp<?= esc($e['harga_tiket']) ?></p>
+                        <div class="flex items-center border-t pt-3 border-secondary-main">
+                            <img class="w-10 h-10 rounded-full shadow mr-3" src="/assets/images/hero.jpg" alt="Organizer" />
+                            <p class="text-sm text-gray-700 dark:text-gray-400">Imagi</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="max-w-xs mr-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-            <a href="#">
-                <img class="rounded-t-lg" src="/assets/images/hero.jpg" alt="" />
-            </a>
-            <div class="p-5">
-                <a href="#">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">IT Matsuri 2025</h5>
-                </a>
-                <p class="mb-2 font-normal text-gray-700 dark:text-gray-400">27 Mei 2025</p>
-                <p class="mb-2 font-normal text-gray-700 dark:text-gray-400">Universitas Lambung Mangkurat</p>
-                <p class="mb-3 text-xl font-bold text-gray-900 dark:text-white">Rp.50.000</p>
-                <div class="flex items-center justify-start border-t-2 border-secondary-main">
-                    <img class="w-12 h-12 mb-3 mr-3 mt-2 rounded-full shadow-lg" src="/assets/images/hero.jpg" alt="Bonnie image"/>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Imagi</p>
-                </div>
-            </div>
-        </div>
-        <div class="max-w-xs mr-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-            <a href="#">
-                <img class="rounded-t-lg" src="/assets/images/hero.jpg" alt="" />
-            </a>
-            <div class="p-5">
-                <a href="#">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">IT Matsuri 2025</h5>
-                </a>
-                <p class="mb-2 font-normal text-gray-700 dark:text-gray-400">27 Mei 2025</p>
-                <p class="mb-2 font-normal text-gray-700 dark:text-gray-400">Universitas Lambung Mangkurat</p>
-                <p class="mb-3 text-xl font-bold text-gray-900 dark:text-white">Rp.50.000</p>
-                <div class="flex items-center justify-start border-t-2 border-secondary-main">
-                    <img class="w-12 h-12 mb-3 mr-3 mt-2 rounded-full shadow-lg" src="/assets/images/hero.jpg" alt="Bonnie image"/>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Imagi</p>
-                </div>
-            </div>
-        </div>
-        <div class="max-w-xs mr-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-            <a href="#">
-                <img class="rounded-t-lg" src="/assets/images/hero.jpg" alt="" />
-            </a>
-            <div class="p-5">
-                <a href="#">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">IT Matsuri 2025</h5>
-                </a>
-                <p class="mb-2 font-normal text-gray-700 dark:text-gray-400">27 Mei 2025</p>
-                <p class="mb-2 font-normal text-gray-700 dark:text-gray-400">Universitas Lambung Mangkurat</p>
-                <p class="mb-3 text-xl font-bold text-gray-900 dark:text-white">Rp.50.000</p>
-                <div class="flex items-center justify-start border-t-2 border-secondary-main">
-                    <img class="w-12 h-12 mb-3 mr-3 mt-2 rounded-full shadow-lg" src="/assets/images/hero.jpg" alt="Bonnie image"/>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Imagi</p>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
+
+    <div class="sm:hidden flex overflow-x-auto space-x-4 px-2 snap-x snap-mandatory">
+    <?php if (count($event) == 0) :  ?>
+        <p>Data event masih kosong</p>    
+    <?php endif; ?>
+    
+    <?php foreach ($event as $e) : ?>
+        <div class="min-w-[16rem] snap-center shrink-0">
+            <div class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
+                <a href="/event/<?= esc($e['slug']) ?>" target="_blank">
+                    <img class="w-full h-48 object-cover" src="/uploads/images/<?= $e['gambar_event'] ?>" alt="Event Image" />
+                </a>
+                <div class="p-5">
+                    <a href="/event/<?= esc($e['slug']) ?>" target="_blank">
+                        <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white"> <?= esc($e['judul_event']) ?> </h5>
+                    </a>
+                    <p class="mb-1 text-sm text-gray-700 dark:text-gray-400">📍<?= esc($e['tanggal_event']) ?></p>
+                    <p class="mb-1 text-sm text-gray-700 dark:text-gray-400">📅<?= esc($e['lokasi_event']) ?></p>
+                    <p class="mb-3 text-lg font-bold text-gray-900 dark:text-white">🏷️Rp<?= esc($e['harga_tiket']) ?></p>
+                    <div class="flex items-center border-t pt-3 border-secondary-main">
+                        <img class="w-10 h-10 rounded-full shadow mr-3" src="/assets/images/hero.jpg" alt="Organizer" />
+                        <p class="text-sm text-gray-700 dark:text-gray-400">Imagi</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>
+
 
 
     <div class="mt-10 mx-auto">

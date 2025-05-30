@@ -16,12 +16,12 @@ class EventController extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'Jvent'
+            'event' => $this->eventModel->getEvent(),
         ];
 
         return 
-        view('layout/header', $data)
-        . view('event/index')
+        view('layout/header', ['title' => 'Jvent'])
+        . view('event/index', $data)
         . view('layout/footer');
     }
 
