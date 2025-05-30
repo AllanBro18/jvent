@@ -11,8 +11,12 @@ $routes->get('/', 'EventController::index');
 $routes->get('event', 'EventController::filter');
 $routes->get('/event/create', 'EventController::create', ['filter' => 'authGuard']);
 $routes->post('/event/save', 'EventController::save');
-$routes->get('/event/(:any)', 'EventController::detail/$1', ['filter' => 'authGuard']);
+$routes->get('/event/edit/(:segment)', 'EventController::edit/$1', ['filter' => 'authGuard']);
+$routes->post('/event/update/(:segment)', 'EventController::update/$1', ['filter' => 'authGuard']);
+$routes->delete('/event/(:num)', 'EventController::delete/$1', ['filter' => 'authGuard']);
 
+// detail
+$routes->get('/event/(:any)', 'EventController::detail/$1', ['filter' => 'authGuard']);
 
 // LOGIN for ADMIN
 $routes->get('login', 'Auth::login');

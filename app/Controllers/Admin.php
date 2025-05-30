@@ -23,8 +23,7 @@ class Admin extends BaseController
             'email_admin' => session()->get('email_admin'),
         ];
 
-        // echo view('layout/header', $data);
-        echo view('admin/dashboard', $data);
+        return view('admin/dashboard', $data);
     }
     
     public function info ()
@@ -33,8 +32,7 @@ class Admin extends BaseController
             'title' => 'Dashboard Info',
         ];
 
-        // echo view('layout/header', $data);
-        echo view('admin/info', $data);
+        return view('admin/info', $data);
     }
     
     public function pengaturan ()
@@ -43,7 +41,6 @@ class Admin extends BaseController
             'title' => 'Dashboard Pengaturan',
         ];
 
-        // echo view('layout/header', $data);
-        echo view('admin/pengaturan', $data);
+        return view('admin/pengaturan', $data);
     }
 }

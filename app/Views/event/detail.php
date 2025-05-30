@@ -3,7 +3,7 @@
 
         <!-- Gambar dan Deskripsi -->
         <div class="md:col-span-2">
-            <img src="<?= base_url('assets/images/hero.jpg') ?>" alt="" class="rounded-xl mb-6 w-full object-cover">
+            <img src="/uploads/images/<?= $event['gambar_event'] ?>" alt="" class="rounded-xl mb-6 w-full object-cover">
 
             <h2 class="text-xl font-bold mb-3">Deskripsi</h2>
             <p class="leading-relaxed text-justify">
