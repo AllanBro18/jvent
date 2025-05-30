@@ -1,21 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> <?= esc($title) ?> </title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <!-- tailwind -->
-    <link rel="stylesheet" href="<?= base_url('assets/css/styles.css') ?>">
-    
-</head>
-<style type="">
-    * {
-    }
-</style>
-<body class="bg-primary font-inter">
+<?= $this->extend('layout/template') ?>
+
+<?= $this->section('content'); ?>
     <!-- Header -->
     <header class="bg-gradient-to-br from-secondary-main via-primary to-secondary-main px-4 md:px-8 py-4 flex flex-col md:flex-row md:justify-between md:items-center space-y-3 md:space-y-0 shadow-md backdrop-blur-md">
     <!-- Logo + Searchbar Grid on Mobile -->
@@ -87,3 +72,4 @@
             </a>
         </div>
     </div>
+<?= $this->endSection() ?>

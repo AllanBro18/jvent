@@ -12,8 +12,7 @@
 </head>
 <body class="bg-primary font-inter">
     <!-- PARSIAL -->
-     <!-- PARSIAL -->
-    <?php if ($title === 'Dashboard Admin') : ?>
+    <?php if ($title === 'Dashboard Admin' || $title === 'Dashboard Info' || $title === 'Dashboard Pengaturan') : ?>
         <?= $this->include('layout/sidebar') ?> 
     <?php endif; ?>
     
