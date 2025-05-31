@@ -76,9 +76,23 @@
                 </p>
             <?php endif; ?>
         </div>
+        
+        <!-- Kategori tiket dan Harga tiket -->
+        <div class="md:col-span-2">
+            <label for="kategori_tiket" class="block mb-2 text-white text-sm font-medium">Kategori Tiket</label>
+            <select id="kategori_tiket" name="kategori_tiket" onchange="toggleHargaTiket()" class="w-full bg-secondary-main text-white py-2 px-4 rounded text-sm">
+                <option value="">-- Pilih Kategori --</option>
+                <option value="gratis">Gratis</option>
+                <option value="berbayar">Berbayar</option>
+            </select>
+            <?php if (session('validation') && session('validation')->hasError('kategori_tiket')) : ?>
+                <p class="mt-1 text-sm text-red-500">
+                <?= session('validation')->getError('kategori_tiket'); ?>
+                </p>
+            <?php endif; ?>
+        </div>
 
-        <!-- Harga Tiket -->
-        <div>
+        <div id="harga_tiket_wrapper" style="display: none;" class="md:col-span-2">
             <label for="harga_tiket" class="block mb-2 text-white text-sm font-medium">Harga Tiket</label>
             <input 
                 type="number" 
@@ -86,28 +100,11 @@
                 name="harga_tiket" 
                 value="<?= old('harga_tiket'); ?>"
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
-            />
+                placeholder="Contoh: 25000"
+            >
             <?php if (session('validation') && session('validation')->hasError('harga_tiket')) : ?>
                 <p class="mt-1 text-sm text-red-500">
                 <?= session('validation')->getError('harga_tiket'); ?>
-                </p>
-            <?php endif; ?>
-        </div>
-
-        <!-- Kategori Tiket -->
-        <div>
-            <label for="kategori_tiket" class="block mb-2 text-white text-sm font-medium">Kategori Tiket</label>
-            <input 
-                type="text" 
-                id="kategori_tiket" 
-                name="kategori_tiket" 
-                value="<?= old('kategori_tiket'); ?>"
-                placeholder="Berbayar/Gratis"
-                class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
-            />
-            <?php if (session('validation') && session('validation')->hasError('kategori_tiket')) : ?>
-                <p class="mt-1 text-sm text-red-500">
-                <?= session('validation')->getError('kategori_tiket'); ?>
                 </p>
             <?php endif; ?>
         </div>

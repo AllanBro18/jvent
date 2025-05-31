@@ -18,5 +18,3 @@
     
     <?= $this->renderSection('content'); ?>
 
-</body>
-</html>

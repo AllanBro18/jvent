@@ -9,10 +9,10 @@ $routes->get('/', 'EventController::index');
 
 // Create Event
 $routes->get('event', 'EventController::filter');
+$routes->post('event', 'EventController::filter');
 $routes->get('/event/create', 'EventController::create', ['filter' => 'authGuard']);
-$routes->post('/event', 'EventController::filter');
-$routes->post('/event/save', 'EventController::save');
 $routes->get('/event/edit/(:segment)', 'EventController::edit/$1', ['filter' => 'authGuard']);
+$routes->post('/event/save', 'EventController::save');
 $routes->post('/event/update/(:segment)', 'EventController::update/$1', ['filter' => 'authGuard']);
 $routes->delete('/event/(:num)', 'EventController::delete/$1', ['filter' => 'authGuard']);
 

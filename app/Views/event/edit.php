@@ -6,14 +6,13 @@
     <?php $validation = session('validation'); ?>
     <h2 class="text-2xl text-secondary-second font-semibold mb-6 border-b-2 border-secondary-main">Tambah Event Baru</h2>
     <form action="<?= base_url('/event/update/' . $event['id_event']) ?>" method="post" class="grid grid-cols-1 md:grid-cols-2 gap-6" enctype="multipart/form-data">
-        <?= form_open_multipart(base_url('/event/update/' . $event['id_event'])); ?>
         <?= csrf_field() ?>
 
         <!-- parameter slug yang dikirim ke event/update -->
         <input type="hidden" name="slug" value="<?= $event['slug'] ?>">
 
         <!-- Judul Event -->
-        <div>
+        <div class="md:col-span-2">
             <label for="judul_event" class="block mb-2 text-white text-sm font-medium">Nama Event</label>
             <input 
                 type="text" 
@@ -31,8 +30,18 @@
         </div>
 
         <!-- Gambar Event -->
-        <div>
-            <label for="gambar_event" class="block mb-2 text-white text-sm font-medium">Gambar Event</label>
+        <div class="md:col-span-2">
+            <label for="gambar_event" class="block mb-2 text-white text-sm font-medium">Gambar Event Sebelumnya</label>
+            <!-- Preview Gambar Lama -->
+            <?php if ($event['gambar_event']) : ?>
+                <div class="mb-2">
+                    <img src="/uploads/images/<?= $event['gambar_event'] ?>" alt="Gambar Event Lama" class="h-32 object-cover rounded-md">
+                </div>
+            <?php endif; ?>
+
+            <label for="" class="block mb-2 text-white text-sm font-medium">
+                Upload gambar baru
+            </label>
             <input
                 type="file"
                 id="gambar_event"
@@ -41,10 +50,11 @@
             />
             <?php if (session('validation') && session('validation')->hasError('gambar_event')) : ?>
                 <p class="mt-1 text-sm text-red-500">
-                <?= session('validation')->getError('gambar_event'); ?>
+                    <?= session('validation')->getError('gambar_event'); ?>
                 </p>
             <?php endif; ?>
         </div>
+        <input type="hidden" name="gambar_lama" value="<?= $event['gambar_event']; ?>">
 
         <!-- Tanggal Event -->
         <div>
@@ -80,37 +90,35 @@
             <?php endif; ?>
         </div>
 
-        <!-- Harga Tiket -->
-        <div>
+        <!-- Kategori tiket dan Harga tiket -->
+        <div class="md:col-span-2">
+            <label for="kategori_tiket" class="block mb-2 text-white text-sm font-medium">Kategori Tiket</label>
+            <select id="kategori_tiket" name="kategori_tiket" onchange="toggleHargaTiket()" class="w-full bg-secondary-main text-white py-2 px-4 rounded text-sm">
+                <option value="">-- Pilih Kategori --</option>
+                <option value="gratis">Gratis</option>
+                <option value="berbayar">Berbayar</option>
+                <?= (old('kategori_tiket') ? old('kategori_tiket') : $event['kategori_tiket']) ?>
+            </select>
+            <?php if (session('validation') && session('validation')->hasError('kategori_tiket')) : ?>
+                <p class="mt-1 text-sm text-red-500">
+                <?= session('validation')->getError('kategori_tiket'); ?>
+                </p>
+            <?php endif; ?>
+        </div>
+
+        <div id="harga_tiket_wrapper" style="display: none;" class="md:col-span-2">
             <label for="harga_tiket" class="block mb-2 text-white text-sm font-medium">Harga Tiket</label>
             <input 
                 type="number" 
                 id="harga_tiket" 
                 name="harga_tiket" 
-                value="<?= (old('harga_tiket') ? old('harga_tiket') : $event['harga_tiket']) ?>"
+                value="<?= old('harga_tiket'); ?>"
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
-            />
+                placeholder="Contoh: 25000"
+            >
             <?php if (session('validation') && session('validation')->hasError('harga_tiket')) : ?>
                 <p class="mt-1 text-sm text-red-500">
                 <?= session('validation')->getError('harga_tiket'); ?>
-                </p>
-            <?php endif; ?>
-        </div>
-
-        <!-- Kategori Tiket -->
-        <div>
-            <label for="kategori_tiket" class="block mb-2 text-white text-sm font-medium">Kategori Tiket</label>
-            <input 
-                type="text" 
-                id="kategori_tiket" 
-                name="kategori_tiket" 
-                value="<?= (old('kategori_tiket') ? old('kategori_tiket') : $event['kategori_tiket']) ?>"
-                placeholder="Berbayar/Gratis"
-                class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
-            />
-            <?php if (session('validation') && session('validation')->hasError('kategori_tiket')) : ?>
-                <p class="mt-1 text-sm text-red-500">
-                <?= session('validation')->getError('kategori_tiket'); ?>
                 </p>
             <?php endif; ?>
         </div>

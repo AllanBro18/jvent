@@ -55,12 +55,14 @@ class EventController extends BaseController
         return view('event/create', [
             'title' => 'Form Tambah Data Event',
             'validation' => $validation,
-        ]);
+        ]) . view('layout/footer');
     }
 
     public function save () {
-        // validasi input
-        if (!$this->validate([
+        $kategori_tiket = $this->request->getVar('kategori_tiket');
+        $harga_tiket = $this->request->getVar('harga_tiket');
+
+        $rules = [
             'judul_event' => [
                 'rules' => 'required|is_unique[event.judul_event]',
                 'errors' => [
@@ -89,14 +91,8 @@ class EventController extends BaseController
                     'required' => 'lokasi event harus diisi',
                 ]
             ],
-            'harga_tiket' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'harga tiket harus diisi',
-                ]
-            ],
             'kategori_tiket' => [
-                'rules' => 'required',
+                'rules' => 'required|in_list[gratis,berbayar]',
                 'errors' => [
                     'required' => 'kategori tiket harus diisi',
                 ]
@@ -131,19 +127,33 @@ class EventController extends BaseController
                     'required' => 'booth list harus diisi',
                 ]
             ]
-        ])) { // jika tidak valid
-            // pesan kesalahan
-            $validation = \Config\Services::validation();
+        ];
 
+        // validasi tiket
+        if ($kategori_tiket === 'berbayar') {
+            $rules['harga_tiket'] = 'required|numeric';
+        }
+        
+        // input tidak valid
+        if (!$this->validate($rules)) { 
+            // pesan kesalahan disimpan 
+            $validation = \Config\Services::validation();
+            dd($validation->getErrors());
+            
             // input pengguna dan validasi yang didapat akan dikembalikan menjadi pesan
             return redirect()->back()->withInput()->with('validation', $validation);
         }
-
+        
         $session = session();
+        if (!$session->has('id_admin')) {
+            return redirect()->to('/login')->with('error', 'Silakan login terlebih dahulu.');
+        }
 
+        $harga_tiket = ($kategori_tiket === 'gratis') ? 0 : $this->request->getPost('harga_tiket');
+        
         // ambil file gambar dari input
         $fileGambar = $this->request->getFile('gambar_event');
-
+        
         // simpan gambar ke folder
         $namaGambar = $fileGambar->getRandomName(); // Buat nama random untuk gambar
         
@@ -154,10 +164,6 @@ class EventController extends BaseController
 
         // slug dari input judul event 
         $slug = url_title($this->request->getVar('judul_event'), '-', true);
-        
-        if (!$session->has('id_admin')) {
-            return redirect()->to('/login')->with('error', 'Silakan login terlebih dahulu.');
-        }
 
         // data diambil per key dan dikirim ke model
         $this->eventModel->save([
@@ -166,8 +172,8 @@ class EventController extends BaseController
             'slug' => $slug,
             'tanggal_event' => $this->request->getVar('tanggal_event'),
             'lokasi_event' => $this->request->getVar('lokasi_event'),
-            'harga_tiket' => $this->request->getVar('harga_tiket'),
-            'kategori_tiket' => $this->request->getVar('kategori_tiket'),
+            'kategori_tiket' => $kategori_tiket,
+            'harga_tiket' => $harga_tiket,
             'link_tiket' => $this->request->getVar('link_tiket'),
             'deskripsi_event' => $this->request->getVar('deskripsi_event'),
             'sponsor' => $this->request->getVar('sponsor'),
@@ -216,8 +222,10 @@ class EventController extends BaseController
     }
 
     public function update ($id) {
-        // validasi input
-        if (!$this->validate([
+        $kategori_tiket = $this->request->getVar('kategori_tiket');
+        $harga_tiket = $this->request->getVar('harga_tiket');
+
+        $rules= [
             'judul_event' => [
                 'rules' => 'required|is_unique[event.judul_event, id_event, ' . $id . ']',
                 'errors' => [
@@ -246,14 +254,8 @@ class EventController extends BaseController
                     'required' => 'lokasi event harus diisi',
                 ]
             ],
-            'harga_tiket' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'harga tiket harus diisi',
-                ]
-            ],
             'kategori_tiket' => [
-                'rules' => 'required',
+                'rules' => 'required|in_list[gratis,berbayar]',
                 'errors' => [
                     'required' => 'kategori tiket harus diisi',
                 ]
@@ -288,7 +290,15 @@ class EventController extends BaseController
                     'required' => 'booth list harus diisi',
                 ]
             ]
-        ])) { // jika tidak valid
+        ];
+
+        // validasi tiket
+        if ($kategori_tiket === 'berbayar') {
+            $rules['harga_tiket'] = 'required|numeric';
+        }
+
+        // validasi input
+        if (!$this->validate($rules)) { // jika tidak valid
             // pesan kesalahan
             $validation = \Config\Services::validation();
 
@@ -298,16 +308,23 @@ class EventController extends BaseController
 
         $session = session();
 
+        $harga_tiket = ($kategori_tiket === 'gratis') ? 0 : $this->request->getPost('harga_tiket');
+
         // ambil file gambar dari input
         $fileGambar = $this->request->getFile('gambar_event');
-
-        // simpan gambar ke folder
-        $namaGambar = $fileGambar->getRandomName(); // Buat nama random untuk gambar
-        
         if (!$fileGambar->isValid()) {
             return redirect()->back()->withInput()->with('error', $fileGambar->getErrorString());
         }
-        $fileGambar->move(FCPATH . 'uploads/images', $namaGambar);
+
+        if ($fileGambar->getError() == 4) {
+            // tidak ada file baru
+            $namaGambar = $this->request->getVar('gambar_lama');
+        } else {
+            // simpan gambar ke folder
+            $namaGambar = $fileGambar->getRandomName(); // Buat nama random untuk gambar
+            $fileGambar->move(FCPATH . 'uploads/images', $namaGambar);
+            unlink('uploads/images/' . $this->request->getVar('gambar_lama')); // menghapus gambar lama dari direktori
+        }
 
         // slug dari input judul event 
         $slug = url_title($this->request->getVar('judul_event'), '-', true);
@@ -324,8 +341,8 @@ class EventController extends BaseController
             'slug' => $slug,
             'tanggal_event' => $this->request->getVar('tanggal_event'),
             'lokasi_event' => $this->request->getVar('lokasi_event'),
-            'harga_tiket' => $this->request->getVar('harga_tiket'),
-            'kategori_tiket' => $this->request->getVar('kategori_tiket'),
+            'harga_tiket' => $harga_tiket,
+            'kategori_tiket' => $kategori_tiket,
             'link_tiket' => $this->request->getVar('link_tiket'),
             'deskripsi_event' => $this->request->getVar('deskripsi_event'),
             'sponsor' => $this->request->getVar('sponsor'),
@@ -337,6 +354,6 @@ class EventController extends BaseController
         // flash data
         $session->setFlashdata('pesan', 'Event berhasil diubah...');
 
-        return redirect()->to('/event');
+        return redirect()->to('/dashboard');
     }
 }

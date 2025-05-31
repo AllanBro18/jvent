@@ -32,7 +32,7 @@
                         </a>
                         <p class="mb-1 text-sm text-gray-700 dark:text-gray-400">📍<?= esc($e['tanggal_event']) ?></p>
                         <p class="mb-1 text-sm text-gray-700 dark:text-gray-400">📅<?= esc($e['lokasi_event']) ?></p>
-                        <p class="mb-3 text-lg font-bold text-gray-900 dark:text-white">🏷️Rp<?= esc($e['harga_tiket']) ?></p>
+                        <p class="mb-3 text-lg font-bold text-gray-900 dark:text-white">🏷️Rp<?= esc(number_format($e['harga_tiket'], 0, ',', '.')) ?></p>
                         <div class="flex items-center border-t pt-3 border-secondary-main">
                             <img class="w-10 h-10 rounded-full shadow mr-3" src="/assets/images/hero.jpg" alt="Organizer" />
                             <p class="text-sm text-gray-700 dark:text-gray-400">Imagi</p>
@@ -44,34 +44,32 @@
     </div>
 
     <div class="sm:hidden flex overflow-x-auto space-x-4 px-2 snap-x snap-mandatory">
-    <?php if (count($event) == 0) :  ?>
-        <p>Data event masih kosong</p>    
-    <?php endif; ?>
-    
-    <?php foreach ($event as $e) : ?>
-        <div class="min-w-[16rem] snap-center shrink-0">
-            <div class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
-                <a href="/event/<?= esc($e['slug']) ?>" target="_blank">
-                    <img class="w-full h-48 object-cover" src="/uploads/images/<?= $e['gambar_event'] ?>" alt="Event Image" />
-                </a>
-                <div class="p-5">
+        <?php if (count($event) == 0) :  ?>
+            <p>Data event masih kosong</p>    
+        <?php endif; ?>
+        
+        <?php foreach ($event as $e) : ?>
+            <div class="min-w-[16rem] snap-center shrink-0">
+                <div class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
                     <a href="/event/<?= esc($e['slug']) ?>" target="_blank">
-                        <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white"> <?= esc($e['judul_event']) ?> </h5>
+                        <img class="w-full h-48 object-cover" src="/uploads/images/<?= $e['gambar_event'] ?>" alt="Event Image" />
                     </a>
-                    <p class="mb-1 text-sm text-gray-700 dark:text-gray-400">📍<?= esc($e['tanggal_event']) ?></p>
-                    <p class="mb-1 text-sm text-gray-700 dark:text-gray-400">📅<?= esc($e['lokasi_event']) ?></p>
-                    <p class="mb-3 text-lg font-bold text-gray-900 dark:text-white">🏷️Rp<?= esc($e['harga_tiket']) ?></p>
-                    <div class="flex items-center border-t pt-3 border-secondary-main">
-                        <img class="w-10 h-10 rounded-full shadow mr-3" src="/assets/images/hero.jpg" alt="Organizer" />
-                        <p class="text-sm text-gray-700 dark:text-gray-400">Imagi</p>
+                    <div class="p-5">
+                        <a href="/event/<?= esc($e['slug']) ?>" target="_blank">
+                            <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white"> <?= esc($e['judul_event']) ?> </h5>
+                        </a>
+                        <p class="mb-1 text-sm text-gray-700 dark:text-gray-400">📍<?= esc($e['tanggal_event']) ?></p>
+                        <p class="mb-1 text-sm text-gray-700 dark:text-gray-400">📅<?= esc($e['lokasi_event']) ?></p>
+                        <p class="mb-3 text-lg font-bold text-gray-900 dark:text-white">🏷️Rp<?= esc(number_format($e['harga_tiket'], 0, ',', '.')) ?></p>
+                        <div class="flex items-center border-t pt-3 border-secondary-main">
+                            <img class="w-10 h-10 rounded-full shadow mr-3" src="/assets/images/hero.jpg" alt="Organizer" />
+                            <p class="text-sm text-gray-700 dark:text-gray-400">Imagi</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    <?php endforeach; ?>
-</div>
-
-
+        <?php endforeach; ?>
+    </div>
 
     <div class="mt-10 mx-auto">
         <div class="flex items-center justify-center">
