@@ -27,8 +27,16 @@ class EventController extends BaseController
 
     public function filter()
     {
+        $keyword = $this->request->getVar('keyword');
+        if ($keyword) {
+            $event = $this->eventModel->search($keyword);
+        } else {
+            $event = $this->eventModel;
+        }
+        
+
         $data = [
-            'event' => $this->eventModel->paginate(8, 'event'),
+            'event' => $event->paginate(8, 'event'),
             'pager' => $this->eventModel->pager,
         ];
 

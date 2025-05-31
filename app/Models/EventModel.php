@@ -28,6 +28,12 @@ class EventModel extends Model {
         }
         return $this->where(['slug' => $slug])->first();
     }
+
+    public function search ($keyword) {
+        return $this->table('event')
+            ->like('judul_event', $keyword)
+            ->orLike('lokasi_event', $keyword);
+    }
 }
 
 ?>
