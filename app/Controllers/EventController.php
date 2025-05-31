@@ -40,7 +40,7 @@ class EventController extends BaseController
             'pager' => $this->eventModel->pager,
         ];
 
-        return view('layout/header', ['title' => 'Filter Event'])
+        return view('layout/header', ['title' => 'Filter Event', 'keyword' => $keyword])
         . view('event/filter', $data)
         . view('layout/footer');
     }
