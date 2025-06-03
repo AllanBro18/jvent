@@ -12,10 +12,10 @@
             <div>
                 <h3 class="text-sm font-semibold text-primary uppercase tracking-wider mb-4">Navigasi</h3>
                 <ul class="space-y-2">
-                    <li><a href="#" class="hover:text-gray-600 transition duration-150">Beranda</a></li>
-                    <li><a href="#" class="hover:text-gray-600 transition duration-150">Event</a></li>
-                    <li><a href="#" class="hover:text-gray-600 transition duration-150">Tentang</a></li>
-                    <li><a href="#" class="hover:text-gray-600 transition duration-150">Kontak</a></li>
+                    <li><a href="/" class="hover:text-gray-600 transition duration-150">Beranda</a></li>
+                    <li><a href="<?= base_url('/event/search') ?>" class="hover:text-gray-600 transition duration-150">Event</a></li>
+                    <li><a href="/" class="hover:text-gray-600 transition duration-150">Tentang</a></li>
+                    <li><a href="/" class="hover:text-gray-600 transition duration-150">Kontak</a></li>
                 </ul>
             </div>
 
@@ -23,8 +23,8 @@
             <div>
                 <h3 class="text-sm font-semibold text-primary uppercase tracking-wider mb-4">Layanan</h3>
                 <ul class="space-y-2">
-                    <li><a href="#" class="hover:text-gray-600 transition duration-150">Buat Event</a></li>
-                    <li><a href="#" class="hover:text-gray-600 transition duration-150">Pendaftaran Admin</a></li>
+                    <li><a href="<?= base_url('/event/create') ?>" class="hover:text-gray-600 transition duration-150">Buat Event</a></li>
+                    <li><a href="<?= base_url('/register') ?>" class="hover:text-gray-600 transition duration-150">Pendaftaran Admin</a></li>
                 </ul>
             </div>
 
