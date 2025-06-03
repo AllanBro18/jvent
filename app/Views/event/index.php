@@ -5,7 +5,7 @@
     <div class="py-10 ml-24 w-72 relative z-10 text-white">
         <h1 class="py-2 text-3xl font-bold">Temukan Event Anime Terdekat di Banjarmasin</h1>
         <p class="py-2 font-thin">Subheading Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptas quos consectetur, autem error quod, ullam rerum dicta aperiam</p>
-        <a href="/event" class="px-4 py-2 text-center bg-gradient-to-r from-tertiary-hard to-blue-800 text-white rounded-lg font-semibold hover:opacity-90 transition">
+        <a href="/event/search" class="px-4 py-2 text-center bg-gradient-to-r from-tertiary-hard to-blue-800 text-white rounded-lg font-semibold hover:opacity-90 transition">
             Jelajahi Event Sekarang
         </a>
     </div>
@@ -32,7 +32,11 @@
                         </a>
                         <p class="mb-1 text-sm text-gray-700 dark:text-gray-400">📍<?= esc($e['tanggal_event']) ?></p>
                         <p class="mb-1 text-sm text-gray-700 dark:text-gray-400">📅<?= esc($e['lokasi_event']) ?></p>
-                        <p class="mb-3 text-lg font-bold text-gray-900 dark:text-white">🏷️Rp<?= esc(number_format($e['harga_tiket'], 0, ',', '.')) ?></p>
+                        <?php if ($e['harga_tiket'] == 0): ?>
+                            <p class="mb-3 text-lg font-bold text-gray-900 dark:text-white">🏷️Gratis</p>
+                        <?php else: ?>
+                            <p class="mb-3 text-lg font-bold text-gray-900 dark:text-white">🏷️Rp<?= esc(number_format($e['harga_tiket'], 0, ',', '.')) ?></p>
+                        <?php endif; ?>
                         <div class="flex items-center border-t pt-3 border-secondary-main">
                             <img class="w-10 h-10 rounded-full shadow mr-3" src="/assets/images/hero.jpg" alt="Organizer" />
                             <p class="text-sm text-gray-700 dark:text-gray-400">Imagi</p>

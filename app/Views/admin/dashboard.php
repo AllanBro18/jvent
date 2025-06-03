@@ -56,7 +56,11 @@
                             </a>
                             <p class="mb-1 text-sm text-gray-700 dark:text-gray-400"><?= $e['tanggal_event'] ?></p>
                             <p class="mb-1 text-sm text-gray-700 dark:text-gray-400"><?= $e['lokasi_event'] ?></p>
-                            <p class="mb-3 text-lg font-bold text-gray-900 dark:text-white">Rp<?= $e['harga_tiket'] ?></p>
+                            <?php if ($e['harga_tiket'] == 0): ?>
+                                <p class="mb-3 text-lg font-bold text-green-400">🏷️Gratis</p>
+                            <?php else: ?>
+                                <p class="mb-3 text-lg font-bold text-gray-900 dark:text-white">🏷️Rp<?= esc(number_format($e['harga_tiket'], 0, ',', '.')) ?></p>
+                            <?php endif; ?>
                             <div class="flex justify-between border-t pt-3 border-secondary-main">
                                 <div class="flex items-center ">
                                     <img class="w-10 h-10 rounded-full shadow mr-3" src="/assets/images/hero.jpg" alt="Organizer" />

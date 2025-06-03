@@ -1,10 +1,13 @@
-
 <?= $this->extend('layout/template') ?>
 
 <?= $this->section('content'); ?>
 <section class="max-w-4xl mx-auto p-6 border-2 rounded-lg shadow-md border-secondary-main mt-10">
     <?php $validation = session('validation'); ?>
-    <h2 class="text-2xl text-secondary-second font-semibold mb-6 border-b-2 border-secondary-main">Tambah Event Baru</h2>
+    <h2 class="text-2xl text-secondary-second font-semibold mb-6 border-b-2 border-secondary-main">Ubah Event</h2>
+    <?php if (!isset($event['id_event'])) : ?>
+        <p class="text-red-500">Data event tidak ditemukan.</p>
+    <?php else : ?>
+
     <form action="<?= base_url('/event/update/' . $event['id_event']) ?>" method="post" class="grid grid-cols-1 md:grid-cols-2 gap-6" enctype="multipart/form-data">
         <?= csrf_field() ?>
 
@@ -213,5 +216,6 @@
         </div>
 
     </form>
+    <?php endif; ?>
 </section>
 <?= $this->endSection() ?>

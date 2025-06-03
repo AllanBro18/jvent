@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Models\EventModel;
 
+use function PHPUnit\Framework\fileExists;
+
 class EventController extends BaseController
 {
     protected $eventModel;
@@ -25,18 +27,25 @@ class EventController extends BaseController
         . view('layout/footer');
     }
 
-    public function filter()
+    public function filter($kategori_tiket = null, $lokasi = null)
     {
         $keyword = $this->request->getVar('keyword');
+        $query = $this->eventModel; // untuk filter kategori
+        
         if ($keyword) {
-            $event = $this->eventModel->search($keyword);
-        } else {
-            $event = $this->eventModel;
+            $query = $query->search($keyword);
+        }   
+        
+        if ($kategori_tiket && $kategori_tiket != 'all') {
+            $query = $query->where('kategori_tiket', $kategori_tiket);
+        }
+
+        if ($lokasi && $lokasi != 'all') {
+            $query = $query->like('lokasi_event', $lokasi);
         }
         
-
         $data = [
-            'event' => $event->paginate(8, 'event'),
+            'events' => $query->paginate(8, 'event'),
             'pager' => $this->eventModel->pager,
         ];
 
@@ -60,7 +69,7 @@ class EventController extends BaseController
 
     public function save () {
         $kategori_tiket = $this->request->getVar('kategori_tiket');
-        $harga_tiket = $this->request->getVar('harga_tiket');
+        $harga_input = $this->request->getPost('harga_tiket');
 
         $rules = [
             'judul_event' => [
@@ -149,7 +158,8 @@ class EventController extends BaseController
             return redirect()->to('/login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
-        $harga_tiket = ($kategori_tiket === 'gratis') ? 0 : $this->request->getPost('harga_tiket');
+        $harga_bersih = str_replace('.', '', $harga_input); // hilangkan titik ribuan
+        $harga_tiket = ($kategori_tiket === 'gratis') ? 0 : (int) $harga_bersih;
         
         // ambil file gambar dari input
         $fileGambar = $this->request->getFile('gambar_event');
@@ -185,7 +195,7 @@ class EventController extends BaseController
         // flash data
         $session->setFlashdata('pesan', 'Event berhasil ditambahkan...');
 
-        return redirect()->to('/event');
+        return redirect()->to('/event/search');
     }
 
     public function detail($slug)
@@ -207,7 +217,7 @@ class EventController extends BaseController
 
         // flash data
         session()->setFlashdata('pesan', 'Event berhasil dihapus');
-        return redirect()->to('/event');
+        return redirect()->to('/event/filter');
     }
 
     public function edit ($slug) {
@@ -222,8 +232,9 @@ class EventController extends BaseController
     }
 
     public function update ($id) {
-        $kategori_tiket = $this->request->getVar('kategori_tiket');
-        $harga_tiket = $this->request->getVar('harga_tiket');
+        // dd($this->request->getPost());
+        $kategori_tiket = $this->request->getPost('kategori_tiket');
+        $harga_input = $this->request->getPost('harga_tiket');
 
         $rules= [
             'judul_event' => [
@@ -233,10 +244,9 @@ class EventController extends BaseController
                     'is_unique' => 'Event sudah terdaftar',
                 ]
             ],
-            'gambar_event' => [ // validasi gambar
-                'rules' => 'uploaded[gambar_event]|max_size[gambar_event,500]|is_image[gambar_event]|mime_in[gambar_event,image/jpg,image/jpeg,image/png]',
+            'gambar_event' => [
+                'rules' => 'permit_empty|max_size[gambar_event,500]|is_image[gambar_event]|mime_in[gambar_event,image/jpg,image/jpeg,image/png]', // Tambahkan permit_empty
                 'errors' => [
-                    'uploaded' => 'Pilih gambar event terlebih dahulu.',
                     'max_size' => 'Ukuran gambar terlalu besar (maks 500KB).',
                     'is_image' => 'Yang Anda pilih bukan gambar.',
                     'mime_in' => 'Format gambar harus JPG, JPEG, atau PNG.',
@@ -301,6 +311,7 @@ class EventController extends BaseController
         if (!$this->validate($rules)) { // jika tidak valid
             // pesan kesalahan
             $validation = \Config\Services::validation();
+            dd($validation->getErrors());
 
             // input pengguna dan validasi yang didapat akan dikembalikan menjadi pesan
             return redirect()->to('/event/edit' . $this->request->getVar('slug'))->withInput()->with('validation', $validation);
@@ -308,22 +319,26 @@ class EventController extends BaseController
 
         $session = session();
 
-        $harga_tiket = ($kategori_tiket === 'gratis') ? 0 : $this->request->getPost('harga_tiket');
+        $harga_bersih = str_replace('.', '', $harga_input); // hilangkan titik ribuan
+        $harga_tiket = ($kategori_tiket === 'gratis') ? 0 : (int) $harga_bersih;
 
         // ambil file gambar dari input
         $fileGambar = $this->request->getFile('gambar_event');
-        if (!$fileGambar->isValid()) {
-            return redirect()->back()->withInput()->with('error', $fileGambar->getErrorString());
-        }
+        $namaGambar = $this->request->getVar('gambar_lama');
 
-        if ($fileGambar->getError() == 4) {
-            // tidak ada file baru
-            $namaGambar = $this->request->getVar('gambar_lama');
-        } else {
-            // simpan gambar ke folder
-            $namaGambar = $fileGambar->getRandomName(); // Buat nama random untuk gambar
-            $fileGambar->move(FCPATH . 'uploads/images', $namaGambar);
-            unlink('uploads/images/' . $this->request->getVar('gambar_lama')); // menghapus gambar lama dari direktori
+        // jika ada gambar baru di-upload
+        if ($fileGambar && $fileGambar->isValid() && !$fileGambar->hasMoved()) {
+            $namaGambarBaru = $fileGambar->getRandomName();
+            $fileGambar->move(FCPATH . 'uploads/images', $namaGambarBaru);
+
+            // Hapus gambar lama jika ada
+            $gambarLama = $this->request->getVar('gambar_lama');
+            if (!empty($gambarLama) && file_exists(FCPATH . 'uploads/images/' . $gambarLama)) {
+                unlink(FCPATH . 'uploads/images/' . $gambarLama);
+            }
+
+            // Ganti nama gambar ke yang baru
+            $namaGambar = $namaGambarBaru;
         }
 
         // slug dari input judul event 

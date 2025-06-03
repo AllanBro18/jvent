@@ -6,7 +6,6 @@
     <?php $validation = session('validation'); ?>
     <h2 class="text-2xl text-secondary-second font-semibold mb-6 border-b-2 border-secondary-main">Tambah Event Baru</h2>
     <form action="<?= base_url('/event/save') ?>" method="post" class="grid grid-cols-1 md:grid-cols-2 gap-6" enctype="multipart/form-data">
-        <?= form_open_multipart('/event/save'); ?>
         <?= csrf_field() ?>
 
         <!-- Judul Event -->
