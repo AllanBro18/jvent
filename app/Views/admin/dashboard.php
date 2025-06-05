@@ -10,7 +10,7 @@
                 <div class="flex items-center space-x-4">
                     <div class="bg-gray-700 px-4 py-2 rounded"><?= esc($username_admin) ?></div>
                     <a href="/event/create" class="bg-gradient-to-r from-tertiary-soft to-violet-600 hover:opacity-90 text-white px-4 py-2 rounded hover:bg-purple-700 transition">Buat Event</a>
-                    <a href="/logout" class="bg-red-600 px-4 py-2 rounded hover:bg-red-700">Logout</a>
+                    <a href="/logout" onclick="return confirm('Apakah anda yakin logout?')" class="bg-red-600 px-4 py-2 rounded hover:bg-red-700">Logout</a>
                 </div>
             </div>
 
