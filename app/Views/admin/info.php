@@ -9,7 +9,7 @@
 
         <!-- Latar Belakang -->
         <section>
-            <h3 class="text-xl font-semibold mb-2 text-cyan-300">Latar Belakang</h3>
+            <h3 class="text-xl font-semibold mb-2 text-secondary-second">Latar Belakang</h3>
             <p class="text-gray-300 leading-relaxed">
                 Minat masyarakat Indonesia terhadap budaya Jepang mengalami peningkatan yang cukup signifikan, terutama di kalangan remaja dan dewasa muda. 
                 Fenomena ini terlihat dari semakin banyaknya acara bertema Jejepangan seperti festival budaya, cosplay, konser anime, hingga bazar komunitas 
@@ -32,7 +32,7 @@
 
         <!-- Tujuan -->
         <section>
-            <h3 class="text-xl font-semibold mb-2 text-cyan-300">Tujuan</h3>
+            <h3 class="text-xl font-semibold mb-2 text-secondary-second">Tujuan</h3>
             <ul class="list-disc list-inside text-gray-300 space-y-1">
                 <li>Menyediakan platform yang mudah diakses untuk mencari informasi seputar event Jejepangan di berbagai daerah.</li>
                 <li>Membantu pengguna menemukan event berdasarkan preferensi seperti lokasi, waktu, dan harga tiket.</li>
@@ -45,7 +45,7 @@
 
         <!-- Ruang Lingkup -->
         <section>
-            <h3 class="text-xl font-semibold mb-2 text-cyan-300">Ruang Lingkup</h3>
+            <h3 class="text-xl font-semibold mb-2 text-secondary-second">Ruang Lingkup</h3>
             <ul class="list-disc list-inside text-gray-300 space-y-1">
                 <li>Pembuatan aplikasi berbasis web dengan fitur utama seperti pencarian event dan pembuatan event.</li>
                 <li>Fitur khusus bagi penyelenggara untuk menambahkan, mengedit, dan menghapus event, serta melihat data statistik pengunjung.</li>

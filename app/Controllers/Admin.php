@@ -28,6 +28,23 @@ class Admin extends BaseController
 
         return view('admin/dashboard', $data);
     }
+
+    public function search () {
+        $keyword = $this->request->getVar('keyword');
+        $query = $this->eventModel; // untuk filter kategori
+        
+        if ($keyword) {
+            $query = $query->search($keyword);
+        }
+        
+        $data = [
+            'title' => 'Dashboard Admin',
+            'event' => $this->eventModel->getEvent(),
+            ...$this->getAdminSession(), // spread array
+        ];
+
+        return view('admin/dashboard', $data);
+    }
     
     public function info ()
     {

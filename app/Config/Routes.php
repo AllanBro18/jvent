@@ -30,6 +30,7 @@ $routes->get('logout', 'Auth::logout');
 
 // $routes->get('/admin', 'Admin::index');
 $routes->get('/dashboard', 'Admin::dashboard', ['filter' => 'authGuard']);
+$routes->post('/dashboard', 'Admin::search', ['filter' => 'authGuard']);
 $routes->get('/dashboard/info', 'Admin::info', ['filter' => 'authGuard']);
 $routes->get('/dashboard/pengaturan', 'Admin::pengaturan', ['filter' => 'authGuard']);
 
@@ -42,4 +43,4 @@ $routes->get('alert/success', 'Alert::success'); // Contoh alert sukses
 $routes->get('alert/error', 'Alert::error');     // Contoh alert error
 
 // detail
-$routes->get('/event/(:any)', 'EventController::detail/$1', ['filter' => 'authGuard']);
+$routes->get('/event/(:any)', 'EventController::detail/$1');
