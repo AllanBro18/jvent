@@ -39,7 +39,7 @@
                         <?php endif; ?>
                         <div class="flex items-center border-t pt-3 border-secondary-main">
                             <img class="w-10 h-10 rounded-full shadow mr-3" src="/assets/images/hero.jpg" alt="Organizer" />
-                            <p class="text-sm text-gray-700 dark:text-gray-400">Imagi</p>
+                            <p class="text-sm text-gray-700 dark:text-gray-400"><?= $e['organizer'] ?></p>
                         </div>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                         <p class="mb-3 text-lg font-bold text-gray-900 dark:text-white">🏷️Rp<?= esc(number_format($e['harga_tiket'], 0, ',', '.')) ?></p>
                         <div class="flex items-center border-t pt-3 border-secondary-main">
                             <img class="w-10 h-10 rounded-full shadow mr-3" src="/assets/images/hero.jpg" alt="Organizer" />
-                            <p class="text-sm text-gray-700 dark:text-gray-400">Imagi</p>
+                            <p class="text-sm text-gray-700 dark:text-gray-400"><?= $e['organizer'] ?></p>
                         </div>
                     </div>
                 </div>

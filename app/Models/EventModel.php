@@ -8,7 +8,8 @@ class EventModel extends Model {
     protected $primaryKey = 'id_event';
     protected $allowedFields = [
         'judul_event', 
-        'gambar_event', 
+        'gambar_event',
+        'organizer', 
         'slug',
         'tanggal_event', 
         'lokasi_event', 

@@ -25,7 +25,21 @@
                 </div>
             <?php endif; ?>
         </div>
-
+        <!-- Organizer Event -->
+        <div>
+            <label for="organizer" class="block mb-2 text-white text-sm font-medium">Organizer</label>
+            <input 
+                type="text" 
+                id="organizer" 
+                name="organizer" 
+                value="<?= old('organizer'); ?>"
+                class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
+            >
+            <?php if (session('validation') && session('validation')->hasError('organizer')) : ?>
+                <p class="mt-1 text-sm text-red-500">
+                <?= session('validation')->getError('organizer'); ?>
+                </p>
+            <?php endif; ?>
         <!-- Gambar Event -->
         <div>
             <label for="gambar_event" class="block mb-2 text-white text-sm font-medium">Gambar Event</label>

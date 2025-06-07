@@ -12,6 +12,7 @@ class EventSeeder extends Seeder
             [
                 'id_admin' => 2, // pastikan id_admin 1 sudah ada di tabel admin
                 'judul_event' => 'J-Culture Festival 2025',
+                'organizer' => 'J-Culture Indonesia',
                 'slug' => url_title('J-Culture Festival 2025', '-', true),
                 'tanggal_event' => '2025-07-15',
                 'lokasi_event' => 'Banjarmasin Convention Center',
@@ -26,6 +27,7 @@ class EventSeeder extends Seeder
             [
                 'id_admin' => 2,
                 'judul_event' => 'Otaku Night 2025',
+                'organizer' => 'Otaku Community Banjarmasin',
                 'slug' => url_title('Otaku Night 2025', '-', true),
                 'tanggal_event' => '2025-08-20',
                 'lokasi_event' => 'Lapangan Murjani',

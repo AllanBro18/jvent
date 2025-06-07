@@ -45,7 +45,7 @@
                 <p class="text-xs mt-1 text-gray-400">Diselenggarakan oleh</p>
                 <div class="flex gap-2 mt-1 items-center">
                 <img src="<?= base_url('/uploads/images/' . $event['gambar_event']) ?>" alt="" class="h-5">
-                <span class="text-sm font-bold">SHIKIFEST</span>
+                <span class="text-sm font-bold"><?= $event['organizer'] ?></span>
                 </div>
             </div>
 

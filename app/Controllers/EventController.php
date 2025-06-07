@@ -147,7 +147,7 @@ class EventController extends BaseController
         if (!$this->validate($rules)) { 
             // pesan kesalahan disimpan 
             $validation = \Config\Services::validation();
-            dd($validation->getErrors());
+            // dd($validation->getErrors());
             
             // input pengguna dan validasi yang didapat akan dikembalikan menjadi pesan
             return redirect()->back()->withInput()->with('validation', $validation);
@@ -179,6 +179,7 @@ class EventController extends BaseController
         $this->eventModel->save([
             'judul_event' => $this->request->getVar('judul_event'),
             'gambar_event' => $namaGambar,
+            'organizer' => $this->request->getVar('organizer'),
             'slug' => $slug,
             'tanggal_event' => $this->request->getVar('tanggal_event'),
             'lokasi_event' => $this->request->getVar('lokasi_event'),

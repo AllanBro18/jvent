@@ -21,6 +21,11 @@ class Event extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => 150,
             ],
+            'organizer' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+                'null' => true
+            ],
             'slug' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 150,

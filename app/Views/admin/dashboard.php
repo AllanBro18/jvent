@@ -68,7 +68,7 @@
                             <div class="flex justify-between border-t pt-3 border-secondary-main">
                                 <div class="flex items-center ">
                                     <img class="w-10 h-10 rounded-full shadow mr-3" src="/assets/images/hero.jpg" alt="Organizer" />
-                                    <p class="text-sm text-gray-700 dark:text-gray-400">Imagi</p>
+                                    <p class="text-sm text-gray-700 dark:text-gray-400"><?= $e['organizer'] ?></p>
                                 </div>
                                 <div class="flex items-end">
                                     <a href="<?= base_url('/event/edit/' . $e['slug']) ?>" class="mx-1 bg-gradient-to-r from-tertiary-hard to-blue-600 hover:opacity-90 text-white px-3 py-1 rounded hover:bg-purple-700 transition">Edit</a>
