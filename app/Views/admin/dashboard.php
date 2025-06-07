@@ -2,7 +2,7 @@
 
 <?= $this->section('content'); ?>
     <div class="flex-1 flex-col md:flex-row">
-        <!-- Main Content -->
+        <!-- Main Con6tent -->
         <main class="flex-1 p-5 sm:p-8">
             <!-- Header -->
             <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
@@ -32,11 +32,13 @@
                 
                 <div>
                     <label class="mr-2 text-sm text-gray-300">Urutkan:</label>
-                    <select class="bg-secondary-main text-white py-2 px-4 rounded text-sm">
-                        <option>Waktu Mulai (Terdekat)</option>
-                        <option>Nama Event (A-Z)</option>
-                        <option>Terbaru</option>
-                    </select>
+                    <form action="" method="post">
+                        <select name="sort" onchange="this.form.submit()" class="bg-secondary-main text-white py-2 px-4 rounded text-sm">
+                            <option>Waktu Mulai (Terdekat)</option>
+                            <option value="asc">Nama Event (A-Z)</option>
+                            <option value="">Terbaru</option>
+                        </select>
+                    </form>
                 </div>
             </div>
 
@@ -88,7 +90,7 @@
 
             <!-- Footer Text -->
             <div class="mt-10 text-center space-y-3">
-                <button class="bg-gradient-to-r from-tertiary-soft to-violet-600 hover:opacity-90 px-6 py-3 rounded font-semibold">Buat Event</button>
+                <a href="/event/create" class="bg-gradient-to-r from-tertiary-soft to-violet-600 hover:opacity-90 px-6 py-3 rounded font-semibold">Buat Event</a>
                 <p class="text-lg font-semibold">Hai, terima kasih telah menggunakan Jvent</p>
                 <p class="text-sm text-gray-400">Silahkan Buat Event Mu dengan klik Button Diatas!</p>
             </div>

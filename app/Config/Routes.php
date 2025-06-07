@@ -30,6 +30,7 @@ $routes->get('logout', 'Auth::logout');
 
 // $routes->get('/admin', 'Admin::index');
 $routes->get('/dashboard', 'Admin::dashboard', ['filter' => 'authGuard']);
+$routes->post('/dashboard', 'Admin::filter', ['filter' => 'authGuard']);
 $routes->post('/dashboard', 'Admin::search', ['filter' => 'authGuard']);
 $routes->get('/dashboard/info', 'Admin::info', ['filter' => 'authGuard']);
 $routes->get('/dashboard/pengaturan', 'Admin::pengaturan', ['filter' => 'authGuard']);

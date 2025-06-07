@@ -29,17 +29,6 @@ class EventModel extends Model {
         }
         return $this->where(['slug' => $slug])->first();
     }
-
-    public function search ($keyword) {
-        return $this->table('event')
-            ->like('judul_event', $keyword)
-            ->orLike('lokasi_event', $keyword)
-            ->orLike('deskripsi_event', $keyword);
-    }
-
-    public function filterByKategori ($kategori) {
-        return $this->where('kategori_tiket', $kategori)->findAll();
-    }
 }
 
 ?>

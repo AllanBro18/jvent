@@ -16,7 +16,7 @@
 
         <!-- Judul Event -->
         <div class="md:col-span-2">
-            <label for="judul_event" class="block mb-2 text-white text-sm font-medium">Nama Event</label>
+            <label for="judul_event" class="block mb-2 text-white text-sm font-medium">Judul Event</label>
             <input 
                 type="text" 
                 id="judul_event" 
@@ -32,6 +32,23 @@
             <?php endif; ?>
         </div>
 
+        <!-- Organizer Event -->
+        <div class="md:col-span-2">
+            <label for="organizer" class="block mb-2 text-white text-sm font-medium">Organizer</label>
+            <input 
+                type="text" 
+                id="organizer" 
+                name="organizer" 
+                value="<?= (old('organizer') ? old('organizer') : $event['organizer']) ?>"
+                class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
+            >
+            <?php if (session('validation') && session('validation')->hasError('organizer')) : ?>
+                <p class="mt-1 text-sm text-red-500">
+                <?= session('validation')->getError('organizer'); ?>
+                </p>
+            <?php endif; ?>
+        </div>
+
         <!-- Gambar Event -->
         <div class="md:col-span-2">
             <label for="gambar_event" class="block mb-2 text-white text-sm font-medium">Gambar Event Sebelumnya</label>
@@ -41,7 +58,6 @@
                     <img src="/uploads/images/<?= $event['gambar_event'] ?>" alt="Gambar Event Lama" class="h-32 object-cover rounded-md">
                 </div>
             <?php endif; ?>
-
             <label for="" class="block mb-2 text-white text-sm font-medium">
                 Upload gambar baru
             </label>
@@ -60,7 +76,7 @@
         <input type="hidden" name="gambar_lama" value="<?= $event['gambar_event']; ?>">
 
         <!-- Tanggal Event -->
-        <div>
+        <div class="md:col-span-2">
             <label for="tanggal_event" class="block mb-2 text-white text-sm font-medium">Tanggal Event</label>
             <input 
                 type="date" 

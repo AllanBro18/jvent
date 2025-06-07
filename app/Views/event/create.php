@@ -9,8 +9,8 @@
         <?= csrf_field() ?>
 
         <!-- Judul Event -->
-        <div>
-            <label for="judul_event" class="block mb-2 text-white text-sm font-medium">Nama Event</label>
+        <div class="md:col-span-2">
+            <label for="judul_event" class="block mb-2 text-white text-sm font-medium">Judul Event</label>
             <input 
                 type="text" 
                 id="judul_event" 
@@ -19,12 +19,13 @@
                 value="<?= old('judul_event'); ?>"
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
             >
-            <?php if (isset($validation)) : ?>
-                <div class="text-danger">
-                    <?= $validation->getError('judul_event'); ?>
-                </div>
+            <?php if (session('validation') && session('validation')->hasError('judul_event')) : ?>
+                <p class="mt-1 text-sm text-red-500">
+                <?= session('validation')->getError('judul_event'); ?>
+                </p>
             <?php endif; ?>
         </div>
+
         <!-- Organizer Event -->
         <div>
             <label for="organizer" class="block mb-2 text-white text-sm font-medium">Organizer</label>
@@ -40,6 +41,8 @@
                 <?= session('validation')->getError('organizer'); ?>
                 </p>
             <?php endif; ?>
+        </div>
+
         <!-- Gambar Event -->
         <div>
             <label for="gambar_event" class="block mb-2 text-white text-sm font-medium">Gambar Event</label>
@@ -57,7 +60,7 @@
         </div>
 
         <!-- Tanggal Event -->
-        <div>
+        <div class="">
             <label for="tanggal_event" class="block mb-2 text-white text-sm font-medium">Tanggal Event</label>
             <input 
                 type="date" 
@@ -74,7 +77,7 @@
         </div>
 
         <!-- Lokasi Event -->
-        <div class="md:col-span-2">
+        <div class="">
             <label for="lokasi_event" class="block mb-2 text-white text-sm font-medium">Lokasi Event</label>
             <input 
                 type="text" 

@@ -31,9 +31,11 @@ class EventController extends BaseController
     {
         $keyword = $this->request->getVar('keyword');
         $query = $this->eventModel; // untuk filter kategori
+        $sort = $lokasi;
+        $lokasi = null;
         
         if ($keyword) {
-            $query = $query->search($keyword);
+            $query = $query->like('judul_event', $keyword);
         }   
         
         if ($kategori_tiket && $kategori_tiket != 'all') {
@@ -42,6 +44,11 @@ class EventController extends BaseController
 
         if ($lokasi && $lokasi != 'all') {
             $query = $query->like('lokasi_event', $lokasi);
+        }
+
+        // urut berdasarkan tgl event
+        if ($sort && $sort == 'terbaru') {
+            $query = $query->orderBy('tanggal_event', 'DESC');
         }
         
         $data = [
@@ -77,6 +84,12 @@ class EventController extends BaseController
                 'errors' => [
                     'required' => 'Judul event harus diisi',
                     'is_unique' => 'Event sudah terdaftar',
+                ]
+            ],
+            'organizer' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Nama penyelenggara harus diisi'
                 ]
             ],
             'gambar_event' => [ // validasi gambar
@@ -147,10 +160,10 @@ class EventController extends BaseController
         if (!$this->validate($rules)) { 
             // pesan kesalahan disimpan 
             $validation = \Config\Services::validation();
-            // dd($validation->getErrors());
+            dd($validation->getErrors());
             
             // input pengguna dan validasi yang didapat akan dikembalikan menjadi pesan
-            return redirect()->back()->withInput()->with('validation', $validation);
+            return redirect()->to('event/save')->withInput()->with('validation', $validation);
         }
         
         $session = session();
@@ -243,6 +256,12 @@ class EventController extends BaseController
                 'errors' => [
                     'required' => 'Judul event harus diisi',
                     'is_unique' => 'Event sudah terdaftar',
+                ]
+            ],
+            'organizer' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Nama penyelenggara harus diisi'
                 ]
             ],
             'gambar_event' => [
@@ -354,6 +373,7 @@ class EventController extends BaseController
             'judul_event' => $this->request->getVar('judul_event'),
             'gambar_event' => $namaGambar,
             'slug' => $slug,
+            'organizer' => $this->request->getVar('organizer'),
             'tanggal_event' => $this->request->getVar('tanggal_event'),
             'lokasi_event' => $this->request->getVar('lokasi_event'),
             'harga_tiket' => $harga_tiket,

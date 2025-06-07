@@ -29,6 +29,19 @@ class Admin extends BaseController
         return view('admin/dashboard', $data);
     }
 
+    public function filter () {
+        $sort = $this->request->getVar('sort') ?? 'asc';
+        $query = $this->eventModel;
+
+        $data = [
+            'title' => 'Dashboard Admin',
+            'event' => $query->orderBy('judul_event', strtoupper($sort))->findAll(),
+            ...$this->getAdminSession(), // spread array
+        ];
+
+        return view('admin/dashboard', $data);
+    } 
+
     public function search () {
         $keyword = $this->request->getVar('keyword');
         $query = $this->eventModel; // untuk filter kategori
