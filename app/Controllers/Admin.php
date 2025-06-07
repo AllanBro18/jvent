@@ -33,6 +33,10 @@ class Admin extends BaseController
         $sort = $this->request->getVar('sort') ?? 'asc';
         $query = $this->eventModel;
 
+        if ($sort == 'terbaru') {
+            $query = $query->orderBy('tanggal_event', 'DESC');
+        }
+
         $data = [
             'title' => 'Dashboard Admin',
             'event' => $query->orderBy('judul_event', strtoupper($sort))->findAll(),

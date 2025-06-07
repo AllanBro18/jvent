@@ -36,7 +36,7 @@
                         <select name="sort" onchange="this.form.submit()" class="bg-secondary-main text-white py-2 px-4 rounded text-sm">
                             <option>Waktu Mulai (Terdekat)</option>
                             <option value="asc">Nama Event (A-Z)</option>
-                            <option value="">Terbaru</option>
+                            <option value="terbaru">Terbaru</option>
                         </select>
                     </form>
                 </div>
