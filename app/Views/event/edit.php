@@ -25,10 +25,10 @@
                 value="<?= (old('judul_event') ? old('judul_event') : $event['judul_event']) ?>"
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
             >
-            <?php if (isset($validation)) : ?>
-                <div class="text-danger">
-                    <?= $validation->getError('judul_event'); ?>
-                </div>
+            <?php if (session('validation') && session('validation')->hasError('judul_event')) : ?>
+                <p class="mt-1 text-sm text-red-500">
+                    <?= session('validation')->getError('judul_event'); ?>
+                </p>
             <?php endif; ?>
         </div>
 

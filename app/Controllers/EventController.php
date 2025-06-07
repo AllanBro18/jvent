@@ -312,10 +312,9 @@ class EventController extends BaseController
         if (!$this->validate($rules)) { // jika tidak valid
             // pesan kesalahan
             $validation = \Config\Services::validation();
-            dd($validation->getErrors());
 
             // input pengguna dan validasi yang didapat akan dikembalikan menjadi pesan
-            return redirect()->to('/event/edit' . $this->request->getVar('slug'))->withInput()->with('validation', $validation);
+            return redirect()->to('/event/edit/' . $this->request->getVar('slug'))->withInput()->with('validation', $validation);
         }
 
         $session = session();

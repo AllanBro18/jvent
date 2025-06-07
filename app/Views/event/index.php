@@ -75,7 +75,7 @@
         <?php endforeach; ?>
     </div>
 
-    <div class="mt-10 mx-auto">
+    <div class="mt-10 mb-10 mx-auto">
         <div class="flex items-center justify-center">
         <div class="grid text-center">
             <div class="w-72 text-white">
