@@ -41,6 +41,15 @@
                 </svg>
                 <span>Jelajah</span>
             </a>
+            <?php
+            $session = session();
+            if ($session->has('logged_in')) : ?>
+                    <a href="/dashboard"
+                    class="flex items-center space-x-1 text-sm text-white font-medium transition-all duration-300 px-3 py-2 rounded-lg hover:scale-105 hover:shadow-lg hover:backdrop-blur-sm bg-white/5 hover:bg-white/10">
+                    <?= session('username_admin') ?></a>
+            <?php else : ?>
+                <a href="/login">Login</a>
+            <?php endif; ?>
         </nav>
 
         <!-- Hamburger -->
