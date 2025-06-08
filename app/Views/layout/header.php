@@ -52,14 +52,6 @@
                     </svg>
                     <span><?= session('username_admin') ?></span>
                 </a>
-            <?php else : ?>
-                <a href="/login" class="flex items-center space-x-1 text-sm text-white font-medium transition-all duration-300 px-3 py-2 rounded-lg hover:scale-105 hover:shadow-lg hover:backdrop-blur-sm bg-white/5 hover:bg-white/10">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-secondary-second" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M15 12H3m0 0l4-4m-4 4l4 4m13-8v8a2 2 0 01-2 2H9" />
-                    </svg>
-                    <span>Sign In</span>
-                </a>
             <?php endif; ?>
         </nav>
 
