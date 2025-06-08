@@ -17,10 +17,10 @@
     </div>
     <div class="mt-5">
         <div class="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <?php if (count($event) == 0) :  ?>
+            <?php if (count($events) == 0) :  ?>
                 <p>Data event masih kosong</p>    
             <?php endif; ?>
-            <?php foreach ($event as $e) : ?>
+            <?php foreach ($events as $e) : ?>
                 <!-- Card Template (ulangi sesuai kebutuhan) -->
                 <div class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
                     <a href="/event/<?= esc($e['slug']) ?>" target="_blank">
@@ -38,7 +38,7 @@
                             <p class="mb-3 text-lg font-bold text-gray-900 dark:text-white">🏷️Rp<?= esc(number_format($e['harga_tiket'], 0, ',', '.')) ?></p>
                         <?php endif; ?>
                         <div class="flex items-center border-t pt-3 border-secondary-main">
-                            <img class="w-10 h-10 rounded-full shadow mr-3" src="/assets/images/hero.jpg" alt="Organizer" />
+                            <img class="w-10 h-10 rounded-full shadow mr-3" src="/uploads/images/<?= $e['gambar_event'] ?>" alt="Organizer" />
                             <p class="text-sm text-gray-700 dark:text-gray-400"><?= $e['organizer'] ?></p>
                         </div>
                     </div>
@@ -48,11 +48,11 @@
     </div>
 
     <div class="sm:hidden flex overflow-x-auto space-x-4 px-2 snap-x snap-mandatory">
-        <?php if (count($event) == 0) :  ?>
+        <?php if (count($events) == 0) :  ?>
             <p>Data event masih kosong</p>    
         <?php endif; ?>
         
-        <?php foreach ($event as $e) : ?>
+        <?php foreach ($events as $e) : ?>
             <div class="min-w-[16rem] snap-center shrink-0">
                 <div class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
                     <a href="/event/<?= esc($e['slug']) ?>" target="_blank">

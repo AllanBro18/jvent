@@ -34,7 +34,7 @@
                     <label class="mr-2 text-sm text-gray-300">Urutkan:</label>
                     <form action="" method="post">
                         <select name="sort" onchange="this.form.submit()" class="bg-secondary-main text-white py-2 px-4 rounded text-sm">
-                            <option>Waktu Mulai (Terdekat)</option>
+                            <option>Berdasarkan</option>
                             <option value="asc">Nama Event (A-Z)</option>
                             <option value="terbaru">Terbaru</option>
                         </select>
@@ -51,7 +51,7 @@
             <!-- Event Cards -->
             <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 
-                <?php foreach ($event as $e): ?>
+                <?php foreach ($events as $e): ?>
                     <div class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
                         <a href="/event/<?= $e['slug'] ?>" target="_blank">
                             <img class="w-full h-48 object-cover" src="/uploads/images/<?= $e['gambar_event'] ?>" alt="Event Image" />
@@ -69,7 +69,7 @@
                             <?php endif; ?>
                             <div class="flex justify-between border-t pt-3 border-secondary-main">
                                 <div class="flex items-center ">
-                                    <img class="w-10 h-10 rounded-full shadow mr-3" src="/assets/images/hero.jpg" alt="Organizer" />
+                                    <img class="w-10 h-10 rounded-full shadow mr-3" src="/uploads/images/<?= $e['gambar_event'] ?>" alt="Organizer" />
                                     <p class="text-sm text-gray-700 dark:text-gray-400"><?= $e['organizer'] ?></p>
                                 </div>
                                 <div class="flex items-end">

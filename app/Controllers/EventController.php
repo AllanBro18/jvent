@@ -18,7 +18,7 @@ class EventController extends BaseController
     public function index()
     {
         $data = [
-            'event' => $this->eventModel->getEvent(),
+            'events' => $this->eventModel->getEvent(),
         ];
 
         return 
@@ -35,7 +35,9 @@ class EventController extends BaseController
         $lokasi = null;
         
         if ($keyword) {
-            $query = $query->like('judul_event', $keyword);
+            $query = $query->like('judul_event', $keyword)
+                        ->orLike('lokasi_event', $keyword)
+                        ->orLike('organizer', $keyword);
         }   
         
         if ($kategori_tiket && $kategori_tiket != 'all') {
@@ -160,7 +162,6 @@ class EventController extends BaseController
         if (!$this->validate($rules)) { 
             // pesan kesalahan disimpan 
             $validation = \Config\Services::validation();
-            dd($validation->getErrors());
             
             // input pengguna dan validasi yang didapat akan dikembalikan menjadi pesan
             return redirect()->to('event/save')->withInput()->with('validation', $validation);
@@ -214,15 +215,15 @@ class EventController extends BaseController
 
     public function detail($slug)
     {
-        $event = $this->eventModel->getEvent($slug);
+        $events = $this->eventModel->getEvent($slug);
 
         // cek jika event tidak ada
-        if (empty($event)) {
+        if (empty($events)) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Judul Event ' . $slug . ' tidak ditemukan');
         } 
 
         return view('layout/header', ['title' => $slug])
-        . view('event/detail', ['event' => $event])
+        . view('event/detail', ['events' => $events])
         . view('layout/footer');
     }
 
@@ -237,7 +238,7 @@ class EventController extends BaseController
     public function edit ($slug) {
         $data = [
             'validation' => \Config\Services::validation(),
-            'event' => $this->eventModel->getEvent($slug),
+            'events' => $this->eventModel->getEvent($slug),
         ];
 
         return view('layout/header', ['title' => 'Update Event ' . $slug]) 

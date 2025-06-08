@@ -3,11 +3,11 @@
 
         <!-- Gambar dan Deskripsi -->
         <div class="md:col-span-2">
-            <img src="/uploads/images/<?= $event['gambar_event'] ?>" alt="" class="rounded-xl mb-6 w-full object-cover">
+            <img src="/uploads/images/<?= $events['gambar_event'] ?>" alt="" class="rounded-xl mb-6 w-full object-cover">
 
             <h2 class="text-xl font-bold mb-3">Deskripsi</h2>
             <p class="leading-relaxed text-justify">
-                <?= $event['deskripsi_event'] ?>
+                <?= $events['deskripsi_event'] ?>
             </p>
             <br>
             <p class="leading-relaxed text-justify">
@@ -26,33 +26,33 @@
         <!-- Kartu Event -->
         <aside class="bg-secondary-main rounded-xl p-6 space-y-6 h-fit shadow-md">
             <div>
-                <h3 class="text-2xl font-bold mb-2"><?= $event['judul_event'] ?></h3>
+                <h3 class="text-2xl font-bold mb-2"><?= $events['judul_event'] ?></h3>
                 <div class="text-sm space-y-1">
                 <div class="flex items-center gap-2 text-gray-300">
                     <svg class="w-4 h-4 text-secondary-second" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 7V3M16 7V3M3 11h18M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                    <span class="text-base"><?= $event['tanggal_event'] ?></span>
+                    <span class="text-base"><?= $events['tanggal_event'] ?></span>
                 </div>
                 <div class="flex items-center gap-2 text-gray-300">
                     <svg class="w-4 h-4 text-secondary-second" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 11c1.657 0 3-1.343 3-3S13.657 5 12 5 9 6.343 9 8s1.343 3 3 3z"/><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
-                    <span class="text-base"><?= $event['lokasi_event'] ?></span>
+                    <span class="text-base"><?= $events['lokasi_event'] ?></span>
                 </div>
                 <div class="flex items-center  gap-2 text-gray-300">
                     <svg class="w-4 h-4 text-secondary-second" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 2M12 6a9 9 0 100 18 9 9 0 000-18z"/></svg>
                     <span class="text-base">13:00 - 21:00 WITA</span>
                 </div>
                 </div>
-                <p class="mt-4 text-sm font-semibold"><?= $event['kategori_tiket'] ?></p>
+                <p class="mt-4 text-sm font-semibold"><?= $events['kategori_tiket'] ?></p>
                 <p class="text-xs mt-1 text-gray-400">Diselenggarakan oleh</p>
                 <div class="flex gap-2 mt-1 items-center">
-                <img src="<?= base_url('/uploads/images/' . $event['gambar_event']) ?>" alt="" class="h-5">
-                <span class="text-sm font-bold"><?= $event['organizer'] ?></span>
+                <img src="<?= base_url('/uploads/images/' . $events['gambar_event']) ?>" alt="" class="h-5">
+                <span class="text-sm font-bold"><?= $events['organizer'] ?></span>
                 </div>
             </div>
 
             <!-- Tiket Event -->
             <div class="p-4 rounded-xl">
                 <h4 class="text-base font-semibold mb-2">Tiket Event</h4>
-                <a href="<?= $event['link_tiket'] ?>" target="_blank" class="block text-center bg-gradient-to-r from-tertiary-hard to-violet-600 text-white py-2 rounded-lg font-semibold hover:opacity-90 transition">
+                <a href="<?= $events['link_tiket'] ?>" target="_blank" class="block text-center bg-gradient-to-r from-tertiary-hard to-violet-600 text-white py-2 rounded-lg font-semibold hover:opacity-90 transition">
                     PEMBELIAN TIKET
                 </a>
             </div>
