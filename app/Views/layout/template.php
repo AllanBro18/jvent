@@ -14,6 +14,7 @@
     <!-- PARSIAL -->
     <?php if ($title === 'Dashboard Admin' || $title === 'Dashboard Info' || $title === 'Dashboard Pengaturan') : ?>
         <?= $this->include('layout/sidebar') ?> 
+        <?= $this->include('layout/footer') ?> 
     <?php endif; ?>
     
     <?= $this->renderSection('content'); ?>

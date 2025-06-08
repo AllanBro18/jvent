@@ -16,3 +16,11 @@ function toggleHargaTiket() {
       hargaWrapper.style.display = "none";
   }
 }
+
+window.addEventListener('DOMContentLoaded', () => {
+  const toast = document.getElementById('notFoundToast');
+  if (toast) {
+    toast.classList.remove('hidden');
+    setTimeout(() => toast.classList.add('hidden'), 3000);
+  }
+});

@@ -44,7 +44,9 @@
         <main class="md:w-4/5 w-full p-4 text-white">
             <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 <?php if (count($events) == 0) :  ?>
-                    <p>Data event masih kosong</p>    
+                    <div id="notFoundToast" class="fixed top-5 right-5 bg-red-600 text-white px-4 py-3 rounded shadow-lg hidden z-50">
+                        Event yang Anda cari tidak ada. Coba kata kunci lain.
+                    </div>
                 <?php endif; ?>
                 <?php foreach ($events as $e) : ?>
                     <!-- Card Template (ulangi sesuai kebutuhan) -->
@@ -71,6 +73,7 @@
                     </div>
                 <?php endforeach; ?>
             </div>
+
             <div class="mt-5 flex justify-end">
                 <?= $pager->links('event', 'event_pagination') ?>
             </div>

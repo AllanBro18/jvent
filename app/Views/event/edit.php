@@ -131,7 +131,7 @@
                 type="number" 
                 id="harga_tiket" 
                 name="harga_tiket" 
-                value="<?= old('harga_tiket'); ?>"
+                value="<?= (old('harga_tiket') ? old('harga_tiket') : $events['harga_tiket']) ?>"
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
                 placeholder="Contoh: 25000"
             >
