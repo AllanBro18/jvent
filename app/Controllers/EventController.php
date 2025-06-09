@@ -37,7 +37,8 @@ class EventController extends BaseController
         if ($keyword) {
             $query = $query->like('judul_event', $keyword)
                         ->orLike('lokasi_event', $keyword)
-                        ->orLike('organizer', $keyword);
+                        ->orLike('organizer', $keyword)
+                        ->orLike('kategori_tiket', $keyword);
         }   
         
         if ($kategori_tiket && $kategori_tiket != 'all') {
@@ -164,7 +165,7 @@ class EventController extends BaseController
             $validation = \Config\Services::validation();
             
             // input pengguna dan validasi yang didapat akan dikembalikan menjadi pesan
-            return redirect()->to('event/save')->withInput()->with('validation', $validation);
+            return redirect()->back()->withInput()->with('validation', $validation);
         }
         
         $session = session();

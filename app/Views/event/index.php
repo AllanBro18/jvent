@@ -33,7 +33,7 @@
                         <p class="mb-1 text-sm text-gray-700 dark:text-gray-400">📍<?= esc($e['tanggal_event']) ?></p>
                         <p class="mb-1 text-sm text-gray-700 dark:text-gray-400">📅<?= esc($e['lokasi_event']) ?></p>
                         <?php if ($e['harga_tiket'] == 0): ?>
-                            <p class="mb-3 text-lg font-bold text-gray-900 dark:text-white">🏷️Gratis</p>
+                            <p class="mb-3 text-lg font-bold text-green-400">🏷️Gratis</p>
                         <?php else: ?>
                             <p class="mb-3 text-lg font-bold text-gray-900 dark:text-white">🏷️Rp<?= esc(number_format($e['harga_tiket'], 0, ',', '.')) ?></p>
                         <?php endif; ?>

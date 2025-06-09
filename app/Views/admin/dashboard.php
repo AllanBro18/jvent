@@ -6,7 +6,17 @@
         <main class="flex-1 p-5 sm:p-8">
             <!-- Header -->
             <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-                <h2 class="text-xl sm:text-2xl font-semibold">Event Saya</h2>
+                <div class="text-center space-y-4">
+                    <!-- Logo Mobile -->
+                    <div class="md:hidden text-3xl font-bold text-secondary-second text-center md:text-left tracking-tight hover:scale-105 transition-transform duration-200">
+                        <a href="/" class="hover:text-white">Jvent</a>
+                    </div>
+                    <h2 class="text-xl sm:text-2xl font-semibold">Event Saya</h2>
+                    <div class="md:hidden">
+                        <a href="/dashboard/info" class="border border-t-2 px-2 rounded py-2 text-gray-300 hover:text-white">Informasi Dasar</a>
+                        <a href="/dashboard/pengaturan" class="border border-t-2 px-2 rounded py-2 text-gray-300 hover:text-white">Pengaturan</a>
+                    </div>
+                </div>
                 <div class="flex items-center space-x-4">
                     <div class="bg-gray-700 px-4 py-2 rounded"><?= esc($username_admin) ?></div>
                     <a href="/event/create" class="bg-gradient-to-r from-tertiary-soft to-violet-600 hover:opacity-90 text-white px-4 py-2 rounded hover:bg-purple-700 transition">Buat Event</a>

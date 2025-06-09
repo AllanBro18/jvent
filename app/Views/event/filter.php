@@ -44,10 +44,11 @@
         <main class="md:w-4/5 w-full p-4 text-white">
             <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 <?php if (count($events) == 0) :  ?>
-                    <p>Data event masih kosong</p>    
+                    <div id="notFoundToast" class="fixed top-5 right-5 bg-red-600 text-white px-4 py-3 rounded shadow-lg hidden z-50">
+                        Event yang Anda cari tidak ada. Coba kata kunci lain.
+                    </div>
                 <?php endif; ?>
                 <?php foreach ($events as $e) : ?>
-                    <!-- Card Template (ulangi sesuai kebutuhan) -->
                     <div class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
                         <a href="/event/<?= esc($e['slug']) ?>" target="_blank">
                             <img class="w-full h-48 object-cover" src="/uploads/images/<?= $e['gambar_event'] ?>" alt="Event Image" />
@@ -56,12 +57,12 @@
                             <a href="/event/<?= esc($e['slug']) ?>" target="_blank">
                                 <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white"> <?= esc($e['judul_event']) ?> </h5>
                             </a>
-                            <p class="mb-1 text-sm text-gray-700 dark:text-gray-400">📍<?= esc($e['tanggal_event']) ?></p>
-                            <p class="mb-1 text-sm text-gray-700 dark:text-gray-400">📅<?= esc($e['lokasi_event']) ?></p>
+                            <p class="mb-1 text-sm text-gray-700 dark:text-gray-400"><?= esc($e['tanggal_event']) ?></p>
+                            <p class="mb-1 text-sm text-gray-700 dark:text-gray-400"><?= esc($e['lokasi_event']) ?></p>
                             <?php if ($e['harga_tiket'] == 0): ?>
-                                <p class="mb-3 text-lg font-bold text-green-400">🏷️Gratis</p>
+                                <p class="mb-3 text-lg font-bold text-green-400">Gratis</p>
                             <?php else: ?>
-                                <p class="mb-3 text-lg font-bold text-gray-900 dark:text-white">🏷️Rp<?= esc(number_format($e['harga_tiket'], 0, ',', '.')) ?></p>
+                                <p class="mb-3 text-lg font-bold text-gray-900 dark:text-white">Rp<?= esc(number_format($e['harga_tiket'], 0, ',', '.')) ?></p>
                             <?php endif; ?>
                             <div class="flex items-center border-t pt-3 border-secondary-main">
                                 <img class="w-10 h-10 rounded-full shadow mr-3" src="/uploads/images/<?= $e['gambar_event'] ?>" alt="Organizer" />
@@ -71,6 +72,7 @@
                     </div>
                 <?php endforeach; ?>
             </div>
+
             <div class="mt-5 flex justify-end">
                 <?= $pager->links('event', 'event_pagination') ?>
             </div>

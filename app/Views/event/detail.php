@@ -5,21 +5,21 @@
         <div class="md:col-span-2">
             <img src="/uploads/images/<?= $events['gambar_event'] ?>" alt="" class="rounded-xl mb-6 w-full object-cover">
 
-            <h2 class="text-xl font-bold mb-3">Deskripsi</h2>
+            <h2 class="text-xl font-bold mb-3">Deskripsi Event</h2>
             <p class="leading-relaxed text-justify">
                 <?= $events['deskripsi_event'] ?>
             </p>
             <br>
             <p class="leading-relaxed text-justify">
-                Haru no Sakuragi adalah sebuah acara Kebudayaan Jepang yang akan digelar di Banjarmasin, Kalimantan Selatan pada 6 April 2025. Acara ini dirancang untuk menyambut musim semi dengan berbagai kegiatan yang mengangkat keindahan dan tradisi Budaya Jepang, termasuk mekarnya bunga sakura sebagai simbol harapan dan awal yang baru.
+                <?= $events['booth_list'] ?>
             </p>
             <br>
             <p class="leading-relaxed text-justify">
-                Acara ini juga akan dimeriahkan dengan pertunjukan seni tradisional, seperti tarian khas Jepang, Performance dari berbagai Bintang Tamu, Kompetisi, hingga Cosplay yang akan menghadirkan karakter anime/manga/game/film favoritmu.
+                <?= $events['guest_star'] ?>
             </p>
             <br>
             <p class="leading-relaxed text-justify">
-                Haru no Sakuragi menjadi kesempatan bagi kamu untuk menikmati suasana musim semi ala Jepang tanpa harus pergi jauh. Jangan lewatkan pengalaman penuh warna ini, yang akan membawa kehangatan dan keceriaan di musim semi!
+                <?= $events['sponsor'] ?>
             </p>
         </div>
 
@@ -40,12 +40,15 @@
                     <svg class="w-4 h-4 text-secondary-second" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 2M12 6a9 9 0 100 18 9 9 0 000-18z"/></svg>
                     <span class="text-base">13:00 - 21:00 WITA</span>
                 </div>
-                </div>
-                <p class="mt-4 text-sm font-semibold"><?= $events['kategori_tiket'] ?></p>
+                <?php if ($events['harga_tiket'] == 0): ?>
+                    <p class="mt-4 text-sm font-semibold text-green-400">🏷️Gratis</p>
+                <?php else: ?>
+                    <p class="mt-4 text-sm font-semibold text-gray-900 dark:text-white">🏷️Rp<?= esc(number_format($events['harga_tiket'], 0, ',', '.')) ?></p>
+                <?php endif; ?>
                 <p class="text-xs mt-1 text-gray-400">Diselenggarakan oleh</p>
                 <div class="flex gap-2 mt-1 items-center">
-                <img src="<?= base_url('/uploads/images/' . $events['gambar_event']) ?>" alt="" class="h-5">
-                <span class="text-sm font-bold"><?= $events['organizer'] ?></span>
+                    <img src="<?= base_url('/uploads/images/' . $events['gambar_event']) ?>" alt="" class="h-5">
+                    <span class="text-sm font-bold"><?= $events['organizer'] ?></span>
                 </div>
             </div>
 

@@ -39,6 +39,7 @@ class Admin extends BaseController
                         ->like('judul_event', $keyword)
                         ->orLike('lokasi_event', $keyword)
                         ->orLike('organizer', $keyword)
+                        ->orLike('kategori_tiket', $keyword)
                         ->groupEnd();
         }
 
