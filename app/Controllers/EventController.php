@@ -200,7 +200,7 @@ class EventController extends BaseController
     {
         $data = [
             'events' => $this->eventModel->getEvent($slug),
-            'booth' => $this->boothModel->first(),
+            'booths' => $this->boothModel->findAll(),
         ];
 
         // cek jika event tidak ada

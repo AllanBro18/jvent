@@ -17,10 +17,30 @@ class BoothController extends BaseController
     }
 
     // Detail booth tertentu
+    public function detailByIdEvent ($id)
+    {
+        $booths = $this->boothModel
+            ->getBoothsByEvent($id);
+
+        // dd($this->boothModel->getBoothsByEvent($id));
+
+        if (!$booths) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("Booth tidak ditemukan.");
+        }
+
+        return view('layout/header', ['title' => 'Detail Booth'])
+            . view('booth/detailByIdEvent', [
+                // Ambil booth berdasarkan id_booth tertentu
+                'booths' => $booths,
+                ...$this->getAdminSession(), // spread array
+            ])
+            . view('layout/footer');
+    }
+
     public function detail($id)
     {
         $booth = $this->boothModel
-            ->getBoothsByEvent($id);
+            ->getBoothById($id);
 
         // dd($booth);
         // dd($this->boothModel->getBoothsByEvent($id));
@@ -154,7 +174,19 @@ class BoothController extends BaseController
 
     public function editBooth($id)
     {
-        $booth = $this->boothModel->getBoothsByEvent($id);
+        $booth = $this->boothModel->getBoothById($id);
+       
+        if (!$booth) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Booth tidak ditemukan');
+        }
+        // Cek apakah id_booth valid
+        if (!is_numeric($id) || $id <= 0) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('ID Booth tidak valid');
+        }
+        // Jika tidak ditemukan, lempar exception
+        if (!$booth) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Booth tidak ditemukan');
+        }
         // Cek apakah admin sudah login
         if (!session()->has('username_admin')) {
             return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
@@ -169,11 +201,7 @@ class BoothController extends BaseController
         return view('layout/header', ['title' => 'Edit Booth'])
             . view('booth/edit', [
                 'validation' => $validation,
-                'booth' => is_array($booth)
-                    ? array_filter($booth, function($item) use ($id) {
-                        return isset($item['id_booth']) && $item['id_booth'] == $id;
-                    })
-                    : $booth,
+                'booth' => $booth,
                 'events' => $this->eventModel->find(),
                 ...$this->getAdminSession(), // spread array
             ])

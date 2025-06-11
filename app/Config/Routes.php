@@ -55,5 +55,6 @@ $routes->post('register', 'Auth::register');
 // $routes->get('alert/error', 'Alert::error');     // Contoh alert error
 
 // detail
-$routes->get('/booth/(:segment)', 'BoothController::detail/$1');
+$routes->get('/booths/(:num)', 'BoothController::detailByIdEvent/$1');
+$routes->get('/booth/(:num)', 'BoothController::detail/$1');
 $routes->get('/event/(:any)', 'EventController::detail/$1');

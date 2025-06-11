@@ -4,30 +4,38 @@
         <aside class="md:w-1/5 w-full md:h-screen border-b md:border-b-0 md:border-r-2 border-secondary-second p-4 text-center">
             <h2 class="font-bold text-white border-b-2 border-secondary-second pb-2">Filter</h2>
 
-            <!-- Wrapper Dropdown -->
+            <!-- Modern Dropdown (Always Visible) -->
             <div class="relative mt-5">
-                <!-- Button -->
-                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
-                    class="w-full text-white bg-gradient-to-r from-tertiary-hard to-blue-800 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex justify-between items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    type="button">
-                    Kategori
+                <div class="w-full text-white bg-gradient-to-r from-tertiary-hard to-blue-800 font-semibold rounded-t-lg text-sm px-4 py-2.5 flex justify-between items-center dark:bg-blue-600">
+                    <span>Kategori</span>
                     <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" viewBox="0 0 10 6">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m1 1 4 4 4-4" />
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 4 4 4-4" />
                     </svg>
-                </button>
-
-                <!-- Dropdown menu -->
-                <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700">
-                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                </div>
+                <!-- Dropdown menu (Always Visible) -->
+                <div class="bg-white rounded-b-lg shadow-lg w-full dark:bg-gray-700 border-t-0 border border-blue-800">
+                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
                         <li>
-                            <a href="/event/filter/gratis/all" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Event Gratis</a>
+                            <a href="/event/filter/gratis/all"
+                               class="flex items-center gap-2 px-4 py-3 hover:bg-blue-50 dark:hover:bg-blue-900 transition-colors rounded-md">
+                                <span class="inline-block w-2 h-2 bg-green-400 rounded-full"></span>
+                                <span class="font-medium">Event Gratis</span>
+                            </a>
                         </li>
                         <li>
-                            <a href="/event/filter/all/terbaru" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Event Terbaru</a>
+                            <a href="/event/filter/all/terbaru"
+                               class="flex items-center gap-2 px-4 py-3 hover:bg-blue-50 dark:hover:bg-blue-900 transition-colors rounded-md">
+                                <span class="inline-block w-2 h-2 bg-blue-400 rounded-full"></span>
+                                <span class="font-medium">Event Terbaru</span>
+                            </a>
                         </li>
                         <li>
-                            <a href="/event/filter/berbayar/all" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Event Berbayar</a>
+                            <a href="/event/filter/berbayar/all"
+                               class="flex items-center gap-2 px-4 py-3 hover:bg-blue-50 dark:hover:bg-blue-900 transition-colors rounded-md">
+                                <span class="inline-block w-2 h-2 bg-yellow-400 rounded-full"></span>
+                                <span class="font-medium">Event Berbayar</span>
+                            </a>
                         </li>
                     </ul>
                 </div>

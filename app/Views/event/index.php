@@ -1,4 +1,4 @@
-<section class="w-full h-auto relative bg-cover bg-center rounded-md" style="background-image: url('/assets/images/hero.jpg')">
+<div class="w-full h-auto relative bg-cover bg-center rounded-md" style="background-image: url('/assets/images/hero.jpg')">
     <!-- Overlay gelap -->
     <div class="absolute inset-0 bg-black bg-opacity-60"></div>
 
@@ -9,12 +9,10 @@
             Jelajahi Event Sekarang
         </a>
     </div>
-</section>
+</div>
 
-<section class="mt-10 min-h-screen px-10">
-    <div class="flex">
-        <h1 class="text-2xl font-bold text-white">Event Populer</h1>
-    </div>
+<div class="mt-10 min-h-screen px-10">
+    <h1 class="text-center text-2xl font-bold text-white">Event Populer</h1>
     <div class="mt-5">
         <div class="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <?php if (count($events) == 0) :  ?>
@@ -92,4 +90,4 @@
     </div>
 
     <!-- cardview -->
-</section>
+</div>

@@ -21,6 +21,18 @@ class BoothModel extends Model {
         return $this->where('id_event', $id_event)->findAll();
     }
 
+    public function getBoothById($id_booth) {
+        return $this->where('id_booth', $id_booth)->first();
+    }
+
+    public function getBoothByIdEvent($id_event) {
+        return $this->where('id_event', $id_event)->findAll();
+    }
+
+    public function getBoothBySlug($slug) {
+        return $this->where('slug', $slug)->first();
+    }
+
     public function getBooth($slug = false, $id_event = null) {
         if ($slug === false) {
             return $this->findAll();

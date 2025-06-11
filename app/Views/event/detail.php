@@ -21,58 +21,69 @@
             <p class="leading-relaxed text-justify">
                 <?= $events['sponsor'] ?>
             </p>
-
             
-            <h2 class="text-xl font-bold mb-3">Booth yang Tersedia</h2>
-            <a href="<?= base_url('booth/' . $events['id_event']) ?>" class="px-4 py-2 text-center bg-gradient-to-r from-tertiary-hard to-blue-800 text-white rounded-lg font-semibold hover:opacity-90 transition">Lihat Detail</a>
-            <!-- Booth List Table -->
-            <?php if (!empty($booths)): ?>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs uppercase bg-gray-700 text-gray-200">
-                            <tr>
-                                <th scope="col" class="px-4 py-3">Nama Booth</th>
-                                <th scope="col" class="px-4 py-3">Deskripsi</th>
-                                <th scope="col" class="px-4 py-3">Harga Sewa</th>
-                                <th scope="col" class="px-4 py-3">Status</th>
-                                <th scope="col" class="px-4 py-3">Aksi</th>
+            
+            <?php
+                // Filter booth yang sesuai dengan event saat ini
+                $filteredBooths = array_filter($booths, function($booth) use ($events) {
+                    return $booth['id_event'] == $events['id_event'];
+                });
+            ?>
+
+            <h2 class="text-xl font-bold my-3">Booth yang Tersedia</h2>
+            <?php if (!empty($filteredBooths)): ?>
+               <div class="overflow-x-auto">
+                    <table class="min-w-full text-sm text-left text-gray-300">
+                        <thead>
+                            <tr class="bg-gray-700 text-gray-200 uppercase text-xs">
+                                <th class="px-4 py-3">Gambar</th>
+                                <th class="px-4 py-3">Nama Booth</th>
+                                <th class="px-4 py-3">Harga Sewa</th>
+                                <th class="px-4 py-3">Status</th>
+                                <th class="px-4 py-3">Deskripsi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($booths as $booth): ?>
-                            <tr class="bg-white dark:bg-gray-800 border-b dark:border-gray-700">
+                            <?php $no = 1; foreach ($filteredBooths as $booth): ?>
+                            <tr class="bg-gray-900 border-b border-gray-700">
+                                <td class="px-4 py-3">
+                                    <?php if (!empty($booth['gambar_booth'])): ?>
+                                        <img src="/uploads/images/<?= esc($booth['gambar_booth']) ?>" alt="<?= esc($booth['nama_booth']) ?>" class="rounded-md w-16 h-12 object-cover object-center border border-gray-200 dark:border-gray-700">
+                                    <?php else: ?> 
+                                        <img src="/uploads/images/default_booth.jpg" alt="Default Booth Image" class="rounded-md w-16 h-12 object-cover object-center border border-gray-200 dark:border-gray-700">
+                                    <?php endif; ?>
+                                </td>
                                 <td class="px-4 py-3 font-semibold"><?= esc($booth['nama_booth']) ?></td>
-                                <td class="px-4 py-3"><?= esc($booth['deskripsi_booth']) ?></td>
                                 <td class="px-4 py-3 font-bold">Rp<?= esc(number_format($booth['harga_sewa'], 0, ',', '.')) ?></td>
-                                <td class="px-4 py-3 font-bold">
+                                <td class="px-4 py-3 font-bold flex items-center space-x-2">
                                     <?php
-                                        // Misal enum status: 'tersedia', 'dipesan', 'terisi'
                                         switch ($booth['status']) {
                                             case 'tersedia':
-                                                echo '<span class="text-green-500">Tersedia</span>';
+                                                echo '<span class="text-green-400 text-lg">✔</span><span class="text-green-400">Tersedia</span>';
                                                 break;
                                             case 'disewa':
-                                                echo '<span class="text-yellow-500">Disewa</span>';
+                                                echo '<span class="text-red-400 text-lg">✖</span><span class="text-yellow-400">Disewa</span>';
                                                 break;
                                             case 'tidak tersedia':
-                                                echo '<span class="text-red-500">Terisi</span>';
+                                                echo '<span class="text-red-400 text-lg">✖</span><span class="text-red-400">Terisi</span>';
                                                 break;
                                             default:
                                                 echo esc($booth['status']);
                                         }
                                     ?>
                                 </td>
-                                
-                                <td class="px-4 py-3">
-                                    <a href="<?= base_url('booth/' . $booth['slug']) ?>" target="_blank" class="bg-tertiary-hard text-white py-1 px-3 rounded-lg hover:bg-tertiary-soft transition text-xs">Lihat Detail</a>
-                                </td>
+                                <td class="px-4 py-3 font-light"><?= esc($booth['deskripsi_booth']) ?></td>
                             </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
             <?php else: ?>
-                <p class="text-gray-400 mt-8">Tidak ada booth yang tersedia untuk event ini.</p>
+                <table class="min-w-full text-sm text-gray-300">
+                    <tr class="bg-gray-900 border-b border-gray-700">
+                        <td colspan="6" class="px-4 py-3 text-left">Tidak ada booth yang tersedia untuk event ini.</td>
+                    </tr>
+                </table>
             <?php endif; ?>
         </div>
 

@@ -1,5 +1,5 @@
-<div class="p-6 shadow-md max-w-5xl mx-auto border-2 rounded-lg border-secondary-main my-10">
-    <h2 class="text-2xl text-secondary-second font-semibold mb-6 border-b-2 border-secondary-main">Detail Booth</h2>
+<div class="p-6 shadow-md max-w-7xl mx-auto border-2 rounded-lg border-secondary-main my-10">
+    <h2 class="text-2xl text-secondary-second font-semibold mb-6 border-b-2 border-secondary-main">Detail Booth <?= esc($booth['nama_booth']) ?></h2>
     <?php if (session()->getFlashdata('success')): ?>
         <div class="bg-green-100 text-green-800 p-4 rounded mb-4">
             <?= session()->getFlashdata('success') ?>
@@ -23,22 +23,21 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($booth as $b) : ?>
                 <tr class="bg-gray-900 border-b border-gray-700">
                     <td class="px-2 py-2 text-center align-middle">
                         <div class="flex justify-center">
-                            <?php if (!empty($b['gambar_booth'])): ?>
-                                <img src="/uploads/images/<?= esc($b['gambar_booth']) ?>" alt="<?= esc($b['nama_booth']) ?>" class="rounded-md w-16 h-12 object-cover object-center border border-gray-200 dark:border-gray-700">
+                            <?php if (!empty($booth['gambar_booth'])): ?>
+                                <img src="/uploads/images/<?= esc($booth['gambar_booth']) ?>" alt="<?= esc($booth['nama_booth']) ?>" class="rounded-md w-16 h-12 object-cover object-center border border-gray-200 dark:border-gray-700">
                             <?php else: ?> 
                                 <img src="/uploads/images/default_booth.jpg" alt="Default Booth Image" class="rounded-md w-16 h-12 object-cover object-center border border-gray-200 dark:border-gray-700">
                             <?php endif; ?>
                         </div>
                     </td>
-                    <td class="px-2 py-2"><?= esc($b['id_event']) ?></td>
-                    <td class="px-2 py-2 font-semibold text-gray-900 dark:text-white"><?= esc($b['nama_booth']) ?></td>
+                    <td class="px-2 py-2"><?= esc($booth['id_event']) ?></td>
+                    <td class="px-2 py-2 font-semibold text-gray-900 dark:text-white"><?= esc($booth['nama_booth']) ?></td>
                     <td class="px-2 py-2 font-bold">
                         <?php
-                            switch ($b['status']) {
+                            switch ($booth['status']) {
                                 case 'tersedia':
                                     echo '<span class="text-green-500">Tersedia</span>';
                                     break;
@@ -49,14 +48,13 @@
                                     echo '<span class="text-red-500">Terisi</span>';
                                     break;
                                 default:
-                                    echo esc($b['status']);
+                                    echo esc($booth['status']);
                             }
                         ?>
                     </td>
-                    <td class="px-2 py-2"><?= esc($b['deskripsi_booth']) ?></td>
-                    <td class="px-2 py-2">Rp<?= esc(number_format($b['harga_sewa'], 0, ',', '.')) ?></td>
+                    <td class="px-2 py-2"><?= esc($booth['deskripsi_booth']) ?></td>
+                    <td class="px-2 py-2">Rp<?= esc(number_format($booth['harga_sewa'], 0, ',', '.')) ?></td>
                 </tr>
-                <?php endforeach; ?>
             </tbody>
         </table>
             <?php if (empty($booth)): ?>

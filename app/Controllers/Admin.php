@@ -85,13 +85,30 @@ class Admin extends BaseController
             return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
         }
 
+        $eventModel = $this->eventModel;
+        $boothModel = $this->boothModel;
+
+        $events = $eventModel->findAll();
+        $selected_id_event = $this->request->getGet('id_event');
+
+        if ($selected_id_event) {
+            $booths = $boothModel->where('id_event', $selected_id_event)->findAll();
+        } else {
+            $booths = $boothModel->findAll();
+        }
+
+        // return view('admin/booths', [
+        //     'events' => $events,
+        //     'booths' => $booths,
+        //     '$selected_id_event' => $$selected_id_event
+        // ]);
+
 
         $data = [
             'title' => 'Dashboard Manajemen Booth',
-            'booths' => $this->boothModel->select('booth_table.*, event_table.judul_event')
-                ->join('event_table', 'booth_table.id_event = event_table.id_event')
-                ->findAll(),
-            'events' => $this->eventModel->getEvent(),
+            'booths' => $booths,
+            'events' => $events,
+            '$selected_id_event' => $selected_id_event,
             ...$this->getAdminSession(), // spread array
         ];
 
