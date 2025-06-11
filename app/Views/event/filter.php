@@ -29,12 +29,6 @@
                         <li>
                             <a href="/event/filter/berbayar/all" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Event Berbayar</a>
                         </li>
-                        <li>
-                            <a href="/event/filter/all/banjarmasin" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Event di Banjarmasin</a>
-                        </li>
-                        <li>
-                            <a href="/event/filter/gratis/banjarmasin" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Gratis di Banjarmasin</a>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -44,10 +38,11 @@
         <main class="md:w-4/5 w-full p-4 text-white">
             <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 <?php if (count($events) == 0) :  ?>
-                    <div id="notFoundToast" class="fixed top-5 right-5 bg-red-600 text-white px-4 py-3 rounded shadow-lg hidden z-50">
+                    <div id="notFoundToast" class="fixed bg-red-600 text-white px-4 py-3 rounded shadow-lg hidden z-50">
                         Event yang Anda cari tidak ada. Coba kata kunci lain.
                     </div>
                 <?php endif; ?>
+
                 <?php foreach ($events as $e) : ?>
                     <div class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
                         <a href="/event/<?= esc($e['slug']) ?>" target="_blank">
@@ -74,7 +69,7 @@
             </div>
 
             <div class="mt-5 flex justify-end">
-                <?= $pager->links('event', 'event_pagination') ?>
+                <?= $pager->links('event_table', 'event_pagination') ?>
             </div>
         </main>
 

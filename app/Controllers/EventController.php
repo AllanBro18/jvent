@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\BoothModel;
 use App\Models\EventModel;
 
 use function PHPUnit\Framework\fileExists;
@@ -9,10 +10,12 @@ use function PHPUnit\Framework\fileExists;
 class EventController extends BaseController
 {
     protected $eventModel;
+    protected $boothModel;
 
     public function __construct()
     {
         $this->eventModel = new EventModel();
+        $this->boothModel = new BoothModel(); 
     }
 
     public function index()
@@ -45,17 +48,13 @@ class EventController extends BaseController
             $query = $query->where('kategori_tiket', $kategori_tiket);
         }
 
-        if ($lokasi && $lokasi != 'all') {
-            $query = $query->like('lokasi_event', $lokasi);
-        }
-
         // urut berdasarkan tgl event
         if ($sort && $sort == 'terbaru') {
             $query = $query->orderBy('tanggal_event', 'DESC');
         }
         
         $data = [
-            'events' => $query->paginate(8, 'event'),
+            'events' => $query->paginate(8, 'event_table'),
             'pager' => $this->eventModel->pager,
         ];
 
@@ -83,7 +82,7 @@ class EventController extends BaseController
 
         $rules = [
             'judul_event' => [
-                'rules' => 'required|is_unique[event.judul_event]',
+                'rules' => 'required|is_unique[event_table.judul_event]',
                 'errors' => [
                     'required' => 'Judul event harus diisi',
                     'is_unique' => 'Event sudah terdaftar',
@@ -133,24 +132,6 @@ class EventController extends BaseController
                 'errors' => [
                     'required' => 'deskripsi event harus diisi',
                 ]
-            ],
-            'sponsor' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => '{field} harus diisi',
-                ]
-            ],
-            'guest_star' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'guest star harus diisi',
-                ]
-            ],
-            'booth_list' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'booth list harus diisi',
-                ]
             ]
         ];
 
@@ -163,6 +144,7 @@ class EventController extends BaseController
         if (!$this->validate($rules)) { 
             // pesan kesalahan disimpan 
             $validation = \Config\Services::validation();
+            dd($validation->getErrors());
             
             // input pengguna dan validasi yang didapat akan dikembalikan menjadi pesan
             return redirect()->back()->withInput()->with('validation', $validation);
@@ -211,20 +193,23 @@ class EventController extends BaseController
         // flash data
         $session->setFlashdata('pesan', 'Event berhasil ditambahkan...');
 
-        return redirect()->to('/event/search');
+        return redirect()->to('/dashboard');
     }
 
     public function detail($slug)
     {
-        $events = $this->eventModel->getEvent($slug);
+        $data = [
+            'events' => $this->eventModel->getEvent($slug),
+            'booth' => $this->boothModel->first(),
+        ];
 
         // cek jika event tidak ada
-        if (empty($events)) {
+        if (empty($data['events']) && empty($data['booths'])) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Judul Event ' . $slug . ' tidak ditemukan');
         } 
 
         return view('layout/header', ['title' => $slug])
-        . view('event/detail', ['events' => $events])
+        . view('event/detail', $data)
         . view('layout/footer');
     }
 
@@ -233,7 +218,7 @@ class EventController extends BaseController
 
         // flash data
         session()->setFlashdata('pesan', 'Event berhasil dihapus');
-        return redirect()->to('/event/filter');
+        return redirect()->to('/dashboard');
     }
 
     public function edit ($slug) {
@@ -254,7 +239,7 @@ class EventController extends BaseController
 
         $rules= [
             'judul_event' => [
-                'rules' => 'required|is_unique[event.judul_event, id_event, ' . $id . ']',
+                'rules' => 'required|is_unique[event_table.judul_event, id_event, ' . $id . ']',
                 'errors' => [
                     'required' => 'Judul event harus diisi',
                     'is_unique' => 'Event sudah terdaftar',
@@ -302,24 +287,6 @@ class EventController extends BaseController
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'deskripsi event harus diisi',
-                ]
-            ],
-            'sponsor' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => '{field} harus diisi',
-                ]
-            ],
-            'guest_star' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'guest star harus diisi',
-                ]
-            ],
-            'booth_list' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'booth list harus diisi',
                 ]
             ]
         ];

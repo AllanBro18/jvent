@@ -4,8 +4,9 @@ namespace App\Models;
 use CodeIgniter\Model;
 
 class EventModel extends Model {
-    protected $table = 'event';
+    protected $table = 'event_table';
     protected $primaryKey = 'id_event';
+    protected $useTimestamps = true;
     protected $allowedFields = [
         'judul_event', 
         'gambar_event',
@@ -28,6 +29,10 @@ class EventModel extends Model {
             return $this->findAll();
         }
         return $this->where(['slug' => $slug])->first();
+    }
+
+    public function getEventById($id_event) {
+        return $this->where(['id_event' => $id_event])->first();
     }
 }
 

@@ -52,6 +52,20 @@
                 </div>
             </div>
 
+            <?php if (count($events) == 0) :  ?>
+                <div id="notFoundToast" class="fixed bg-red-600 text-white px-4 py-3 rounded shadow-lg hidden z-50">
+                    Event yang Anda cari tidak ada. Coba kata kunci lain.
+                </div>
+            <?php endif; ?>
+
+            <div>
+                <?php if (session()->getFlashdata('pesan')) : ?>
+                    <div class="fixed bg-green-500 text-white px-4 py-3 rounded shadow-lg hidden z-50" role="alert">
+                        <?= session()->getFlashdata('pesan') ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+
             <!-- Tabs -->
             <div class="flex gap-6 mb-6 border-b border-gray-700 text-sm sm:text-base">
                 <a href="#" class="border-b-2 border-white pb-2 font-semibold">EVENT AKTIF</a>
