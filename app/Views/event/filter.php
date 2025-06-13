@@ -37,6 +37,12 @@
                                 <span class="font-medium">Event Berbayar</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="/booths" class="flex items-center gap-2 px-4 py-3 hover:bg-blue-50 dark:hover:bg-blue-900 transition-colors rounded-md">
+                                <span class="inline-block w-2 h-2 bg-red-400 rounded-full"></span>
+                                <span class="font-medium">Booths</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

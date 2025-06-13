@@ -267,7 +267,6 @@ class BoothController extends BaseController
 
         if (!$this->validate($rules)) {
             $validation = \Config\Services::validation();
-            dd($validation->getErrors());
             // Jika validasi gagal, kembalikan ke halaman create dengan pesan error
             return redirect()->to('/booth/edit/' . $this->request->getVar('id_booth'))->withInput()->with('validation', $validation);
         }
