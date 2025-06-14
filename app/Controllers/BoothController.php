@@ -2,64 +2,31 @@
 
 namespace App\Controllers;
 
-use App\Models\BoothListModel;
-use App\Models\EventModel;
+use App\Models\BoothModel;
 
-class BoothListController extends BaseController
+class BoothController extends BaseController
 {
-    protected $boothListModel;
-    protected $eventModel;
+    protected $boothModel;
 
     public function __construct()
     {
-        $this->boothListModel = new BoothListModel();
-        $this->eventModel = new EventModel();
+        $this->boothModel = new BoothModel();
     }
 
-    // Detail booth tertentu
-    public function detailByIdEvent ($id)
+    public function index()
     {
-        $boothList = $this->boothListModel
-            ->getBoothsByEvent($id);
+        $data = [
+            'booths' => $this->boothModel->getBooth(),
+        ];
 
-        // dd($this->boothModel->getBoothsByEvent($id));
-
-        if (!$boothList) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("Booth tidak ditemukan.");
-        }
-
-        return view('layout/header', ['title' => 'Detail Booth'])
-            . view('boothlist/detailByIdEvent', [
-                // Ambil booth berdasarkan id_booth tertentu
-                'booths' => $boothList,
-                ...$this->getAdminSession(), // spread array
-            ])
-            . view('layout/footer');
-    }
-
-    public function detailBoothList($id)
-    {
-        $booth = $this->boothListModel
-            ->getBoothById($id);
-
-        // dd($booth);
-        // dd($this->boothModel->getBoothsByEvent($id));
-
-        if (!$booth) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("Booth tidak ditemukan.");
-        }
-
-        return view('layout/header', ['title' => 'Detail Booth'])
-            . view('boothlist/detail', [
-                // Ambil booth berdasarkan id_booth tertentu
-                'booth' => $booth,
-                ...$this->getAdminSession(), // spread array
-            ])
-            . view('layout/footer');
+        return 
+        view('layout/header', ['title' => 'Jvent'])
+        . view('booth/index', $data)
+        . view('layout/footer');
     }
 
     // CRUD Booth
-    public function createBoothList()
+    public function createBooth()
     {
         // Cek apakah admin sudah login
         if (!session()->has('username_admin')) {
@@ -73,15 +40,13 @@ class BoothListController extends BaseController
         }
 
         return view('layout/header', ['title' => 'Buat Booth'])
-            . view('boothlist/create', [
+            . view('booth/create', [
                 'validation' => $validation,
-                'events' => $this->eventModel->getEvent(),
-                ...$this->getAdminSession(), // spread array
             ])
             . view('layout/footer');
     }
 
-    public function saveBoothList()
+    public function saveBooth()
     {
         // Cek apakah admin sudah login
         if (!session()->has('username_admin')) {
@@ -90,19 +55,12 @@ class BoothListController extends BaseController
 
         $rules = [
             'nama_booth' => [ 
-                'rules' => 'required|is_unique[booth_table.nama_booth]|min_length[3]|max_length[50]',
+                'rules' => 'required|is_unique[booths_table.nama_booth]|min_length[3]|max_length[50]',
                 'errors' => [
                     'required' => 'Nama booth harus diisi',
                     'is_unique' => 'Nama booth sudah terdaftar',
                     'min_length' => 'Nama booth minimal 3 karakter',
                     'max_length' => 'Nama booth maksimal 50 karakter',
-                ] 
-            ],
-            'harga_sewa' => [ 
-                'rules' => 'required|numeric',
-                'errors' => [
-                    'required' => 'Nama booth harus diisi',
-                    'numeric' => 'Harga sewa harus berupa angka',
                 ] 
             ],
             'deskripsi_booth' => [ 
@@ -113,11 +71,11 @@ class BoothListController extends BaseController
                     'max_length' => 'Deskripsi booth maksimal 255 karakter',
                 ]
             ],
-            'status' => [ 
-                'rules' => 'required|in_list[tersedia,disewa,tidak tersedia]',
+            'jenis_booth' => [ 
+                'rules' => 'required|in_list[makanan & minuman,komunitas,merchandise]',
                 'errors' => [
                     'required' => 'Nama booth harus diisi',
-                    'in_list' => 'Status harus berupa tersedia, disewa, atau tidak tersedia',
+                    'in_list' => 'Jenis booth harus berupa makanan & minuman, komunitas, atau merchandise',
                 ] 
             ],
             'gambar_booth' => [
@@ -128,6 +86,22 @@ class BoothListController extends BaseController
                     'max_size' => 'Ukuran gambar terlalu besar (maks 500KB).',
                     'is_image' => 'Yang Anda pilih bukan gambar.',
                     'mime_in' => 'Format gambar harus JPG, JPEG, atau PNG.',
+                ]
+            ],
+            'lokasi_booth' => [
+                'rules' => 'required|min_length[10]|max_length[255]',
+                'errors' => [
+                    'required' => 'Lokasi booth harus diisi',
+                    'min_length' => 'Lokasi booth minimal 10 karakter',
+                    'max_length' => 'Lokasi booth maksimal 255 karakter',
+                ]
+            ],
+            'kontak_booth' => [
+                'rules' => 'required|min_length[10]|max_length[255]',
+                'errors' => [
+                    'required' => 'Kontak booth harus diisi',
+                    'min_length' => 'Kontak booth minimal 10 karakter',
+                    'max_length' => 'Kontak booth maksimal 255 karakter',
                 ]
             ]
         ];
@@ -156,14 +130,14 @@ class BoothListController extends BaseController
         }
         $fileGambar->move(FCPATH . 'uploads/images', $namaGambar);
 
-        $this->boothListModel->save([
+        $this->boothModel->save([
             'nama_booth' => $this->request->getVar('nama_booth'),
             'slug' => url_title($this->request->getVar('nama_booth'), '-', true),
             'deskripsi_booth' => $this->request->getVar('deskripsi_booth'),
             'gambar_booth' => $namaGambar,
-            'harga_sewa' => $this->request->getVar('harga_sewa'),
-            'status' => $this->request->getVar('status'),
-            'id_event' => $this->request->getVar('id_event'), // Pastikan id_event ada di form
+            'jenis_booth' => $this->request->getVar('jenis_booth'),
+            'lokasi_booth' => $this->request->getVar('lokasi_booth'), // Pastikan id_event ada di form
+            'kontak_booth' => $this->request->getVar('kontak_booth'),
         ]);
 
         // flash data sukses
@@ -172,19 +146,14 @@ class BoothListController extends BaseController
         return redirect()->to('/dashboard/boothlist');
     }
 
-    public function editBoothList($id)
+    public function editBooth($slug)
     {
-        $booth = $this->boothListModel->getBoothById($id);
+        $data = [
+            'booth' => $this->boothModel->getBooth($slug)
+        ];
 
-        if (!$booth) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('Booth tidak ditemukan');
-        }
-        // Cek apakah id_booth valid
-        if (!is_numeric($id) || $id <= 0) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('ID Booth tidak valid');
-        }
         // Jika tidak ditemukan, lempar exception
-        if (!$booth) {
+        if (!$data) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Booth tidak ditemukan');
         }
         // Cek apakah admin sudah login
@@ -199,38 +168,31 @@ class BoothListController extends BaseController
         }
 
         return view('layout/header', ['title' => 'Edit Booth'])
-            . view('boothlist/edit', [
+            . view('booth/edit', [
                 'validation' => $validation,
-                'booth' => $booth,
-                'events' => $this->eventModel->find(),
-                ...$this->getAdminSession(), // spread array
+                'booth' => $data,
             ])
             . view('layout/footer');
     }
 
-    public function updateBoothList($id)
+    public function updateBooth($id)
     {
         // dd($this->request->getVar());
+        
         // Cek apakah admin sudah login
-        if (!session()->has('username_admin')) {
-            return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
+        $session = session();
+        if (!$session->has('id_admin')) {
+            return redirect()->to('/login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
         $rules = [
             'nama_booth' => [ 
-                'rules' => 'required|is_unique[booth_table.nama_booth, id_booth, ' . $id . ']|min_length[3]|max_length[50]',
+                'rules' => 'required|is_unique[booths_table.nama_booth, id_booth, ' . $id . ']|min_length[3]|max_length[50]',
                 'errors' => [
                     'required' => 'Nama booth harus diisi',
                     'is_unique' => 'Nama booth sudah terdaftar',
                     'min_length' => 'Nama booth minimal 3 karakter',
                     'max_length' => 'Nama booth maksimal 50 karakter',
-                ] 
-            ],
-            'harga_sewa' => [ 
-                'rules' => 'required|numeric',
-                'errors' => [
-                    'required' => 'Nama booth harus diisi',
-                    'numeric' => 'Harga sewa harus berupa angka',
                 ] 
             ],
             'deskripsi_booth' => [ 
@@ -241,11 +203,11 @@ class BoothListController extends BaseController
                     'max_length' => 'Deskripsi booth maksimal 255 karakter',
                 ]
             ],
-            'status' => [ 
-                'rules' => 'required|in_list[tersedia,disewa,tidak tersedia]',
+            'jenis_booth' => [ 
+                'rules' => 'required|in_list[makanan & minuman,komunitas,merchandise]',
                 'errors' => [
                     'required' => 'Status harus diisi',
-                    'in_list' => 'Status harus berupa tersedia, disewa, atau tidak tersedia',
+                    'in_list' => 'Status harus berupa makanan & minuman, komunitas, atau merchandise',
                 ] 
             ],
             'gambar_booth' => [
@@ -257,19 +219,28 @@ class BoothListController extends BaseController
                     'mime_in' => 'Format gambar harus JPG, JPEG, atau PNG.',
                 ]
             ],
-            'id_event' => [ 
-                'rules' => 'required|is_not_unique[event_table.id_event]',
+            'lokasi_booth' => [
+                'rules' => 'required|min_length[10]|max_length[255]',
                 'errors' => [
-                    'required' => 'Event harus dipilih',
-                    'is_not_unique' => 'Event tidak ditemukan',
-                ] 
+                    'required' => 'Lokasi booth harus diisi',
+                    'min_length' => 'Lokasi booth minimal 10 karakter',
+                    'max_length' => 'Lokasi booth maksimal 255 karakter',
+                ]
             ],
+            'kontak_booth' => [
+                'rules' => 'required|min_length[10]|max_length[255]',
+                'errors' => [
+                    'required' => 'Kontak booth harus diisi',
+                    'min_length' => 'Kontak booth minimal 10 karakter',
+                    'max_length' => 'Kontak booth maksimal 255 karakter',
+                ]
+            ]
         ];
 
         if (!$this->validate($rules)) {
             $validation = \Config\Services::validation();
             // Jika validasi gagal, kembalikan ke halaman create dengan pesan error
-            return redirect()->to('/boothlist/edit/' . $this->request->getVar('id_booth'))->withInput()->with('validation', $validation);
+            return redirect()->to('/booth/edit/' . $this->request->getVar('id_booth'))->withInput()->with('validation', $validation);
         }
 
         // ambil file gambar
@@ -291,21 +262,21 @@ class BoothListController extends BaseController
             $namaGambar = $namaGambarBaru;
         }
 
-        $this->boothListModel->save([
-            'id_booth' => $id, // Pastikan id_booth ada di form
+        $this->boothModel->save([
             'nama_booth' => $this->request->getVar('nama_booth'),
             'slug' => url_title($this->request->getVar('nama_booth'), '-', true),
             'deskripsi_booth' => $this->request->getVar('deskripsi_booth'),
             'gambar_booth' => $namaGambar,
-            'harga_sewa' => $this->request->getVar('harga_sewa'),
-            'status' => $this->request->getVar('status'),
-            'id_event' => $this->request->getVar('id_event'), // Pastikan id_event ada di form
+            'jenis_booth' => $this->request->getVar('jenis_booth'),
+            'lokasi_booth' => $this->request->getVar('lokasi_booth'),
+            'kontak_booth' => $this->request->getVar('kontak_booth'),
+            'id_admin' => $session->get('id_admin'),
         ]);
 
         // flash data sukses
         session()->setFlashdata('success', 'Booth berhasil diperbarui');
 
-        return redirect()->to('/dashboard/boothlist');
+        return redirect()->to('/dashboard/booth');
     }
 
     public function deleteBoothList($id)
@@ -315,12 +286,12 @@ class BoothListController extends BaseController
             return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
         }
 
-        $booth = $this->boothListModel->find($id);
+        $booth = $this->boothModel->find($id);
         if (!$booth) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Booth tidak ditemukan');
         }
 
-        $this->boothListModel->delete($id);
+        $this->boothModel->delete($id);
 
         // Hapus gambar jika ada
         if ($booth['gambar_booth']) {
@@ -333,33 +304,6 @@ class BoothListController extends BaseController
 
         // Redirect dengan pesan sukses
         session()->setFlashdata('success', 'Booth berhasil dihapus');
-        return redirect()->to('/dashboard/boothlist');
+        return redirect()->to('/dashboard/booth');
     }
-
-    public function searchAndFilter () {
-        $keyword = $this->request->getVar('keyword');
-        $sort = $this->request->getVar('sort') ?? 'asc';
-        $query = $this->eventModel;
-
-        if ($keyword) {
-            $query = $query->groupStart()
-                        ->like('judul_event', $keyword)
-                        ->orLike('lokasi_event', $keyword)
-                        ->orLike('organizer', $keyword)
-                        ->orLike('kategori_tiket', $keyword)
-                        ->groupEnd();
-        }
-
-        if ($sort == 'terbaru') {
-            $query = $query->orderBy('tanggal_event', 'DESC');
-        }
-
-        $data = [
-            'title' => 'Dashboard Admin',
-            'events' => $query->orderBy('judul_event', strtoupper($sort))->findAll(),
-            ...$this->getAdminSession(), // spread array
-        ];
-
-        return view('admin/dashboard', $data);
-    } 
 }
