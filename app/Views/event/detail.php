@@ -22,16 +22,8 @@
                 <?= $events['sponsor'] ?>
             </p>
             
-            
-            <?php
-                // Filter booth yang sesuai dengan event saat ini
-                $filteredBooths = array_filter($booths, function($booth) use ($events) {
-                    return $booth['id_event'] == $events['id_event'];
-                });
-            ?>
-
             <h2 class="text-xl font-bold my-3">Booth yang Tersedia</h2>
-            <?php if (!empty($filteredBooths)): ?>
+            <?php if (!empty($booths)): ?>
                <div class="overflow-x-auto">
                     <table class="min-w-full text-sm text-left text-gray-300">
                         <thead>
@@ -44,7 +36,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $no = 1; foreach ($filteredBooths as $booth): ?>
+                            <?php $no = 1; foreach ($booths as $booth): ?>
                             <tr class="bg-gray-900 border-b border-gray-700">
                                 <td class="px-4 py-3">
                                     <?php if (!empty($booth['gambar_booth'])): ?>

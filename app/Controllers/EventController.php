@@ -207,9 +207,26 @@ class EventController extends BaseController
 
     public function detail($slug)
     {
+        // Ambil daftar booth dari model
+        $boothList = $this->boothListModel->findAll();
+        
+        // Cek apakah event dengan slug tersebut ada
+        if (!$this->eventModel->getEvent($slug)) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Judul Event ' . $slug . ' tidak ditemukan');
+        }
+
+        // Ambil daftar booth yang terkait dengan event dicari
+        $boothList = array_filter($boothList, function($booth) use ($slug) {
+            return $booth['id_event'] === $this->eventModel->getEvent($slug)['id_event'];
+        });
+
+        // Ambil data event berdasarkan slug
+        $events = $this->eventModel->getEvent($slug);
+
+        // Simpan data event dan booth ke dalam array
         $data = [
-            'events' => $this->eventModel->getEvent($slug),
-            'booths' => $this->boothListModel->findAll(),
+            'events' => $events,
+            'booths' => $boothList,
         ];
 
         // cek jika event tidak ada
@@ -217,6 +234,7 @@ class EventController extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Judul Event ' . $slug . ' tidak ditemukan');
         } 
 
+        // tampilkan view detail event
         return view('layout/header', ['title' => $slug])
         . view('event/detail', $data)
         . view('layout/footer');
