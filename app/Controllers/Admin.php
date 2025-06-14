@@ -48,11 +48,13 @@ class Admin extends BaseController
 
         if ($sort == 'terbaru') {
             $query = $query->orderBy('tanggal_event', 'DESC');
+        } else {
+            $query = $query->orderBy('judul_event', 'ASC');
         }
 
         $data = [
             'title' => 'Dashboard Admin',
-            'events' => $query->orderBy('judul_event', strtoupper($sort))->findAll(),
+            'events' => $query->findAll(),
             ...$this->getAdminSession(), // spread array
         ];
 

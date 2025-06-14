@@ -45,7 +45,7 @@
                     <form action="" method="post">
                         <select name="sort" onchange="this.form.submit()" class="bg-secondary-main text-white py-2 px-4 rounded text-sm">
                             <option>Berdasarkan</option>
-                            <option value="asc">Nama Event (A-Z)</option>
+                            <option value="judul_asc">Nama Event (A-Z)</option>
                             <option value="terbaru">Terbaru</option>
                         </select>
                     </form>
