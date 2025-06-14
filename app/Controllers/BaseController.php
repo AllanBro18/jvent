@@ -55,8 +55,7 @@ abstract class BaseController extends Controller
 
         // E.g.: $this->session = service('session');
 
-        // session untuk admin
-        // session akan terus berjalan
+        // session untuk admin dan user akan terus berjalan
         session();
     }
 

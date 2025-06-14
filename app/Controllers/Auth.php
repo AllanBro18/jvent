@@ -62,7 +62,6 @@ class Auth extends Controller
                 'id_admin'       => $admin['id_admin'],
                 'username_admin' => $admin['username_admin'],
                 'email_admin' => $admin['email_admin'],
-                'password_admin' => $admin['password_admin'],
                 'logged_in' => true
             ]);
             return redirect()->to('/dashboard');
@@ -82,9 +81,9 @@ class Auth extends Controller
             'title' => 'Halaman Register Admin'
         ];
 
-        echo view('layout/header', $data);
-        echo view('register/register_view');
-        echo view('layout/footer');
+        return view('layout/header', $data)
+        . view('register/register_view')
+        . view('layout/footer');
     }
 
     public function register() {
@@ -133,7 +132,6 @@ class Auth extends Controller
         $username_admin = $this->request->getPost('username_admin');
         $email_admin = $this->request->getPost('email_admin');
         $password_admin = $this->request->getPost('password_admin');
-        // $confirm  = $this->request->getPost('password_confirm');
 
         // simpan user baru
         $model->save([
