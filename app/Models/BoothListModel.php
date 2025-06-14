@@ -3,7 +3,7 @@
 namespace App\Models;
 use CodeIgniter\Model;
 
-class BoothModel extends Model {
+class BoothListModel extends Model {
     protected $table = 'booth_table';
     protected $primaryKey = 'id_booth';
     protected $useTimestamps = true;

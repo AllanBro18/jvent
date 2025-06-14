@@ -2,18 +2,18 @@
 
 namespace App\Controllers;
 
-use App\Models\BoothModel;
+use App\Models\BoothListModel;
 use App\Models\EventModel;
 
 class Admin extends BaseController
 {
     protected $eventModel;
-    protected $boothModel;
+    protected $boothListModel;
 
     public function __construct()
     {
         $this->eventModel = new EventModel();
-        $this->boothModel = new BoothModel();
+        $this->boothListModel = new BoothListModel();
     }
 
     public function dashboard ()
@@ -78,7 +78,7 @@ class Admin extends BaseController
         return view('admin/pengaturan', $data);
     }
 
-    public function booths()
+    public function boothlist()
     {
         // Cek apakah admin sudah login
         if (!session()->has('username_admin')) {
@@ -86,15 +86,15 @@ class Admin extends BaseController
         }
 
         $eventModel = $this->eventModel;
-        $boothModel = $this->boothModel;
+        $boothListModel = $this->boothListModel;
 
         $events = $eventModel->findAll();
         $selected_id_event = $this->request->getGet('id_event');
 
         if ($selected_id_event) {
-            $booths = $boothModel->where('id_event', $selected_id_event)->findAll();
+            $booths = $boothListModel->where('id_event', $selected_id_event)->findAll();
         } else {
-            $booths = $boothModel->findAll();
+            $booths = $boothListModel->findAll();
         }
 
         // return view('admin/booths', [
@@ -108,10 +108,10 @@ class Admin extends BaseController
             'title' => 'Dashboard Manajemen Booth',
             'booths' => $booths,
             'events' => $events,
-            '$selected_id_event' => $selected_id_event,
+            'selected_id_event' => $selected_id_event,
             ...$this->getAdminSession(), // spread array
         ];
 
-        return view('admin/booths', $data);
+        return view('admin/boothList', $data);
     }
 }

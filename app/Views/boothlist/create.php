@@ -3,14 +3,10 @@
 <?= $this->section('content'); ?>
 <section class="max-w-4xl mx-auto p-6 border-2 rounded-lg shadow-md border-secondary-main mt-10">
     <?php $validation = session('validation'); ?>
-    <h2 class="text-2xl text-secondary-second font-semibold mb-6 border-b-2 border-secondary-main">Ubah Event</h2>
+    <h2 class="text-2xl text-secondary-second font-semibold mb-6 border-b-2 border-secondary-main">Tambah Booth Baru</h2>
     
-    
-        <form action="<?= base_url('/booth/update/' . $booth['id_booth']) ?>" method="post" class="grid grid-cols-1 md:grid-cols-2 gap-6" enctype="multipart/form-data">
+    <form action="<?= base_url('/boothlist/save') ?>" method="post" class="grid grid-cols-1 md:grid-cols-2 gap-6" enctype="multipart/form-data">
         <?= csrf_field() ?>
-
-        <!-- parameter slug yang dikirim ke event/update -->
-        <input type="hidden" name="id_booth" value="<?= $booth['id_booth'] ?>">
 
         <!-- Nama Booth -->
         <div class="md:col-span-2">
@@ -20,7 +16,7 @@
                 id="nama_booth" 
                 name="nama_booth" 
                 autofocus
-                value="<?= (old('nama_booth') ? old('nama_booth') : $booth['nama_booth']) ?>"
+                value="<?= old('nama_booth'); ?>"
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
             >
             <?php if (session('validation') && session('validation')->hasError('nama_booth')) : ?>
@@ -50,16 +46,7 @@
 
         <!-- Gambar Booth -->
         <div class="md:col-span-2">
-            <label for="gambar_event" class="block mb-2 text-white text-sm font-medium">Gambar Event Sebelumnya</label>
-            <!-- Preview Gambar Lama -->
-            <?php if ($booth['gambar_booth']) : ?>
-                <div class="mb-2">
-                    <img src="/uploads/images/<?= $booth['gambar_booth'] ?>" alt="Gambar Event Lama" class="h-32 object-cover rounded-md">
-                </div>
-            <?php endif; ?>
-            <label for="" class="block mb-2 text-white text-sm font-medium">
-                Upload gambar baru
-            </label>
+            <label for="gambar_booth" class="block mb-2 text-white text-sm font-medium">Gambar Booth</label>
             <input
                 type="file"
                 id="gambar_booth"
@@ -68,11 +55,10 @@
             />
             <?php if (session('validation') && session('validation')->hasError('gambar_booth')) : ?>
                 <p class="mt-1 text-sm text-red-500">
-                    <?= session('validation')->getError('gambar_booth'); ?>
+                <?= session('validation')->getError('gambar_booth'); ?>
                 </p>
             <?php endif; ?>
         </div>
-        <input type="hidden" name="gambar_lama" value="<?= $booth['gambar_booth']; ?>">
 
         <!-- Harga Sewa -->
         <div class="">
@@ -81,7 +67,7 @@
                 type="number" 
                 id="harga_sewa" 
                 name="harga_sewa" 
-                value="<?= (old('harga_sewa') ? old('harga_sewa') : $booth['harga_sewa']) ?>"
+                value="<?= old('harga_sewa'); ?>"
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
                 placeholder="Contoh: 250000"
             />
@@ -113,9 +99,10 @@
             <label for="deskripsi_booth" class="block mb-2 text-white text-sm font-medium">Deskripsi Booth</label>
             <textarea 
                 name="deskripsi_booth" 
+                value="<?= old('deskripsi_booth'); ?>
                 rows="4" 
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main">
-                <?= (old('deskripsi_booth') ? old('deskripsi_booth') : $booth['deskripsi_booth']) ?>
+                <?= old('deskripsi_booth'); ?>
             </textarea>
             <?php if (session('validation') && session('validation')->hasError('deskripsi_booth')) : ?>
                 <p class="mt-1 text-sm text-red-500">
@@ -127,7 +114,7 @@
         <!-- Submit Button -->
         <div class="md:col-span-2 flex justify-end">
             <button type="submit" class="px-4 py-2 text-center bg-gradient-to-r from-tertiary-hard to-blue-800 text-white rounded-lg font-semibold hover:opacity-90 transition">
-                Simpan Booth
+                Buat Booth
             </button>
         </div>
 

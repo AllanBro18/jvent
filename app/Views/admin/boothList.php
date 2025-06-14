@@ -6,7 +6,7 @@
         <h2 class="text-2xl font-bold text-white mb-4">Booth Management Panel</h2>
         <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <!-- Form Filter Event -->
-            <form method="get" action="<?= base_url('dashboard/booths') ?>" 
+            <form method="get" action="<?= base_url('dashboard/boothlist') ?>" 
                   class="flex flex-col sm:flex-row items-start sm:items-center gap-2 w-full md:w-auto">
                 <label for="id_event" class="text-gray-300 font-medium">Pilih Event:</label>
                 <select id="id_event" name="id_event"
@@ -23,7 +23,7 @@
 
             <!-- Tombol Tambah -->
             <div class="w-full sm:w-auto">
-                <a href="<?= base_url('booth/create') ?>"
+                <a href="<?= base_url('boothlist/create') ?>"
                    class="block text-center bg-gradient-to-r from-blue-600 to-tertiary-hard hover:from-blue-700 hover:to-purple-700 text-white px-5 py-2 rounded font-semibold shadow transition w-full sm:w-auto">
                     Tambah Booth +
                 </a>
@@ -78,8 +78,8 @@
                     </td>
                     <td class="px-2 py-2 md:px-4 md:py-3 space-x-2">
                         <div class="flex flex-col md:flex-row items-start md:items-end">
-                            <a href="<?= base_url('booth/edit/' . $booth['id_booth']) ?>" class="my-1 md:mx-1 bg-gradient-to-r from-tertiary-hard to-blue-600 hover:opacity-90 text-white px-3 py-1 rounded hover:bg-purple-700 transition">Edit</a>
-                            <form action="/booth/<?= $booth['id_booth'] ?>" method="post" class="my-1 md:mx-1">
+                            <a href="<?= base_url('boothlist/edit/' . $booth['id_booth']) ?>" class="my-1 md:mx-1 bg-gradient-to-r from-tertiary-hard to-blue-600 hover:opacity-90 text-white px-3 py-1 rounded hover:bg-purple-700 transition">Edit</a>
+                            <form action="/boothlist/<?= $booth['id_booth'] ?>" method="post" class="my-1 md:mx-1">
                                 <?= csrf_field() ?>
                                 <input type="hidden" name="_method" value="DELETE">
                                 <button type="submit" onclick="return confirm('Apakah anda yakin menghapus booth ini?')" class="bg-red-600 px-2 py-1 rounded hover:bg-red-700 text-white">

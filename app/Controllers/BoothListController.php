@@ -2,44 +2,44 @@
 
 namespace App\Controllers;
 
-use App\Models\BoothModel;
+use App\Models\BoothListModel;
 use App\Models\EventModel;
 
-class BoothController extends BaseController
+class BoothListController extends BaseController
 {
-    protected $boothModel;
+    protected $boothListModel;
     protected $eventModel;
 
     public function __construct()
     {
-        $this->boothModel = new BoothModel();
+        $this->boothListModel = new BoothListModel();
         $this->eventModel = new EventModel();
     }
 
     // Detail booth tertentu
     public function detailByIdEvent ($id)
     {
-        $booths = $this->boothModel
+        $boothList = $this->boothListModel
             ->getBoothsByEvent($id);
 
         // dd($this->boothModel->getBoothsByEvent($id));
 
-        if (!$booths) {
+        if (!$boothList) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("Booth tidak ditemukan.");
         }
 
         return view('layout/header', ['title' => 'Detail Booth'])
-            . view('booth/detailByIdEvent', [
+            . view('boothlist/detailByIdEvent', [
                 // Ambil booth berdasarkan id_booth tertentu
-                'booths' => $booths,
+                'booths' => $boothList,
                 ...$this->getAdminSession(), // spread array
             ])
             . view('layout/footer');
     }
 
-    public function detail($id)
+    public function detailBoothList($id)
     {
-        $booth = $this->boothModel
+        $booth = $this->boothListModel
             ->getBoothById($id);
 
         // dd($booth);
@@ -50,7 +50,7 @@ class BoothController extends BaseController
         }
 
         return view('layout/header', ['title' => 'Detail Booth'])
-            . view('booth/detail', [
+            . view('boothlist/detail', [
                 // Ambil booth berdasarkan id_booth tertentu
                 'booth' => $booth,
                 ...$this->getAdminSession(), // spread array
@@ -59,7 +59,7 @@ class BoothController extends BaseController
     }
 
     // CRUD Booth
-    public function createBooth()
+    public function createBoothList()
     {
         // Cek apakah admin sudah login
         if (!session()->has('username_admin')) {
@@ -73,7 +73,7 @@ class BoothController extends BaseController
         }
 
         return view('layout/header', ['title' => 'Buat Booth'])
-            . view('booth/create', [
+            . view('boothlist/create', [
                 'validation' => $validation,
                 'events' => $this->eventModel->getEvent(),
                 ...$this->getAdminSession(), // spread array
@@ -81,7 +81,7 @@ class BoothController extends BaseController
             . view('layout/footer');
     }
 
-    public function saveBooth()
+    public function saveBoothList()
     {
         // Cek apakah admin sudah login
         if (!session()->has('username_admin')) {
@@ -156,7 +156,7 @@ class BoothController extends BaseController
         }
         $fileGambar->move(FCPATH . 'uploads/images', $namaGambar);
 
-        $this->boothModel->save([
+        $this->boothListModel->save([
             'nama_booth' => $this->request->getVar('nama_booth'),
             'slug' => url_title($this->request->getVar('nama_booth'), '-', true),
             'deskripsi_booth' => $this->request->getVar('deskripsi_booth'),
@@ -169,13 +169,13 @@ class BoothController extends BaseController
         // flash data sukses
         session()->setFlashdata('success', 'Booth berhasil dibuat');
 
-        return redirect()->to('/dashboard/booths');
+        return redirect()->to('/dashboard/boothlist');
     }
 
-    public function editBooth($id)
+    public function editBoothList($id)
     {
-        $booth = $this->boothModel->getBoothById($id);
-       
+        $booth = $this->boothListModel->getBoothById($id);
+
         if (!$booth) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Booth tidak ditemukan');
         }
@@ -199,7 +199,7 @@ class BoothController extends BaseController
         }
 
         return view('layout/header', ['title' => 'Edit Booth'])
-            . view('booth/edit', [
+            . view('boothlist/edit', [
                 'validation' => $validation,
                 'booth' => $booth,
                 'events' => $this->eventModel->find(),
@@ -208,8 +208,9 @@ class BoothController extends BaseController
             . view('layout/footer');
     }
 
-    public function updateBooth($id)
+    public function updateBoothList($id)
     {
+        // dd($this->request->getVar());
         // Cek apakah admin sudah login
         if (!session()->has('username_admin')) {
             return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
@@ -268,7 +269,7 @@ class BoothController extends BaseController
         if (!$this->validate($rules)) {
             $validation = \Config\Services::validation();
             // Jika validasi gagal, kembalikan ke halaman create dengan pesan error
-            return redirect()->to('/booth/edit/' . $this->request->getVar('id_booth'))->withInput()->with('validation', $validation);
+            return redirect()->to('/boothlist/edit/' . $this->request->getVar('id_booth'))->withInput()->with('validation', $validation);
         }
 
         // ambil file gambar
@@ -290,35 +291,36 @@ class BoothController extends BaseController
             $namaGambar = $namaGambarBaru;
         }
 
-        $this->boothModel->save([
+        $this->boothListModel->save([
+            'id_booth' => $id, // Pastikan id_booth ada di form
             'nama_booth' => $this->request->getVar('nama_booth'),
             'slug' => url_title($this->request->getVar('nama_booth'), '-', true),
             'deskripsi_booth' => $this->request->getVar('deskripsi_booth'),
             'gambar_booth' => $namaGambar,
             'harga_sewa' => $this->request->getVar('harga_sewa'),
             'status' => $this->request->getVar('status'),
-            'id_event' => $id, // Pastikan id_event ada di form
+            'id_event' => $this->request->getVar('id_event'), // Pastikan id_event ada di form
         ]);
 
         // flash data sukses
         session()->setFlashdata('success', 'Booth berhasil diperbarui');
 
-        return redirect()->to('/dashboard/booths');
+        return redirect()->to('/dashboard/boothlist');
     }
 
-    public function deleteBooth($id)
+    public function deleteBoothList($id)
     {
         // Cek apakah admin sudah login
         if (!session()->has('username_admin')) {
             return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
         }
 
-        $booth = $this->boothModel->find($id);
+        $booth = $this->boothListModel->find($id);
         if (!$booth) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Booth tidak ditemukan');
         }
 
-        $this->boothModel->delete($id);
+        $this->boothListModel->delete($id);
 
         // Hapus gambar jika ada
         if ($booth['gambar_booth']) {
@@ -331,7 +333,7 @@ class BoothController extends BaseController
 
         // Redirect dengan pesan sukses
         session()->setFlashdata('success', 'Booth berhasil dihapus');
-        return redirect()->to('/dashboard/booths');
+        return redirect()->to('/dashboard/boothlist');
     }
 
     public function searchAndFilter () {

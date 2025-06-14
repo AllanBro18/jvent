@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\BoothModel;
+use App\Models\BoothListModel;
 use App\Models\EventModel;
 
 use function PHPUnit\Framework\fileExists;
@@ -10,12 +10,12 @@ use function PHPUnit\Framework\fileExists;
 class EventController extends BaseController
 {
     protected $eventModel;
-    protected $boothModel;
+    protected $boothListModel;
 
     public function __construct()
     {
         $this->eventModel = new EventModel();
-        $this->boothModel = new BoothModel(); 
+        $this->boothListModel = new BoothListModel(); 
     }
 
     public function index()
@@ -200,7 +200,7 @@ class EventController extends BaseController
     {
         $data = [
             'events' => $this->eventModel->getEvent($slug),
-            'booths' => $this->boothModel->findAll(),
+            'booths' => $this->boothListModel->findAll(),
         ];
 
         // cek jika event tidak ada
