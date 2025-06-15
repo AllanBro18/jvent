@@ -24,6 +24,6 @@ class AddColumnToEventTable extends Migration
 
     public function down()
     {
-        $this->forge->dropColumn('event_table', 'deskripsi');
+        $this->forge->dropColumn('event_table', ['created_at', 'updated_at']);
     }
 }

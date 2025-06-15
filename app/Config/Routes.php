@@ -26,7 +26,7 @@ $routes->delete('/event/(:num)', 'EventController::delete/$1', ['filter' => 'aut
 // BOOTH
 $routes->get('/booth', 'BoothController::index');
 
-$routes->get('/booth/create ', 'BoothController::createBooth', ['filter' => 'authGuard']);
+$routes->get('/booth/create', 'BoothController::createBooth', ['filter' => 'authGuard']);
 $routes->post('/booth/save', 'BoothController::saveBooth', ['filter' => 'authGuard']);
 $routes->get('/booth/edit/(:segment)', 'BoothController::editBooth/$1', ['filter' => 'authGuard']);
 $routes->post('/booth/update/(:segment)', 'BoothController::updateBooth/$1', ['filter' => 'authGuard']);
