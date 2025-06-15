@@ -116,4 +116,19 @@ class Admin extends BaseController
 
         return view('admin/boothList', $data);
     }
+
+    public function admin () {
+        // Cek apakah admin sudah login
+        if (!session()->has('username_admin')) {
+            return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
+        }
+
+        $data = [
+            'title' => 'Dashboard Admin',
+            'admin' => $this->getAdminSession(), // spread array
+        ];
+
+
+        return view('admin/admin', $data);
+    }
 }

@@ -50,6 +50,8 @@ $routes->get('logout', 'Auth::logout');
 // Admin Dashboard
 $routes->get('/dashboard', 'Admin::dashboard', ['filter' => 'authGuard']);
 $routes->post('/dashboard', 'Admin::searchAndFilter', ['filter' => 'authGuard']);
+$routes->get('/dashboard/booth', 'Admin::booth', ['filter' => 'authGuard']);
+$routes->get('/dashboard/admin', 'Admin::admin', ['filter' => 'authGuard']);
 $routes->get('/dashboard/boothlist', 'Admin::boothlist', ['filter' => 'authGuard']);
 $routes->get('/dashboard/info', 'Admin::info', ['filter' => 'authGuard']);
 $routes->get('/dashboard/pengaturan', 'Admin::pengaturan', ['filter' => 'authGuard']);
@@ -65,6 +67,6 @@ $routes->post('register', 'Auth::register');
 
 // detail
 // booth
-$routes->get('/booth/(:num)', 'BoothListController::detailBoothList/$1');
+$routes->get('/booth/(:any)', 'BoothController::detailBooth/$1');
 // event
 $routes->get('/event/(:any)', 'EventController::detail/$1');

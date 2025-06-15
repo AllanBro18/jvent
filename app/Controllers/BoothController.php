@@ -25,6 +25,20 @@ class BoothController extends BaseController
         . view('layout/footer');
     }
 
+    public function detailBooth ($slug)
+    {
+        $booth = $this->boothModel->getBooth($slug);
+
+        // Jika tidak ditemukan, lempar exception
+        if (!$booth) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Booth tidak ditemukan');
+        }
+
+        return view('layout/header', ['title' => 'Detail ' . $booth['nama_booth']])
+            . view('booth/detail', ['booth' => $booth])
+            . view('layout/footer');
+    }
+
     // CRUD Booth
     public function createBooth()
     {

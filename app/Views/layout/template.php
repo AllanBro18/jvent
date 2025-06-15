@@ -10,12 +10,14 @@
     <!-- tailwind -->
     <link rel="stylesheet" href="<?= base_url('assets/css/styles.css') ?>">
 </head>
+<style>
+    
+</style>
 <body class="bg-primary font-inter">
     <!-- PARSIAL -->
     <?php if ($title === 'Dashboard Admin' || $title === 'Dashboard Info' || $title === 'Dashboard Pengaturan' || $title === 'Dashboard Manajemen Booth') : ?>
-        <?= $this->include('layout/sidebar') ?> 
+        <?= $this->include('layout/sidebar2') ?> 
         <?= $this->include('layout/footer') ?> 
     <?php endif; ?>
     
     <?= $this->renderSection('content'); ?>
-

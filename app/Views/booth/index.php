@@ -53,7 +53,7 @@
             <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 <?php if (count($booths) == 0) :  ?>
                     <div id="notFoundToast" class="fixed bg-red-600 text-white px-4 py-3 rounded shadow-lg hidden z-50">
-                        Event yang Anda cari tidak ada. Coba kata kunci lain.
+                        Booth yang Anda cari tidak ada. Coba kata kunci lain.
                     </div>
                 <?php endif; ?>
 
@@ -66,9 +66,7 @@
                             <a href="/booth/<?= esc($b['slug']) ?>" target="_blank">
                                 <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white"> <?= esc($b['nama_booth']) ?> </h5>
                             </a>
-                            <p class="mb-1 text-sm text-gray-700 dark:text-gray-400"><?= esc($b['lokasi_booth']) ?></p>
-                            <p class="mb-1 text-sm text-gray-700 dark:text-gray-400"><?= esc($b['jenis_booth']) ?></p>
-                            
+                            <p class="mb-1 text-sm text-gray-700 dark:text-gray-400">Booth: <?= esc($b['jenis_booth']) ?></p>
                         </div>
                     </div>
                 <?php endforeach; ?>
