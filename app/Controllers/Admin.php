@@ -4,16 +4,19 @@ namespace App\Controllers;
 
 use App\Models\BoothListModel;
 use App\Models\EventModel;
+use App\Models\BoothsModel;
 
 class Admin extends BaseController
 {
     protected $eventModel;
     protected $boothListModel;
+    protected $boothsModel;
 
     public function __construct()
     {
         $this->eventModel = new EventModel();
         $this->boothListModel = new BoothListModel();
+        $this->boothsModel = new BoothsModel();
     }
 
     public function dashboard ()
@@ -130,5 +133,19 @@ class Admin extends BaseController
 
 
         return view('admin/admin', $data);
+    }
+    public function booth () {
+        // Cek apakah admin sudah login
+        if (!session()->has('username_admin')) {
+            return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
+        }
+
+        $data = [
+            'title' => 'Dashboard Booth',
+            'booths' => $this->boothsModel->findAll(),
+            ...$this->getAdminSession(), // spread array
+        ];
+
+        return view('admin/booth', $data);
     }
 }

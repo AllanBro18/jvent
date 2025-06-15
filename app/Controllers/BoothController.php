@@ -294,7 +294,7 @@ class BoothController extends BaseController
         return redirect()->to('/dashboard/booth');
     }
 
-    public function deleteBoothList($id)
+    public function deleteBooth($id)
     {
         // Cek apakah admin sudah login
         if (!session()->has('username_admin')) {
