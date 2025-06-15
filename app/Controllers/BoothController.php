@@ -89,19 +89,19 @@ class BoothController extends BaseController
                 ]
             ],
             'lokasi_booth' => [
-                'rules' => 'required|min_length[10]|max_length[255]',
+                'rules' => 'required|min_length[10]|max_length[150]',
                 'errors' => [
                     'required' => 'Lokasi booth harus diisi',
                     'min_length' => 'Lokasi booth minimal 10 karakter',
-                    'max_length' => 'Lokasi booth maksimal 255 karakter',
+                    'max_length' => 'Lokasi booth maksimal 150 karakter',
                 ]
             ],
             'kontak_booth' => [
-                'rules' => 'required|min_length[10]|max_length[255]',
+                'rules' => 'required|min_length[10]|max_length[150]',
                 'errors' => [
                     'required' => 'Kontak booth harus diisi',
                     'min_length' => 'Kontak booth minimal 10 karakter',
-                    'max_length' => 'Kontak booth maksimal 255 karakter',
+                    'max_length' => 'Kontak booth maksimal 150 karakter',
                 ]
             ]
         ];

@@ -24,11 +24,7 @@ $routes->post('/event/update/(:segment)', 'EventController::update/$1', ['filter
 $routes->delete('/event/(:num)', 'EventController::delete/$1', ['filter' => 'authGuard']);
 
 // BOOTH
-$routes->get('booth/search', 'EventControllerBooth:filter');
-$routes->get('booth/filter/(:any)/(:any)', 'Booth::filter/$1/$2');
-$routes->post('booth/filter/(:any)/(:any)', 'Booth::filter/$1/$2');
-$routes->post('booth/search', 'Booth::filter');
-$routes->post('booth/filter', 'Booth::filter');
+$routes->get('/booth', 'BoothController::index');
 
 $routes->get('/booth/create ', 'BoothController::createBooth', ['filter' => 'authGuard']);
 $routes->post('/booth/save', 'BoothController::saveBooth', ['filter' => 'authGuard']);
