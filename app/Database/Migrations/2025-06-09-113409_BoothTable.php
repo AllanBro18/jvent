@@ -55,6 +55,6 @@ class BoothTable extends Migration
 
     public function down()
     {
-        
+        $this->forge->dropTable('booth_table', true);
     }
 }

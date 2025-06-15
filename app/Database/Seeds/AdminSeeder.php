@@ -12,7 +12,7 @@ class AdminSeeder extends Seeder
             'nama_admin' => 'allano',
             'username_admin'    => 'allanbro',
             'email_admin'    => 'allano@email.com',
-            'password_admin'    => password_hash('admin', PASSWORD_DEFAULT),
+            'password_admin'    => password_hash('admin123', PASSWORD_DEFAULT),
         ];
 
         // // Simple Queries

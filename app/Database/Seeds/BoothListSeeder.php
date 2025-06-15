@@ -16,7 +16,7 @@ class BoothListSeeder extends Seeder
                 'gambar_booth' => 'booth_c.jpg',
                 'harga_sewa' => 500000,
                 'status' => 'tersedia',
-                'id_event' => 5,
+                'id_event' => 1,
             ],
             // [
             //     'nama_booth' => 'Booth B',

@@ -72,10 +72,10 @@ class BoothController extends BaseController
                 ]
             ],
             'jenis_booth' => [ 
-                'rules' => 'required|in_list[makanan & minuman,komunitas,merchandise]',
+                'rules' => 'required|in_list[makanan & minuman,komunitas,merchandise, lainnya]',
                 'errors' => [
                     'required' => 'Nama booth harus diisi',
-                    'in_list' => 'Jenis booth harus berupa makanan & minuman, komunitas, atau merchandise',
+                    'in_list' => 'Jenis booth harus berupa makanan & minuman, komunitas, merchandise, atau lainnya',
                 ] 
             ],
             'gambar_booth' => [
@@ -108,7 +108,7 @@ class BoothController extends BaseController
 
         if (!$this->validate($rules)) {
             $validation = \Config\Services::validation();
-            // dd($validation->getErrors());
+            dd($validation->getErrors());
             // Jika validasi gagal, kembalikan ke halaman create dengan pesan error
             return redirect()->back()->withInput()->with('validation', $validation);
         }
@@ -138,6 +138,7 @@ class BoothController extends BaseController
             'jenis_booth' => $this->request->getVar('jenis_booth'),
             'lokasi_booth' => $this->request->getVar('lokasi_booth'), // Pastikan id_event ada di form
             'kontak_booth' => $this->request->getVar('kontak_booth'),
+            'id_admin' => session()->get('id_admin'), // Ambil id_admin dari session
         ]);
 
         // flash data sukses
