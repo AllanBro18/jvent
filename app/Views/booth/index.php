@@ -71,10 +71,11 @@
                     </div>
                 <?php endforeach; ?>
             </div>
-
             
+            <!-- Pagination -->
+            <div css="mt-5 flex justify-end">
+                <?= $pager->links('booths_table', 'booth_pagination') ?>
+            </div>
         </main>
-
     </div>
-
 </section>

@@ -16,11 +16,12 @@ class BoothController extends BaseController
     public function index()
     {
         $data = [
-            'booths' => $this->boothModel->getBooth(),
+            'booths' => $this->boothModel->paginate(1, 'booths_table'),
+            'pager' => $this->boothModel->pager,
         ];
 
         return 
-        view('layout/header', ['title' => 'Jvent'])
+        view('layout/header', ['title' => 'Booths'])
         . view('booth/index', $data)
         . view('layout/footer');
     }
@@ -122,7 +123,6 @@ class BoothController extends BaseController
 
         if (!$this->validate($rules)) {
             $validation = \Config\Services::validation();
-            dd($validation->getErrors());
             // Jika validasi gagal, kembalikan ke halaman create dengan pesan error
             return redirect()->back()->withInput()->with('validation', $validation);
         }
@@ -158,35 +158,27 @@ class BoothController extends BaseController
         // flash data sukses
         session()->setFlashdata('success', 'Booth berhasil dibuat');
 
-        return redirect()->to('/dashboard/boothlist');
+        return redirect()->to('/dashboard/booth');
     }
 
     public function editBooth($slug)
     {
-        $data = [
-            'booth' => $this->boothModel->getBooth($slug)
-        ];
-
-        // Jika tidak ditemukan, lempar exception
-        if (!$data) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('Booth tidak ditemukan');
-        }
-        // Cek apakah admin sudah login
         if (!session()->has('username_admin')) {
             return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
         }
-        
-        $validation = \Config\Services::validation();
-        // jika ada flashdata dari validasi sebelumnya
-        if (session()->getFlashdata('validation')) {
-            $validation = session()->getFlashdata('validation');
+
+        $data = [
+            'validation' => \Config\Services::validation(),
+            'booth' => $this->boothModel->getBooth($slug)
+        ];
+
+        // Jika booth tidak ditemukan, lempar exception
+        if (!$data['booth']) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Booth tidak ditemukan');
         }
 
         return view('layout/header', ['title' => 'Edit Booth'])
-            . view('booth/edit', [
-                'validation' => $validation,
-                'booth' => $data,
-            ])
+            . view('booth/edit', $data)
             . view('layout/footer');
     }
 
@@ -202,12 +194,10 @@ class BoothController extends BaseController
 
         $rules = [
             'nama_booth' => [ 
-                'rules' => 'required|is_unique[booths_table.nama_booth, id_booth, ' . $id . ']|min_length[3]|max_length[50]',
+                'rules' => 'required|is_unique[booths_table.nama_booth, id_booth, ' . $id . ']',
                 'errors' => [
                     'required' => 'Nama booth harus diisi',
-                    'is_unique' => 'Nama booth sudah terdaftar',
-                    'min_length' => 'Nama booth minimal 3 karakter',
-                    'max_length' => 'Nama booth maksimal 50 karakter',
+                    'is_unique' => 'Booth sudah terdaftar',
                 ] 
             ],
             'deskripsi_booth' => [ 
@@ -254,8 +244,9 @@ class BoothController extends BaseController
 
         if (!$this->validate($rules)) {
             $validation = \Config\Services::validation();
+            // dd($validation->getErrors());
             // Jika validasi gagal, kembalikan ke halaman create dengan pesan error
-            return redirect()->to('/booth/edit/' . $this->request->getVar('id_booth'))->withInput()->with('validation', $validation);
+            return redirect()->to('/booth/edit/' . $this->request->getVar('slug'))->withInput()->with('validation', $validation);
         }
 
         // ambil file gambar
@@ -268,7 +259,7 @@ class BoothController extends BaseController
             $fileGambar->move(FCPATH . 'uploads/images', $namaGambarBaru);
 
             // Hapus gambar lama jika ada
-            $gambarLama = $this->request->getVar('gambar_lama');
+            $gambarLama = $this->request->getVar('gambar_booth_lama');
             if (!empty($gambarLama) && file_exists(FCPATH . 'uploads/images/' . $gambarLama)) {
                 unlink(FCPATH . 'uploads/images/' . $gambarLama);
             }
@@ -278,6 +269,7 @@ class BoothController extends BaseController
         }
 
         $this->boothModel->save([
+            'id_booth' => $id, // Pastikan id_booth ada di form
             'nama_booth' => $this->request->getVar('nama_booth'),
             'slug' => url_title($this->request->getVar('nama_booth'), '-', true),
             'deskripsi_booth' => $this->request->getVar('deskripsi_booth'),
@@ -305,18 +297,14 @@ class BoothController extends BaseController
         if (!$booth) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Booth tidak ditemukan');
         }
-
-        $this->boothModel->delete($id);
-
+        
         // Hapus gambar jika ada
-        if ($booth['gambar_booth']) {
-            $gambarPath = WRITEPATH . 'uploads/' . $booth['gambar_booth'];
-            // Cek apakah file gambar ada sebelum menghapus
-            if (file_exists($gambarPath)) {
-                unlink($gambarPath);
-            }
+        if (!empty($booth['gambar_booth']) && file_exists(FCPATH . 'uploads/images/' . $booth['gambar_booth'])) {
+            unlink(FCPATH . 'uploads/images/' . $booth['gambar_booth']);
         }
 
+        // Hapus data booth dari database
+        $this->boothModel->delete($id);
         // Redirect dengan pesan sukses
         session()->setFlashdata('success', 'Booth berhasil dihapus');
         return redirect()->to('/dashboard/booth');

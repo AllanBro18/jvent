@@ -158,7 +158,6 @@ class EventController extends BaseController
         if (!$this->validate($rules)) { 
             // pesan kesalahan disimpan 
             $validation = \Config\Services::validation();
-            dd($validation->getErrors());
             
             // input pengguna dan validasi yang didapat akan dikembalikan menjadi pesan
             return redirect()->back()->withInput()->with('validation', $validation);
@@ -251,14 +250,13 @@ class EventController extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Event tidak ditemukan');
         }
 
-        $this->eventModel->delete($id);
-
-        if ($event['gambar_event']) {
-            $gambarPath = WRITEPATH . 'uploads/' . $event['gambar_event'];
-            if (file_exists($gambarPath)) {
-                unlink($gambarPath);
-            }
+        
+        // Hapus gambar event jika ada
+        if (!empty($event['gambar_event']) && file_exists(FCPATH . 'uploads/images/' . $event['gambar_event'])) {
+            unlink(FCPATH . 'uploads/images/' . $event['gambar_event']);
         }
+
+        $this->eventModel->delete($id);
 
         // flash data
         session()->setFlashdata('pesan', 'Event berhasil dihapus');
@@ -275,6 +273,11 @@ class EventController extends BaseController
             'validation' => \Config\Services::validation(),
             'events' => $this->eventModel->getEvent($slug),
         ];
+
+        // Cek apakah event dengan slug tersebut ada
+        if (!$data['events']) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Event dengan slug ' . $slug . ' tidak ditemukan');
+        }
 
         return view('layout/header', ['title' => 'Update Event ' . $slug]) 
         . view('event/edit', $data)
