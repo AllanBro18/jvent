@@ -11,7 +11,7 @@
     </div>
 </div>
 
-<div class="mt-10 min-h-screen">
+<div class="my-10 min-h-screen">
     <h1 class="text-center text-2xl font-bold text-white">Event Populer</h1>
     <div class="mt-5 px-10">
         <div class="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -75,17 +75,5 @@
                 </div>
             </div>
         <?php endforeach; ?>
-    </div>
-
-    <div class="mt-10 mb-10 mx-auto">
-        <div class="flex items-center justify-center">
-        <div class="grid text-center">
-            <div class="w-72 text-white">
-                <h1 class="py-4 text-2xl font-bold">Punya Event? Tampilkan di Jvent Sekarang</h1>
-                <a href="<?= base_url('/event/create') ?>" class="px-2 py-2 text-center bg-gradient-to-r from-tertiary-soft to-violet-600 text-white rounded-lg font-semibold hover:opacity-90 transition">
-                    Daftarkan Event Anda
-                </a>
-            </div>
-        </div>
     </div>
 </div>

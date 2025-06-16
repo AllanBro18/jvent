@@ -20,7 +20,7 @@
                 </div>
             <?php endif; ?>
 
-            <?php if (!empty(session('username_admin'))): ?>
+            <?php if (!empty($admin)): ?>
             <div class="overflow-x-auto w-full">
                 <table class="min-w-full text-sm text-left text-gray-300 border-collapse">
                     <thead>
@@ -32,13 +32,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $no = 1; ?>
+                        <?php $no = 1; foreach ($admin as $a) : ?>
                         <tr class="hover:bg-gray-700 transition-colors">
                             <td class="px-6 py-4 border-b border-gray-700"><?= $no++ ?></td>
-                            <td class="px-6 py-4 border-b border-gray-700"><?= esc($admin['id_admin']) ?></td>
-                            <td class="px-6 py-4 border-b border-gray-700"><?= esc($admin['username_admin']) ?></td>
-                            <td class="px-6 py-4 border-b border-gray-700"><?= esc($admin['email_admin']) ?></td>
+                            <td class="px-6 py-4 border-b border-gray-700"><?= esc($a['id_admin']) ?></td>
+                            <td class="px-6 py-4 border-b border-gray-700"><?= esc($a['username_admin']) ?></td>
+                            <td class="px-6 py-4 border-b border-gray-700"><?= esc($a['email_admin']) ?></td>
                         </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
