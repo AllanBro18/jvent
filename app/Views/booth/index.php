@@ -67,6 +67,7 @@
                                 <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white"> <?= esc($b['nama_booth']) ?> </h5>
                             </a>
                             <p class="mb-1 text-sm text-gray-700 dark:text-gray-400">Booth: <?= esc($b['jenis_booth']) ?></p>
+                            <p class="mb-1 text-sm font-light text-gray-700 dark:text-gray-400"><?= esc($b['deskripsi_booth']) ?></p>
                         </div>
                     </div>
                 <?php endforeach; ?>

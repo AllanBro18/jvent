@@ -11,9 +11,9 @@
     </div>
 </div>
 
-<div class="mt-10 min-h-screen px-10">
+<div class="mt-10 min-h-screen">
     <h1 class="text-center text-2xl font-bold text-white">Event Populer</h1>
-    <div class="mt-5">
+    <div class="mt-5 px-10">
         <div class="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <?php if (count($events) == 0) :  ?>
                 <p>Data event masih kosong</p>    
@@ -88,6 +88,4 @@
             </div>
         </div>
     </div>
-
-    <!-- cardview -->
 </div>

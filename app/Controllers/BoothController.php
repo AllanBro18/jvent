@@ -111,20 +111,13 @@ class BoothController extends BaseController
                     'min_length' => 'Lokasi booth minimal 10 karakter',
                     'max_length' => 'Lokasi booth maksimal 150 karakter',
                 ]
-            ],
-            'kontak_booth' => [
-                'rules' => 'required|min_length[10]|max_length[150]',
-                'errors' => [
-                    'required' => 'Kontak booth harus diisi',
-                    'min_length' => 'Kontak booth minimal 10 karakter',
-                    'max_length' => 'Kontak booth maksimal 150 karakter',
-                ]
             ]
         ];
 
         // validasi input
         if (!$this->validate($rules)) {
             $validation = \Config\Services::validation();
+            dd($validation->getErrors());
             // Jika validasi gagal, kembalikan ke halaman create dengan pesan error
             return redirect()->back()->withInput()->with('validation', $validation);
         }
@@ -234,14 +227,6 @@ class BoothController extends BaseController
                     'required' => 'Lokasi booth harus diisi',
                     'min_length' => 'Lokasi booth minimal 10 karakter',
                     'max_length' => 'Lokasi booth maksimal 255 karakter',
-                ]
-            ],
-            'kontak_booth' => [
-                'rules' => 'required|min_length[10]|max_length[255]',
-                'errors' => [
-                    'required' => 'Kontak booth harus diisi',
-                    'min_length' => 'Kontak booth minimal 10 karakter',
-                    'max_length' => 'Kontak booth maksimal 255 karakter',
                 ]
             ]
         ];
