@@ -211,8 +211,8 @@ class BoothController extends BaseController
             'jenis_booth' => [ 
                 'rules' => 'required|in_list[makanan & minuman,komunitas,merchandise]',
                 'errors' => [
-                    'required' => 'Status harus diisi',
-                    'in_list' => 'Status harus berupa makanan & minuman, komunitas, atau merchandise',
+                    'required' => 'Jenis harus diisi',
+                    'in_list' => 'Jenis booth harus berupa makanan & minuman, komunitas, atau merchandise',
                 ] 
             ],
             'gambar_booth' => [
