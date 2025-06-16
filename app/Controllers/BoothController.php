@@ -183,14 +183,12 @@ class BoothController extends BaseController
     }
 
     public function updateBooth($id)
-    {
-        // dd($this->request->getVar());
-        
-        // Cek apakah admin sudah login
-        $session = session();
-        if (!$session->has('id_admin')) {
-            return redirect()->to('/login')->with('error', 'Silakan login terlebih dahulu.');
-        }
+{
+    // Cek apakah admin sudah login
+    $session = session();
+    if (!$session->has('id_admin')) {
+        return redirect()->to('/login')->with('error', 'Silakan login terlebih dahulu.');
+    }
 
         $rules = [
             'nama_booth' => [ 
@@ -249,14 +247,13 @@ class BoothController extends BaseController
             return redirect()->to('/booth/edit/' . $this->request->getVar('slug'))->withInput()->with('validation', $validation);
         }
 
-        // ambil file gambar
-        $fileGambar = $this->request->getFile('gambar_booth');
-        $namaGambar = $this->request->getVar('gambar_booth_lama');
+    $fileGambar = $this->request->getFile('gambar_booth');
+    $namaGambar = $this->request->getVar('gambar_booth_lama');
 
-        // jika ada gambar baru di-upload
-        if ($fileGambar && $fileGambar->isValid() && !$fileGambar->hasMoved()) {
-            $namaGambarBaru = $fileGambar->getRandomName();
-            $fileGambar->move(FCPATH . 'uploads/images', $namaGambarBaru);
+    // Cek jika ada gambar baru yang di-upload
+    if ($fileGambar->isValid() && !$fileGambar->hasMoved()) {
+        $namaGambarBaru = $fileGambar->getRandomName();
+        $fileGambar->move(FCPATH . 'uploads/images', $namaGambarBaru);
 
             // Hapus gambar lama jika ada
             $gambarLama = $this->request->getVar('gambar_booth_lama');
@@ -264,9 +261,9 @@ class BoothController extends BaseController
                 unlink(FCPATH . 'uploads/images/' . $gambarLama);
             }
 
-            // Ganti nama gambar ke yang baru
-            $namaGambar = $namaGambarBaru;
-        }
+        // Ganti nama gambar ke yang baru
+        $namaGambar = $namaGambarBaru;
+    }
 
         $this->boothModel->save([
             'id_booth' => $id, // Pastikan id_booth ada di form
@@ -280,11 +277,10 @@ class BoothController extends BaseController
             'id_admin' => $session->get('id_admin'),
         ]);
 
-        // flash data sukses
-        session()->setFlashdata('success', 'Booth berhasil diperbarui');
+    session()->setFlashdata('success', 'Booth berhasil diperbarui');
 
-        return redirect()->to('/dashboard/booth');
-    }
+    return redirect()->to('/dashboard/boothlist'); // Disarankan redirect ke list booth
+}
 
     public function deleteBooth($id)
     {

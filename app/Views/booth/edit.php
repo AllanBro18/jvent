@@ -2,7 +2,6 @@
 
 <?= $this->section('content'); ?>
 
-<!-- TODO: Tambahkan value lama dari tiap input -->
 <section class="max-w-4xl mx-auto p-6 border-2 rounded-lg shadow-md border-secondary-main mt-10">
     <?php $validation = session('validation'); ?>
     <h2 class="text-2xl text-secondary-second font-semibold mb-6 border-b-2 border-secondary-main">Edit Booth</h2>
@@ -14,6 +13,7 @@
 
         <!-- Nama Booth -->
         <div class="md:col-span-2">
+            <label for="nama_booth" class="block mb-2 text-white text-sm font-medium">Nama Booth</label>
             <label for="nama_booth" class="block mb-2 text-white text-sm font-medium">Nama Booth</label>
             <input 
                 type="text" 
@@ -53,10 +53,10 @@
                     <?= session('validation')->getError('gambar_booth'); ?>
                 </p>
             <?php endif; ?>
+            <?php endif; ?>
         </div>
         <input type="hidden" name="gambar_booth_lama" value="<?= $booth['gambar_booth']; ?>">
 
-        <!-- Lokasi Booth -->
         <div class="md:col-span-2">
             <label for="lokasi_booth" class="block mb-2 text-white text-sm font-medium">Lokasi Booth</label>
             <textarea 
@@ -72,7 +72,6 @@
             <?php endif; ?>
         </div>
         
-        <!-- Kontak Booth -->
         <div class="md:col-span-2">
             <label for="kontak_booth" class="block mb-2 text-white text-sm font-medium">Kontak Booth</label>
             <input 
@@ -90,41 +89,37 @@
             <?php endif; ?>
         </div>
 
-        <!-- Jenis Booth -->
         <div class="">
             <label for="jenis_booth" class="block mb-2 text-white text-sm font-medium">Jenis Booth</label>
             <select id="jenis_booth" name="jenis_booth" class="w-full bg-secondary-main text-white py-2 px-4 rounded text-sm">
                 <option value="">-- Pilih Jenis --</option>
-                <option value="makanan & minuman" <?= old('status') == 'makanan & minuman' ? 'selected' : '' ?>>Makanan dan Minuman</option>
-                <option value="komunitas" <?= old('status') == 'komunitas' ? 'selected' : '' ?>>Komunitas</option>
-                <option value="merchandise" <?= old('status') == 'merchandise' ? 'selected' : '' ?>>Merchandise</option>
-                <option value="lainnya" <?= old('status') == 'lainnya' ? 'selected' : '' ?>>Lainnya</option>
+                <option value="makanan & minuman" <?= old('jenis_booth', $booth['jenis_booth']) == 'makanan & minuman' ? 'selected' : '' ?>>Makanan dan Minuman</option>
+                <option value="komunitas" <?= old('jenis_booth', $booth['jenis_booth']) == 'komunitas' ? 'selected' : '' ?>>Komunitas</option>
+                <option value="merchandise" <?= old('jenis_booth', $booth['jenis_booth']) == 'merchandise' ? 'selected' : '' ?>>Merchandise</option>
+                <option value="lainnya" <?= old('jenis_booth', $booth['jenis_booth']) == 'lainnya' ? 'selected' : '' ?>>Lainnya</option>
             </select>
-            <?php if (session('validation') && session('validation')->hasError('status')) : ?>
+            <?php if (session('validation') && session('validation')->hasError('jenis_booth')) : ?>
                 <p class="mt-1 text-sm text-red-500">
-                <?= session('validation')->getError('status'); ?>
+                    <?= session('validation')->getError('jenis_booth'); ?>
                 </p>
             <?php endif; ?>
         </div>
 
-        <!-- Deskripsi Booth -->
         <div class="md:col-span-2">
             <label for="deskripsi_booth" class="block mb-2 text-white text-sm font-medium">Deskripsi Booth</label>
             <textarea 
                 name="deskripsi_booth" 
-                value="<?= old('deskripsi_booth'); ?>
                 rows="4" 
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main">
                 <?= (old('deskripsi_booth') ? old('deskripsi_booth') : $booth['deskripsi_booth']) ?>
             </textarea>
             <?php if (session('validation') && session('validation')->hasError('deskripsi_booth')) : ?>
                 <p class="mt-1 text-sm text-red-500">
-                <?= session('validation')->getError('deskripsi_booth'); ?>
+                    <?= session('validation')->getError('deskripsi_booth'); ?>
                 </p>
             <?php endif; ?>
         </div>
 
-        <!-- Submit Button -->
         <div class="md:col-span-2 flex justify-end">
             <button type="submit" class="px-4 py-2 text-center bg-gradient-to-r from-tertiary-hard to-blue-800 text-white rounded-lg font-semibold hover:opacity-90 transition">
                 Ubah Booth
