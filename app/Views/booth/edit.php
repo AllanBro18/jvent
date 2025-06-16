@@ -96,10 +96,10 @@
             <label for="jenis_booth" class="block mb-2 text-white text-sm font-medium">Jenis Booth</label>
             <select id="jenis_booth" name="jenis_booth" class="w-full bg-secondary-main text-white py-2 px-4 rounded text-sm">
                 <option value="">-- Pilih Jenis --</option>
-                <option value="makanan & minuman" <?= old('status') == 'makanan & minuman' ? 'selected' : '' ?>>Makanan dan Minuman</option>
-                <option value="komunitas" <?= old('status') == 'komunitas' ? 'selected' : '' ?>>Komunitas</option>
-                <option value="merchandise" <?= old('status') == 'merchandise' ? 'selected' : '' ?>>Merchandise</option>
-                <option value="lainnya" <?= old('status') == 'lainnya' ? 'selected' : '' ?>>Lainnya</option>
+                <option value="makanan & minuman" <?= old('jenis_booth', $booth['jenis_booth']) == 'makanan & minuman' ? 'selected' : '' ?>>Makanan dan Minuman</option>
+                <option value="komunitas" <?= old('jenis_booth', $booth['jenis_booth']) == 'komunitas' ? 'selected' : '' ?>>Komunitas</option>
+                <option value="merchandise" <?= old('jenis_booth', $booth['jenis_booth']) == 'merchandise' ? 'selected' : '' ?>>Merchandise</option>
+                <option value="lainnya" <?= old('jenis_booth', $booth['jenis_booth']) == 'lainnya' ? 'selected' : '' ?>>Lainnya</option>
             </select>
             <?php if (session('validation') && session('validation')->hasError('status')) : ?>
                 <p class="mt-1 text-sm text-red-500">
