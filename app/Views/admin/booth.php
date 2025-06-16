@@ -34,15 +34,17 @@
                             </a>
                             <p class="mb-1 text-sm text-gray-700 dark:text-gray-400">Booth: <?= esc($b['jenis_booth']) ?></p>
                         </div>
-                        <div class="flex flex-col md:flex-row items-start md:items-end">
-                            <a href="<?= base_url('booth/edit/' . $b['slug']) ?>" class="my-1 md:mx-1 bg-gradient-to-r from-tertiary-hard to-blue-600 hover:opacity-90 text-white px-3 py-1 rounded hover:bg-purple-700 transition">Edit</a>
-                            <form action="/booth/<?= $b['id_booth'] ?>" method="post" class="my-1 md:mx-1">
-                                <?= csrf_field() ?>
-                                <input type="hidden" name="_method" value="DELETE">
-                                <button type="submit" onclick="return confirm('Apakah anda yakin menghapus booth ini?')" class="bg-red-600 px-2 py-1 rounded hover:bg-red-700 text-white">
-                                    Delete
-                                </button>
-                            </form>
+                        <div class="flex justify-between border-t py-3 border-secondary-main">    
+                            <div class="flex">
+                                <a href="<?= base_url('/booth/edit/' . $b['slug']) ?>" class="mx-1 bg-gradient-to-r from-tertiary-hard to-blue-600 hover:opacity-90 text-white px-3 py-1 rounded hover:bg-purple-700 transition">Edit</a>
+                                <form action="/booth/<?= $b['id_booth'] ?>" method="post">
+                                    <?= csrf_field() ?>
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" onclick="return confirm('Apakah anda yakin menghapus event ini?')" class="mx-1 bg-red-600 px-1 py-1 rounded hover:bg-red-700">
+                                        <p>Delete</p>
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 <?php endforeach; ?>

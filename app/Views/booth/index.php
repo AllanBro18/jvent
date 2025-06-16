@@ -73,7 +73,7 @@
             </div>
             
             <!-- Pagination -->
-            <div css="mt-5 flex justify-end">
+            <div class="mt-10 flex justify-end">
                 <?= $pager->links('booths_table', 'booth_pagination') ?>
             </div>
         </main>

@@ -10,7 +10,7 @@ class BoothsSeeder extends Seeder
     {
         $data = [
             [
-                'nama_booth' => 'Booth A',
+                'nama_booth' => 'LuisZen',
                 'slug' => 'booth-a',
                 'deskripsi_booth' => 'Deskripsi Booth A',
                 'jenis_booth' => 'makanan & minuman',
