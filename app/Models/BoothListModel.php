@@ -16,34 +16,6 @@ class BoothListModel extends Model {
         'status',
         'id_event', 
     ];
-
-    public function getBoothsByEvent($id_event) {
-        return $this->where('id_event', $id_event)->findAll();
-    }
-
-    public function getBoothById($id_booth) {
-        return $this->where('id_booth', $id_booth)->first();
-    }
-
-    public function getBoothByIdEvent($id_event) {
-        return $this->where('id_event', $id_event)->findAll();
-    }
-
-    public function getBoothBySlug($slug) {
-        return $this->where('slug', $slug)->first();
-    }
-
-    public function getBooth($slug = false, $id_event = null) {
-        if ($slug === false) {
-            return $this->findAll();
-        }
-
-        $builder = $this->where(['slug' => $slug]);
-        if ($id_event !== null) {
-            $builder = $builder->where(['id_event' => $id_event]);
-        }
-        return $builder->first();
-    }
 }
 
 ?>
