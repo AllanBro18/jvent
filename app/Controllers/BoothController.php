@@ -15,22 +15,23 @@ class BoothController extends BaseController
 
     public function index()
     {
+        // ambil semua data booth dari model dengan pagination
         $data = [
-            'booths' => $this->boothModel->paginate(1, 'booths_table'),
+            'booths' => $this->boothModel->paginate(8, 'booths_table'),
             'pager' => $this->boothModel->pager,
         ];
 
-        return 
-        view('layout/header', ['title' => 'Booths'])
-        . view('booth/index', $data)
-        . view('layout/footer');
+        return view('layout/header', ['title' => 'Booths'])
+            . view('booth/index', $data)
+            . view('layout/footer');
     }
 
     public function detailBooth ($slug)
     {
+        // ambil data booth berdasarkan slug
         $booth = $this->boothModel->getBooth($slug);
 
-        // Jika tidak ditemukan, lempar exception
+        // jika tidak ditemukan, lempar exception
         if (!$booth) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Booth tidak ditemukan');
         }
@@ -40,10 +41,9 @@ class BoothController extends BaseController
             . view('layout/footer');
     }
 
-    // CRUD Booth
     public function createBooth()
     {
-        // Cek apakah admin sudah login
+        // cek apakah admin sudah login
         if (!session()->has('username_admin')) {
             return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
         }
@@ -54,7 +54,7 @@ class BoothController extends BaseController
             $validation = session()->getFlashdata('validation');
         }
 
-        return view('layout/header', ['title' => 'Buat Booth'])
+        return view('layout/header', ['title' => 'Form Tambah Data Booth'])
             . view('booth/create', [
                 'validation' => $validation,
             ])
@@ -68,6 +68,7 @@ class BoothController extends BaseController
             return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
         }
 
+        // validasi input untuk tiap field pada form tambah booth
         $rules = [
             'nama_booth' => [ 
                 'rules' => 'required|is_unique[booths_table.nama_booth]|min_length[3]|max_length[50]',
@@ -97,7 +98,7 @@ class BoothController extends BaseController
                 'label' => 'Gambar',
                 'rules' => 'uploaded[gambar_booth]|max_size[gambar_booth,500]|is_image[gambar_booth]|mime_in[gambar_booth,image/jpg,image/jpeg,image/png]',
                 'errors' => [
-                    'uploaded' => 'Pilih gambar event terlebih dahulu.',
+                    'uploaded' => 'Pilih gambar booth terlebih dahulu.',
                     'max_size' => 'Ukuran gambar terlalu besar (maks 500KB).',
                     'is_image' => 'Yang Anda pilih bukan gambar.',
                     'mime_in' => 'Format gambar harus JPG, JPEG, atau PNG.',
@@ -121,6 +122,7 @@ class BoothController extends BaseController
             ]
         ];
 
+        // validasi input
         if (!$this->validate($rules)) {
             $validation = \Config\Services::validation();
             // Jika validasi gagal, kembalikan ke halaman create dengan pesan error
@@ -135,15 +137,16 @@ class BoothController extends BaseController
             return redirect()->back()->withInput()->with('error', 'Gambar tidak valid');
         }
 
-        // simpan gambar ke folder uploads/images
+        // simpan gambar ke folder uploads/images dengan nama random
         $namaGambar = $fileGambar->getRandomName();
 
-        // Pindahkan file gambar ke folder uploads
+        // pindahkan file gambar ke folder uploads
         if (!$fileGambar->isValid()) {
             return redirect()->back()->withInput()->with('error', $fileGambar->getErrorString());
         }
         $fileGambar->move(FCPATH . 'uploads/images', $namaGambar);
 
+        // simpan data booth ke database
         $this->boothModel->save([
             'nama_booth' => $this->request->getVar('nama_booth'),
             'slug' => url_title($this->request->getVar('nama_booth'), '-', true),
@@ -163,10 +166,12 @@ class BoothController extends BaseController
 
     public function editBooth($slug)
     {
+        // cek apakah admin sudah login
         if (!session()->has('username_admin')) {
             return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
         }
 
+        // ambil data booth berdasarkan slug
         $data = [
             'validation' => \Config\Services::validation(),
             'booth' => $this->boothModel->getBooth($slug)
@@ -184,14 +189,13 @@ class BoothController extends BaseController
 
     public function updateBooth($id)
     {
-        // dd($this->request->getVar());
-        
-        // Cek apakah admin sudah login
+        // cek apakah admin sudah login
         $session = session();
         if (!$session->has('id_admin')) {
             return redirect()->to('/login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
+        // validasi input untuk tiap field pada form edit booth
         $rules = [
             'nama_booth' => [ 
                 'rules' => 'required|is_unique[booths_table.nama_booth, id_booth, ' . $id . ']',
@@ -242,6 +246,7 @@ class BoothController extends BaseController
             ]
         ];
 
+        // validasi input dan rules
         if (!$this->validate($rules)) {
             $validation = \Config\Services::validation();
             // dd($validation->getErrors());
@@ -249,25 +254,28 @@ class BoothController extends BaseController
             return redirect()->to('/booth/edit/' . $this->request->getVar('slug'))->withInput()->with('validation', $validation);
         }
 
-        // ambil file gambar
+        // ambil file gambar terbaru dan gambar lama
         $fileGambar = $this->request->getFile('gambar_booth');
         $namaGambar = $this->request->getVar('gambar_booth_lama');
 
         // jika ada gambar baru di-upload
         if ($fileGambar && $fileGambar->isValid() && !$fileGambar->hasMoved()) {
+            // buat nama random untuk gambar yang baru
             $namaGambarBaru = $fileGambar->getRandomName();
+            // pindahkan gambar ke folder uploads/images
             $fileGambar->move(FCPATH . 'uploads/images', $namaGambarBaru);
 
-            // Hapus gambar lama jika ada
+            // hapus gambar lama jika ada
             $gambarLama = $this->request->getVar('gambar_booth_lama');
             if (!empty($gambarLama) && file_exists(FCPATH . 'uploads/images/' . $gambarLama)) {
                 unlink(FCPATH . 'uploads/images/' . $gambarLama);
             }
 
-            // Ganti nama gambar ke yang baru
+            // ganti nama gambar ke yang baru
             $namaGambar = $namaGambarBaru;
         }
 
+        // menyimpan data booth yang telah diperbarui
         $this->boothModel->save([
             'id_booth' => $id, // Pastikan id_booth ada di form
             'nama_booth' => $this->request->getVar('nama_booth'),
@@ -288,22 +296,23 @@ class BoothController extends BaseController
 
     public function deleteBooth($id)
     {
-        // Cek apakah admin sudah login
+        // cek apakah admin sudah login
         if (!session()->has('username_admin')) {
             return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
         }
 
+        // ambil data booth berdasarkan id
         $booth = $this->boothModel->find($id);
         if (!$booth) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Booth tidak ditemukan');
         }
-        
-        // Hapus gambar jika ada
+
+        // hapus gambar jika ada
         if (!empty($booth['gambar_booth']) && file_exists(FCPATH . 'uploads/images/' . $booth['gambar_booth'])) {
             unlink(FCPATH . 'uploads/images/' . $booth['gambar_booth']);
         }
 
-        // Hapus data booth dari database
+        // hapus data booth dari database
         $this->boothModel->delete($id);
         // Redirect dengan pesan sukses
         session()->setFlashdata('success', 'Booth berhasil dihapus');

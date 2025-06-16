@@ -16,52 +16,9 @@ class BoothListController extends BaseController
         $this->eventModel = new EventModel();
     }
 
-    // Detail booth tertentu
-    public function detailByIdEvent ($id)
-    {
-        $boothList = $this->boothListModel
-            ->getBoothsByEvent($id);
-
-        // dd($this->boothModel->getBoothsByEvent($id));
-
-        if (!$boothList) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("Booth tidak ditemukan.");
-        }
-
-        return view('layout/header', ['title' => 'Detail Booth'])
-            . view('boothlist/detailByIdEvent', [
-                // Ambil booth berdasarkan id_booth tertentu
-                'booths' => $boothList,
-                ...$this->getAdminSession(), // spread array
-            ])
-            . view('layout/footer');
-    }
-
-    public function detailBoothList($id)
-    {
-        $booth = $this->boothListModel
-            ->getBoothById($id);
-
-        // dd($booth);
-        // dd($this->boothModel->getBoothsByEvent($id));
-
-        if (!$booth) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("Booth tidak ditemukan.");
-        }
-
-        return view('layout/header', ['title' => 'Detail Booth'])
-            . view('boothlist/detail', [
-                // Ambil booth berdasarkan id_booth tertentu
-                'booth' => $booth,
-                ...$this->getAdminSession(), // spread array
-            ])
-            . view('layout/footer');
-    }
-
-    // CRUD Booth
     public function createBoothList()
     {
-        // Cek apakah admin sudah login
+        // cek apakah admin sudah login
         if (!session()->has('username_admin')) {
             return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
         }
@@ -83,11 +40,12 @@ class BoothListController extends BaseController
 
     public function saveBoothList()
     {
-        // Cek apakah admin sudah login
+        // cek apakah admin sudah login
         if (!session()->has('username_admin')) {
             return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
         }
 
+        // validasi input untuk tiap field pada form booth list
         $rules = [
             'nama_booth' => [ 
                 'rules' => 'required|is_unique[booth_table.nama_booth]|min_length[3]|max_length[50]',
@@ -132,6 +90,7 @@ class BoothListController extends BaseController
             ]
         ];
 
+        // validasi input
         if (!$this->validate($rules)) {
             $validation = \Config\Services::validation();
             // dd($validation->getErrors());
@@ -156,6 +115,7 @@ class BoothListController extends BaseController
         }
         $fileGambar->move(FCPATH . 'uploads/images', $namaGambar);
 
+        // simpan data booth list ke database
         $this->boothListModel->save([
             'nama_booth' => $this->request->getVar('nama_booth'),
             'slug' => url_title($this->request->getVar('nama_booth'), '-', true),
@@ -174,22 +134,17 @@ class BoothListController extends BaseController
 
     public function editBoothList($id)
     {
-        $booth = $this->boothListModel->getBoothById($id);
-
-        if (!$booth) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('Booth tidak ditemukan');
-        }
-        // Cek apakah id_booth valid
-        if (!is_numeric($id) || $id <= 0) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('ID Booth tidak valid');
-        }
-        // Jika tidak ditemukan, lempar exception
-        if (!$booth) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('Booth tidak ditemukan');
-        }
-        // Cek apakah admin sudah login
+        // cek apakah admin sudah login
         if (!session()->has('username_admin')) {
             return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
+        }
+
+        // ambil data booth berdasarkan id booth
+        $booth = $this->boothListModel->getBoothById($id);
+
+        // jika tidak ditemukan, lempar exception
+        if (!$booth) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Booth tidak ditemukan');
         }
         
         $validation = \Config\Services::validation();
@@ -210,12 +165,12 @@ class BoothListController extends BaseController
 
     public function updateBoothList($id)
     {
-        // dd($this->request->getVar());
-        // Cek apakah admin sudah login
+        // cek apakah admin sudah login
         if (!session()->has('username_admin')) {
             return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
         }
 
+        // validasi input untuk tiap field ubah data booth list
         $rules = [
             'nama_booth' => [ 
                 'rules' => 'required|is_unique[booth_table.nama_booth, id_booth, ' . $id . ']|min_length[3]|max_length[50]',
@@ -266,31 +221,35 @@ class BoothListController extends BaseController
             ],
         ];
 
+        // validasi input
         if (!$this->validate($rules)) {
             $validation = \Config\Services::validation();
             // Jika validasi gagal, kembalikan ke halaman create dengan pesan error
             return redirect()->to('/boothlist/edit/' . $this->request->getVar('id_booth'))->withInput()->with('validation', $validation);
         }
 
-        // ambil file gambar
+        // ambil file gambar booth lama dan gambar booth terbaru
         $fileGambar = $this->request->getFile('gambar_booth');
         $namaGambar = $this->request->getVar('gambar_booth_lama');
 
         // jika ada gambar baru di-upload
         if ($fileGambar && $fileGambar->isValid() && !$fileGambar->hasMoved()) {
+            // buat nama gambar baru
             $namaGambarBaru = $fileGambar->getRandomName();
+            // pindahkan file gambar ke folder uploads
             $fileGambar->move(FCPATH . 'uploads/images', $namaGambarBaru);
 
-            // Hapus gambar lama jika ada
+            // hapus gambar lama jika ada
             $gambarLama = $this->request->getVar('gambar_lama');
             if (!empty($gambarLama) && file_exists(FCPATH . 'uploads/images/' . $gambarLama)) {
                 unlink(FCPATH . 'uploads/images/' . $gambarLama);
             }
 
-            // Ganti nama gambar ke yang baru
+            // ganti nama gambar ke yang baru
             $namaGambar = $namaGambarBaru;
         }
 
+        // simpan semua data perubahan ke database
         $this->boothListModel->save([
             'id_booth' => $id, // Pastikan id_booth ada di form
             'nama_booth' => $this->request->getVar('nama_booth'),
@@ -310,54 +269,24 @@ class BoothListController extends BaseController
 
     public function deleteBoothList($id)
     {
-        // Cek apakah admin sudah login
+        // cek apakah admin sudah login
         if (!session()->has('username_admin')) {
             return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
         }
 
+        // ambil data booth berdasarkan id
         $booth = $this->boothListModel->find($id);
+
+        // jika booth tidak ditemukan, lempar exception
         if (!$booth) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Booth tidak ditemukan');
         }
 
-        
-        // Hapus gambar jika ada
-        if (!empty($booth['gambar_booth']) && file_exists(FCPATH . 'uploads/images/' . $booth['gambar_booth'])) {
-            unlink(FCPATH . 'uploads/images/' . $booth['gambar_booth']);
-        }
-        
-        // Hapus data booth dari database
+        // hapus data booth dari database berdasarkan id
         $this->boothListModel->delete($id);
 
-        // Redirect dengan pesan sukses
+        // flash data sukses
         session()->setFlashdata('success', 'Booth berhasil dihapus');
         return redirect()->to('/dashboard/boothlist');
     }
-
-    public function searchAndFilter () {
-        $keyword = $this->request->getVar('keyword');
-        $sort = $this->request->getVar('sort') ?? 'asc';
-        $query = $this->eventModel;
-
-        if ($keyword) {
-            $query = $query->groupStart()
-                        ->like('judul_event', $keyword)
-                        ->orLike('lokasi_event', $keyword)
-                        ->orLike('organizer', $keyword)
-                        ->orLike('kategori_tiket', $keyword)
-                        ->groupEnd();
-        }
-
-        if ($sort == 'terbaru') {
-            $query = $query->orderBy('tanggal_event', 'DESC');
-        }
-
-        $data = [
-            'title' => 'Dashboard Admin',
-            'events' => $query->orderBy('judul_event', strtoupper($sort))->findAll(),
-            ...$this->getAdminSession(), // spread array
-        ];
-
-        return view('admin/dashboard', $data);
-    } 
 }
