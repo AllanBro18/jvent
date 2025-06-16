@@ -53,7 +53,6 @@
                     <?= session('validation')->getError('gambar_booth'); ?>
                 </p>
             <?php endif; ?>
-            <?php endif; ?>
         </div>
         <input type="hidden" name="gambar_booth_lama" value="<?= $booth['gambar_booth']; ?>">
 
