@@ -101,9 +101,9 @@
                 <option value="merchandise" <?= old('jenis_booth', $booth['jenis_booth']) == 'merchandise' ? 'selected' : '' ?>>Merchandise</option>
                 <option value="lainnya" <?= old('jenis_booth', $booth['jenis_booth']) == 'lainnya' ? 'selected' : '' ?>>Lainnya</option>
             </select>
-            <?php if (session('validation') && session('validation')->hasError('status')) : ?>
+            <?php if (session('validation') && session('validation')->hasError('jenis_booth')) : ?>
                 <p class="mt-1 text-sm text-red-500">
-                <?= session('validation')->getError('status'); ?>
+                <?= session('validation')->getError('jenis_booth'); ?>
                 </p>
             <?php endif; ?>
         </div>
