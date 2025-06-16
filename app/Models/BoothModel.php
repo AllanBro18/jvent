@@ -18,16 +18,11 @@ class BoothModel extends Model {
         'id_admin', 
     ];
 
-    public function getBooth($slug = false, $id_event = null) {
-        if ($slug === false) {
+    public function getBooth($slug = false) {
+        if ($slug == false) {
             return $this->findAll();
         }
-
-        $builder = $this->where(['slug' => $slug]);
-        if ($id_event !== null) {
-            $builder = $builder->where(['id_event' => $id_event]);
-        }
-        return $builder->first();
+        return $this->where(['slug' => $slug])->first();
     }
 }
 

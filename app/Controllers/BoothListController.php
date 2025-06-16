@@ -320,16 +320,14 @@ class BoothListController extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Booth tidak ditemukan');
         }
 
-        $this->boothListModel->delete($id);
-
+        
         // Hapus gambar jika ada
-        if ($booth['gambar_booth']) {
-            $gambarPath = WRITEPATH . 'uploads/' . $booth['gambar_booth'];
-            // Cek apakah file gambar ada sebelum menghapus
-            if (file_exists($gambarPath)) {
-                unlink($gambarPath);
-            }
+        if (!empty($booth['gambar_booth']) && file_exists(FCPATH . 'uploads/images/' . $booth['gambar_booth'])) {
+            unlink(FCPATH . 'uploads/images/' . $booth['gambar_booth']);
         }
+        
+        // Hapus data booth dari database
+        $this->boothListModel->delete($id);
 
         // Redirect dengan pesan sukses
         session()->setFlashdata('success', 'Booth berhasil dihapus');

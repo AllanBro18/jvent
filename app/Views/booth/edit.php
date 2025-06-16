@@ -6,19 +6,22 @@
 <section class="max-w-4xl mx-auto p-6 border-2 rounded-lg shadow-md border-secondary-main mt-10">
     <?php $validation = session('validation'); ?>
     <h2 class="text-2xl text-secondary-second font-semibold mb-6 border-b-2 border-secondary-main">Edit Booth</h2>
-    
-    <form action="<?= base_url('/booth/update') ?>" method="post" class="grid grid-cols-1 md:grid-cols-2 gap-6" enctype="multipart/form-data">
+    <form action="<?= base_url('/booth/update/' . $booth['id_booth']) ?>" method="post" class="grid grid-cols-1 md:grid-cols-2 gap-6" enctype="multipart/form-data">
         <?= csrf_field() ?>
+
+        <!-- parameter slug yang dikirim ke event/update -->
+        <input type="hidden" name="slug" value="<?= $booth['slug'] ?>">
 
         <!-- Nama Booth -->
         <div class="md:col-span-2">
-            <label for="judul_event" class="block mb-2 text-white text-sm font-medium">Nama Booth</label>
+            <label for="nama_booth" class="block mb-2 text-white text-sm font-medium">Nama Booth</label>
+            <label for="nama_booth" class="block mb-2 text-white text-sm font-medium">Nama Booth</label>
             <input 
                 type="text" 
                 id="nama_booth" 
                 name="nama_booth" 
                 autofocus
-                value="<?= old('nama_booth'); ?>"
+                value="<?= (old('nama_booth') ? old('nama_booth') : $booth['nama_booth']) ?>"
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
             >
             <?php if (session('validation') && session('validation')->hasError('nama_booth')) : ?>
@@ -27,9 +30,19 @@
                 </p>
             <?php endif; ?>
         </div>
+        
         <!-- Gambar Booth -->
         <div class="md:col-span-2">
-            <label for="gambar_booth" class="block mb-2 text-white text-sm font-medium">Gambar Booth</label>
+            <label for="gambar_booth" class="block mb-2 text-white text-sm font-medium">Gambar Booth Sebelumnya</label>
+            <!-- Preview Gambar Lama -->
+            <?php if ($booth['gambar_booth']) : ?>
+                <div class="mb-2">
+                    <img src="/uploads/images/<?= $booth['gambar_booth'] ?>" alt="Gambar Booth Lama" class="h-32 object-cover rounded-md">
+                </div>
+            <?php endif; ?>
+            <label for="" class="block mb-2 text-white text-sm font-medium">
+                Upload gambar baru
+            </label>
             <input
                 type="file"
                 id="gambar_booth"
@@ -42,20 +55,20 @@
                 </p>
                 <?php endif; ?>
         </div>
+        <input type="hidden" name="gambar_booth_lama" value="<?= $booth['gambar_booth']; ?>">
 
         <!-- Lokasi Booth -->
         <div class="md:col-span-2">
             <label for="lokasi_booth" class="block mb-2 text-white text-sm font-medium">Lokasi Booth</label>
             <textarea 
             name="lokasi_booth" 
-            value="<?= old('lokasi_booth'); ?>
             rows="4" 
             class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main">
-            <?= old('lokasi_booth'); ?>
+            <?= (old('lokasi_booth') ? old('lokasi_booth') : $booth['lokasi_booth']) ?>
         </textarea>
-        <?php if (session('validation') && session('validation')->hasError('deskripsi_booth')) : ?>
+        <?php if (session('validation') && session('validation')->hasError('lokasi_booth')) : ?>
             <p class="mt-1 text-sm text-red-500">
-                <?= session('validation')->getError('deskripsi_booth'); ?>
+                <?= session('validation')->getError('lokasi_booth'); ?>
             </p>
             <?php endif; ?>
         </div>
@@ -67,7 +80,7 @@
                 type="text" 
                 id="kontak_booth" 
                 name="kontak_booth" 
-                value="<?= old('kontak_booth'); ?>"
+                value="<?= (old('kontak_booth') ? old('kontak_booth') : $booth['kontak_booth']) ?>"
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
                 placeholder="Contoh: 08123456789"
             />
@@ -103,7 +116,7 @@
                 value="<?= old('deskripsi_booth'); ?>
                 rows="4" 
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main">
-                <?= old('deskripsi_booth'); ?>
+                <?= (old('deskripsi_booth') ? old('deskripsi_booth') : $booth['deskripsi_booth']) ?>
             </textarea>
             <?php if (session('validation') && session('validation')->hasError('deskripsi_booth')) : ?>
                 <p class="mt-1 text-sm text-red-500">

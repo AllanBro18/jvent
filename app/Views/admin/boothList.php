@@ -5,7 +5,7 @@
     <div class="flex flex-col md:flex-row text-white min-h-screen">
         <div class="rounded-lg p-6 shadow-md">
             <div class="mb-8">
-                <h2 class="text-2xl font-bold mb-4">Booth Management Panel</h2>
+                <h2 class="text-2xl font-bold mb-4">Booth List Management Panel</h2>
                 <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                     <!-- Form Filter Event -->
                     <form method="get" action="<?= base_url('dashboard/boothlist') ?>" 
