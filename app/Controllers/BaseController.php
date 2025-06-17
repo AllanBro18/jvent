@@ -59,7 +59,7 @@ abstract class BaseController extends Controller
         session();
     }
 
-    // Admin Session 
+    // session untuk admin login 
     protected function getAdminSession()
     {
         return [

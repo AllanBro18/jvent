@@ -37,7 +37,15 @@
             <?php
             $session = session();
             if ($session->has('logged_in')) : ?>
-                <a href="/dashboard"
+                <a href="<?= base_url('/event/create') ?>"
+                class="flex items-center space-x-1 text-sm text-white font-medium transition-all duration-300 px-3 py-2 rounded-lg hover:scale-105 hover:shadow-lg hover:backdrop-blur-sm bg-white/5 hover:bg-white/10">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-secondary-second" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M8 7V3m8 4V3m-9 8h6m-3-3v6m6-6h2a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V9a2 2 0 012-2h2" />
+                    </svg>
+                    <span>Buat Event</span>
+                </a>
+                <a href="<?= base_url('/dashboard') ?>"
                 class="flex items-center space-x-1 text-sm text-white font-medium transition-all duration-300 px-3 py-2 rounded-lg hover:scale-105 hover:shadow-lg hover:backdrop-blur-sm bg-white/5 hover:bg-white/10">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-secondary-second" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -71,7 +79,15 @@
             <?php
             $session = session();
             if ($session->has('logged_in')) : ?>
-                <a href="/dashboard"
+                <a href="<?= base_url('/event/create') ?>"
+                class="flex items-center space-x-1 text-sm text-white font-medium transition-all duration-300 px-3 py-2 rounded-lg hover:scale-105 hover:shadow-lg hover:backdrop-blur-sm bg-white/5 hover:bg-white/10">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-secondary-second" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M8 7V3m8 4V3m-9 8h6m-3-3v6m6-6h2a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V9a2 2 0 012-2h2" />
+                    </svg>
+                    <span>Buat Event</span>
+                </a>
+                <a href="<?= base_url('/dashboard') ?>"
                 class="flex items-center space-x-1 text-sm text-white font-medium transition-all duration-300 px-3 py-2 rounded-lg hover:scale-105 hover:shadow-lg hover:backdrop-blur-sm bg-white/5 hover:bg-white/10">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-secondary-second" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

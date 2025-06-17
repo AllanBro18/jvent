@@ -24,7 +24,7 @@ class Admin extends BaseController
 
     public function dashboard ()
     {
-        // Cek apakah admin sudah login
+        // cek apakah admin sudah login
         if (!session()->has('username_admin')) {
             return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
         }
@@ -88,7 +88,7 @@ class Admin extends BaseController
 
     public function boothlist()
     {
-        // Cek apakah admin sudah login
+        // cek apakah admin sudah login
         if (!session()->has('username_admin')) {
             return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
         }

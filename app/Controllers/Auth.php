@@ -49,15 +49,20 @@ class Auth extends Controller
             return redirect()->back()->withInput()->with('validation', $validation);
         }
 
+        // set session untuk admin
         $session = session();
         $model = $this->adminModel;
 
+        // ambil field dari input
         $username_admin = $this->request->getPost('username_admin');
         $password_admin = $this->request->getPost('password_admin');
 
+        // cek apakah input sesuai dengan data di database
         $admin = $model->where('username_admin', $username_admin)->first();
 
+        // cek apakah admin ada dan verify password
         if ($admin && password_verify($password_admin, $admin['password_admin'])) {
+            // jika ada, session akan di set 
             $session->set([
                 'id_admin'       => $admin['id_admin'],
                 'username_admin' => $admin['username_admin'],
