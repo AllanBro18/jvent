@@ -60,7 +60,7 @@ class Admin extends BaseController
 
         $data = [
             'title' => 'Dashboard Admin',
-            'events' => $query->findAll(),
+            'events' => $query->getEvent(),
             ...$this->getAdminSession(), // spread array
         ];
 
@@ -104,13 +104,6 @@ class Admin extends BaseController
         } else {
             $booths = $boothListModel->findAll();
         }
-
-        // return view('admin/booths', [
-        //     'events' => $events,
-        //     'booths' => $booths,
-        //     '$selected_id_event' => $$selected_id_event
-        // ]);
-
 
         $data = [
             'title' => 'Dashboard Manajemen Booth',
