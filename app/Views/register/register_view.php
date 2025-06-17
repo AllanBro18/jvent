@@ -68,16 +68,6 @@
         <div class="mt-6 text-center text-sm text-gray-300">
             Punya Akun? <a href="<?= base_url('/login') ?>" class="text-white underline">Login</a>
         </div>
-
-        <p class="mt-4 text-center text-sm text-gray-300">atau lanjutkan dengan</p>
-        <div class="flex justify-center mt-3 space-x-4">
-            <a href="<?= base_url('/login/facebook') ?>" class="bg-white p-2 rounded-full shadow">
-                <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" class="w-6 h-6" alt="Facebook" />
-            </a>
-            <a href="<?= base_url('/login/google') ?>" class="bg-white p-2 rounded-full shadow">
-                <img src="https://cdn-icons-png.flaticon.com/512/281/281764.png" class="w-6 h-6" alt="Google" />
-            </a>
-        </div>
     </div>
 
 </section>
