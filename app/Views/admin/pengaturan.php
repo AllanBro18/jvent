@@ -10,18 +10,19 @@
           <!-- Pengaturan Profil -->
           <div class="bg-gray-800 p-6 rounded-2xl shadow mb-8">
             <h3 class="text-xl font-semibold mb-4">Profil</h3>
-            <form class="space-y-4">
+            <form action="<?= base_url('/admin/update/' . $id_admin) ?>" method="post" class="space-y-4">
+              <?= csrf_field() ?>
               <div>
                 <label class="block text-sm text-gray-300 mb-1">Nama Lengkap</label>
-                <input type="text" value="<?= esc($username_admin) ?>" class="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none">
+                <input type="text" value="<?= esc($username_admin) ?>" name="username_admin" class="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none">
               </div>
               <div>
                 <label class="block text-sm text-gray-300 mb-1">Email</label>
-                <input type="text" value="<?= esc($email_admin) ?>" class="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none">
+                <input type="text" value="<?= esc($email_admin) ?>" name="email_admin" class="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none">
               </div>
               <div>
                 <label class="block text-sm text-gray-300 mb-1">Kata Sandi Baru</label>
-                <input type="password" class="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none">
+                <input type="password" name="password_admin" class="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none">
               </div>
               <button type="submit" class="bg-purple-600 hover:bg-purple-700 px-5 py-2 rounded text-sm font-semibold">
                 Simpan Perubahan

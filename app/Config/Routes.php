@@ -60,6 +60,7 @@ $routes->get('login', 'Auth::login');
 $routes->post('login', 'Auth::loginPost');
 // logout admin
 $routes->get('logout', 'Auth::logout');
+$routes->post('/admin/update/(:num)', 'Auth::update/$1');
 
 // Admin Dashboard
 $routes->get('/dashboard', 'Admin::dashboard', ['filter' => 'authGuard']);

@@ -1,3 +1,6 @@
+<?= $this->extend('layout/template') ?>
+
+<?= $this->section('content'); ?>
 <section class="text-white min-h-screen flex items-center justify-center px-4 sm:px-6">
     <div class="w-full max-w-md space-y-6">
         <div>
@@ -54,3 +57,4 @@
     </div>
 
 </section>
+<?= $this->endSection(); ?>

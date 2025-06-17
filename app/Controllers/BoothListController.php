@@ -29,13 +29,15 @@ class BoothListController extends BaseController
             $validation = session()->getFlashdata('validation');
         }
 
-        return view('layout/header', ['title' => 'Buat Booth'])
-            . view('boothlist/create', [
-                'validation' => $validation,
-                'events' => $this->eventModel->getEvent(),
-                ...$this->getAdminSession(), // spread array
-            ])
-            . view('layout/footer');
+        $data = [
+            'title' => 'Buath Booth',
+            'validation' => $validation,
+            'events' => $this->eventModel->getEvent(),
+            ...$this->getAdminSession(), // spread array
+        ];
+
+        return view('boothlist/create', $data)
+        . view('layout/footer');
     }
 
     public function saveBoothList()
@@ -153,14 +155,16 @@ class BoothListController extends BaseController
             $validation = session()->getFlashdata('validation');
         }
 
-        return view('layout/header', ['title' => 'Edit Booth'])
-            . view('boothlist/edit', [
-                'validation' => $validation,
-                'booth' => $booth,
-                'events' => $this->eventModel->find(),
-                ...$this->getAdminSession(), // spread array
-            ])
-            . view('layout/footer');
+        $data = [
+            'title' => 'Edit Booth',
+            'validation' => $validation,
+            'booth' => $booth,
+            'events' => $this->eventModel->getEvent(),
+            ...$this->getAdminSession(), // spread array
+        ];
+
+        return view('boothlist/edit', $data)
+        . view('layout/footer');
     }
 
     public function updateBoothList($id)

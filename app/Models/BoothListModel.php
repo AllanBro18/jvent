@@ -16,6 +16,10 @@ class BoothListModel extends Model {
         'status',
         'id_event', 
     ];
+
+    public function getBoothById($id_booth) {
+        return $this->where('id_booth', $id_booth)->first();
+    }
 }
 
 ?>

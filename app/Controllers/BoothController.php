@@ -54,10 +54,12 @@ class BoothController extends BaseController
             $validation = session()->getFlashdata('validation');
         }
 
-        return view('layout/header', ['title' => 'Form Tambah Data Booth'])
-            . view('booth/create', [
-                'validation' => $validation,
-            ])
+        $data = [
+            'title' => 'Tambah Booth Baru',
+            'validation' => $validation,
+        ];
+
+        return view('booth/create', $data)
             . view('layout/footer');
     }
 
@@ -166,6 +168,7 @@ class BoothController extends BaseController
 
         // ambil data booth berdasarkan slug
         $data = [
+            'title' => 'Ubah Booth ' . $slug,
             'validation' => \Config\Services::validation(),
             'booth' => $this->boothModel->getBooth($slug)
         ];
@@ -175,8 +178,7 @@ class BoothController extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Booth tidak ditemukan');
         }
 
-        return view('layout/header', ['title' => 'Edit Booth'])
-            . view('booth/edit', $data)
+        return view('booth/edit', $data)
             . view('layout/footer');
     }
 
@@ -191,7 +193,7 @@ class BoothController extends BaseController
         // validasi input untuk tiap field pada form edit booth
         $rules = [
             'nama_booth' => [ 
-                'rules' => 'required|is_unique[booths_table.nama_booth, id_booth, ' . $id . ']',
+                'rules' => 'required|is_unique[booth_table.nama_booth, id_booth, ' . $id . ']',
                 'errors' => [
                     'required' => 'Nama booth harus diisi',
                     'is_unique' => 'Booth sudah terdaftar',

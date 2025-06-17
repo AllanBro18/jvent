@@ -1,16 +1,11 @@
 <?= $this->extend('layout/template') ?>
 
 <?= $this->section('content'); ?>
-<section class="max-w-4xl mx-auto p-6 border-2 rounded-lg shadow-md border-secondary-main mt-10">
+<section class="max-w-4xl mx-auto p-6 border-2 rounded-lg shadow-md border-secondary-main my-10">
     <?php $validation = session('validation'); ?>
     <h2 class="text-2xl text-secondary-second font-semibold mb-6 border-b-2 border-secondary-main">Ubah Booth</h2>
-    
-    
         <form action="<?= base_url('/boothlist/update/' . $booth['id_booth']) ?>" method="post" class="grid grid-cols-1 md:grid-cols-2 gap-6" enctype="multipart/form-data">
         <?= csrf_field() ?>
-
-        
-
         <!-- Nama Booth -->
         <div class="md:col-span-2">
             <label for="judul_event" class="block mb-2 text-white text-sm font-medium">Nama Booth</label>

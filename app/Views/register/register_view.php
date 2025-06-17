@@ -1,3 +1,6 @@
+<?= $this->extend('layout/template') ?>
+
+<?= $this->section('content'); ?>
 <section class="text-white min-h-screen flex flex-col items-center justify-center px-4">
     <!-- Register Form -->
     <div class="w-full max-w-md bg-transparent">
@@ -81,3 +84,4 @@
     </div>
 
 </section>
+<?= $this->endSection(); ?>

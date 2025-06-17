@@ -289,6 +289,7 @@ class EventController extends BaseController
 
         // ambil data event berdasarkan slug
         $data = [
+            'title' => 'Ubah Event ' . $slug,
             'validation' => \Config\Services::validation(),
             'events' => $this->eventModel->getEvent($slug),
         ];
@@ -299,8 +300,7 @@ class EventController extends BaseController
         }
 
         // jika ada tampilkan view untuk mengedit event
-        return view('layout/header', ['title' => 'Update Event ' . $slug]) 
-        . view('event/edit', $data)
+        return view('event/edit', $data)
         . view('layout/footer');
     }
 

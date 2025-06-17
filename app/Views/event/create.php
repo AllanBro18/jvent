@@ -1,7 +1,7 @@
 <?= $this->extend('layout/template') ?>
 
 <?= $this->section('content'); ?>
-<section class="max-w-4xl mx-auto p-6 border-2 rounded-lg shadow-md border-secondary-main mt-10">
+<section class="max-w-4xl mx-auto p-6 border-2 rounded-lg shadow-md border-secondary-main my-10">
     <?php $validation = session('validation'); ?>
     <h2 class="text-2xl text-secondary-second font-semibold mb-6 border-b-2 border-secondary-main">Tambah Event Baru</h2>
     
