@@ -1005,10 +1005,6 @@ video {
   flex-direction: column;
 }
 
-.place-items-end {
-  place-items: end;
-}
-
 .items-start {
   align-items: flex-start;
 }

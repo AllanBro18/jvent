@@ -5,20 +5,20 @@ namespace App\Controllers;
 use App\Models\AdminModel;
 use App\Models\BoothListModel;
 use App\Models\EventModel;
-use App\Models\BoothsModel;
+use App\Models\boothModel;
 
 class Admin extends BaseController
 {
     protected $eventModel;
     protected $boothListModel;
-    protected $boothsModel;
+    protected $boothModel;
     protected $adminModel;
 
     public function __construct()
     {
         $this->eventModel = new EventModel();
         $this->boothListModel = new BoothListModel();
-        $this->boothsModel = new BoothsModel();
+        $this->boothModel = new BoothModel();
         $this->adminModel = new AdminModel();
     }
 
@@ -145,7 +145,7 @@ class Admin extends BaseController
 
         $data = [
             'title' => 'Dashboard Booth',
-            'booths' => $this->boothsModel->findAll(),
+            'booths' => $this->boothModel->findAll(),
             ...$this->getAdminSession(), // spread array
         ];
 
