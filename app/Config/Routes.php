@@ -5,6 +5,15 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
+
+// RESTful API
+$routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes) {
+    $routes->resource('events');
+});
+
+$routes->get('events/(:any)', 'Api\Events::show/$1');
+
+
 $routes->get('/', 'EventController::index');
 $routes->post('/', 'EventController::filter');
 

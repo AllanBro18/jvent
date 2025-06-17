@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Models\AdminModel;
 use App\Models\BoothListModel;
 use App\Models\EventModel;
-use App\Models\BoothsModel;
+use App\Models\BoothModel;
 
 class Admin extends BaseController
 {
@@ -18,7 +18,7 @@ class Admin extends BaseController
     {
         $this->eventModel = new EventModel();
         $this->boothListModel = new BoothListModel();
-        $this->boothsModel = new BoothsModel();
+        $this->boothsModel = new BoothModel();
         $this->adminModel = new AdminModel();
     }
 

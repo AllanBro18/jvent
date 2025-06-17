@@ -4,7 +4,7 @@ namespace App\Models;
 use CodeIgniter\Model;
 
 class BoothListModel extends Model {
-    protected $table = 'booth_table';
+    protected $table = 'booth_list_table';
     protected $primaryKey = 'id_booth';
     protected $useTimestamps = true;
     protected $allowedFields = [
