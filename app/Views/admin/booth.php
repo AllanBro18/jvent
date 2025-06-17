@@ -16,6 +16,16 @@
                 </div>
             </div>
 
+            <?php if (session()->getFlashdata('pesan')): ?>
+                <div class="bg-green-600 text-white px-4 py-3 rounded mb-4">
+                    <?= session()->getFlashdata('pesan') ?>
+                </div>
+            <?php elseif (session()->getFlashdata('error')): ?>
+                <div class="bg-red-600 text-white px-4 py-3 rounded mb-4">
+                    <?= session()->getFlashdata('error') ?>
+                </div>
+            <?php endif; ?>
+
             <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 <?php if (count($booths) == 0) :  ?>
                     <div id="notFoundToast" class="fixed bg-red-600 text-white px-4 py-3 rounded shadow-lg hidden z-50">

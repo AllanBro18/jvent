@@ -87,7 +87,7 @@ class EventController extends BaseController
 
         return view('event/create', [
             'title' => 'Form Tambah Data Event',
-            'validation' => $validation,
+            'validation' => session('validation') ?? \Config\Services::validation(),
         ]) . view('layout/footer');
     }
 

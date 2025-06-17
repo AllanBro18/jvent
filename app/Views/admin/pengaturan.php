@@ -7,6 +7,12 @@
         <main class="flex-1 p-6 sm:p-10">
           <h2 class="text-2xl font-bold mb-6">Pengaturan Akun</h2>
 
+          <?php if (session()->getFlashdata('pesan')): ?>
+              <div class="bg-green-600 text-white px-4 py-3 rounded mb-4">
+                  <?= session()->getFlashdata('pesan') ?>
+              </div>
+          <?php endif; ?>
+
           <!-- Pengaturan Profil -->
           <div class="bg-gray-800 p-6 rounded-2xl shadow mb-8">
             <h3 class="text-xl font-semibold mb-4">Profil</h3>

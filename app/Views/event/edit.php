@@ -212,7 +212,6 @@
             <label for="booth_list" class="block mb-2 text-white text-sm font-medium">Booth List</label>
             <textarea 
                 name="booth_list" 
-                value="<?= old('booth_list'); ?>"
                 rows="2" 
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main">
                 <?= (old('booth_list') ? old('booth_list') : $events['booth_list']) ?>

@@ -16,6 +16,16 @@
                     </div>
                 </div>
 
+                <?php if (session()->getFlashdata('pesan')): ?>
+                    <div class="bg-green-600 text-white px-4 py-3 rounded mb-4">
+                        <?= session()->getFlashdata('pesan') ?>
+                    </div>
+                <?php elseif (session()->getFlashdata('error')): ?>
+                    <div class="bg-red-600 text-white px-4 py-3 rounded mb-4">
+                        <?= session()->getFlashdata('error') ?>
+                    </div>
+                <?php endif; ?>
+
                 <!-- Search and Sort -->
                 <div class="flex flex-col sm:flex-row sm:justify-between items-center gap-4 mb-8">
                     <div class="w-full sm:w-1/2 relative">
