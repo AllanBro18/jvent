@@ -79,16 +79,12 @@ class EventController extends BaseController
             return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
         }
 
-        $validation = \Config\Services::validation();
-        // jika ada flashdata dari validasi sebelumnya
-        if (session()->getFlashdata('validation')) {
-            $validation = session()->getFlashdata('validation');
-        }
-
-        return view('event/create', [
+        $data = [
             'title' => 'Form Tambah Data Event',
-            'validation' => session('validation') ?? \Config\Services::validation(),
-        ]) . view('layout/footer');
+            'validation' => \Config\Services::validation(),
+        ];
+
+        return view('event/create', $data);
     }
 
     public function save () {
@@ -169,7 +165,7 @@ class EventController extends BaseController
         if (!$this->validate($rules)) { 
             // pesan kesalahan disimpan 
             $validation = \Config\Services::validation();
-            
+
             // input pengguna dan validasi yang didapat akan dikembalikan menjadi pesan
             return redirect()->back()->withInput()->with('validation', $validation);
         }        

@@ -59,8 +59,7 @@ class BoothController extends BaseController
             'validation' => $validation,
         ];
 
-        return view('booth/create', $data)
-            . view('layout/footer');
+        return view('booth/create', $data);
     }
 
     public function saveBooth()
