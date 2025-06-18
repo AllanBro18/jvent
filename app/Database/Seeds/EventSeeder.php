@@ -10,10 +10,11 @@ class EventSeeder extends Seeder
     {
         $data = [
             [
-                'id_admin' => 2, // pastikan id_admin 1 sudah ada di tabel admin
+                'id_admin' => 1, // pastikan id_admin 1 sudah ada di tabel admin
                 'judul_event' => 'J-Culture Festival 2025',
                 'organizer' => 'J-Culture Indonesia',
                 'slug' => url_title('J-Culture Festival 2025', '-', true),
+                'gambar_event' => 'afest.jpg', // pastikan gambar ini ada di folder public/images/event
                 'tanggal_event' => '2025-07-15',
                 'lokasi_event' => 'Banjarmasin Convention Center',
                 'harga_tiket' => 50000,
@@ -25,10 +26,11 @@ class EventSeeder extends Seeder
                 'booth_list' => 'Cosplay, Kuliner, Merchandise'
             ],
             [
-                'id_admin' => 2,
+                'id_admin' => 1,
                 'judul_event' => 'Otaku Night 2025',
                 'organizer' => 'Otaku Community Banjarmasin',
                 'slug' => url_title('Otaku Night 2025', '-', true),
+                'gambar_event' => 'afest.jpg', // pastikan gambar ini ada di folder public/images/event
                 'tanggal_event' => '2025-08-20',
                 'lokasi_event' => 'Lapangan Murjani',
                 'harga_tiket' => 30000,
@@ -47,6 +49,6 @@ class EventSeeder extends Seeder
         // $this->db->table('event')->insert($data);
         
         // data banyak
-        $this->db->table('event')->insertBatch($data);
+        $this->db->table('event_table')->insertBatch($data);
     }
 }

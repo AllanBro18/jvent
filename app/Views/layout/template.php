@@ -10,12 +10,19 @@
     <!-- tailwind -->
     <link rel="stylesheet" href="<?= base_url('assets/css/styles.css') ?>">
 </head>
+<style>
+    
+</style>
 <body class="bg-primary font-inter">
     <!-- PARSIAL -->
-    <?php if ($title === 'Dashboard Admin' || $title === 'Dashboard Info' || $title === 'Dashboard Pengaturan') : ?>
-        <?= $this->include('layout/sidebar') ?> 
+    <?php if ($title === 'Dashboard Admin' || $title === 'Dashboard Info' || $title === 'Dashboard Pengaturan' || $title === 'Dashboard Manajemen Booth' || $title === 'Dashboard Booth'): ?>
+        <?= $this->include('layout/sidebar2') ?> 
         <?= $this->include('layout/footer') ?> 
     <?php endif; ?>
     
     <?= $this->renderSection('content'); ?>
-
+    <!-- dropdown bekerja -->
+    <script src="<?= base_url('/assets/js/script.js') ?>"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+</body>
+</html>

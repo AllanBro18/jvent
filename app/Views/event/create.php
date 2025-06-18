@@ -1,11 +1,9 @@
-
 <?= $this->extend('layout/template') ?>
 
 <?= $this->section('content'); ?>
-<section class="max-w-4xl mx-auto p-6 border-2 rounded-lg shadow-md border-secondary-main mt-10">
-    <?php $validation = session('validation'); ?>
+<section class="max-w-4xl mx-auto p-6 border-2 rounded-lg shadow-md border-secondary-main my-10">
     <h2 class="text-2xl text-secondary-second font-semibold mb-6 border-b-2 border-secondary-main">Tambah Event Baru</h2>
-    
+    <?php $validation = session('validation'); ?>
     <form action="<?= base_url('/event/save') ?>" method="post" class="grid grid-cols-1 md:grid-cols-2 gap-6" enctype="multipart/form-data">
         <?= csrf_field() ?>
 
@@ -18,7 +16,8 @@
                 name="judul_event" 
                 autofocus
                 value="<?= old('judul_event'); ?>"
-                class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main"
+                class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main
+                <?= (session('validation') && session('validation')->hasError('judul_event')) ? 'border-red-500' : 'border-gray-300'; ?>"
             >
             <?php if (session('validation') && session('validation')->hasError('judul_event')) : ?>
                 <p class="mt-1 text-sm text-red-500">
@@ -214,7 +213,6 @@
                 Buat Event
             </button>
         </div>
-
     </form>
 </section>
 <?= $this->endSection() ?>

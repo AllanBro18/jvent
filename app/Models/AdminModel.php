@@ -10,5 +10,9 @@
             'email_admin',
             'password_admin'
         ];
+
+        public function getAdmin () {
+            return $this->findAll();
+        }
     }
 ?>

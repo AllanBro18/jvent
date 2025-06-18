@@ -1,7 +1,7 @@
 <?= $this->extend('layout/template') ?>
 
 <?= $this->section('content'); ?>
-<section class="max-w-4xl mx-auto p-6 border-2 rounded-lg shadow-md border-secondary-main mt-10">
+<section class="max-w-4xl mx-auto p-6 border-2 rounded-lg shadow-md border-secondary-main my-10">
     <?php $validation = session('validation'); ?>
     <h2 class="text-2xl text-secondary-second font-semibold mb-6 border-b-2 border-secondary-main">Ubah Event</h2>
     <?php if (!isset($events['id_event'])) : ?>
@@ -212,7 +212,6 @@
             <label for="booth_list" class="block mb-2 text-white text-sm font-medium">Booth List</label>
             <textarea 
                 name="booth_list" 
-                value="<?= old('booth_list'); ?>"
                 rows="2" 
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main">
                 <?= (old('booth_list') ? old('booth_list') : $events['booth_list']) ?>

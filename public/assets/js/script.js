@@ -1,3 +1,4 @@
+// hamburger menu pada header
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
 
@@ -5,7 +6,7 @@ hamburger.addEventListener('click', () => {
   mobileMenu.classList.toggle('hidden');
 });
 
-// form event
+// form event dropdown harga tiket (berbayar/gratis)
 function toggleHargaTiket() {
   const kategori = document.getElementById("kategori_tiket").value;
   const hargaWrapper = document.getElementById("harga_tiket_wrapper");

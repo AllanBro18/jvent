@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\BoothListModel;
 use App\Models\EventModel;
 
 use function PHPUnit\Framework\fileExists;
@@ -9,81 +10,99 @@ use function PHPUnit\Framework\fileExists;
 class EventController extends BaseController
 {
     protected $eventModel;
+    protected $boothListModel;
 
     public function __construct()
     {
         $this->eventModel = new EventModel();
+        $this->boothListModel = new BoothListModel(); 
     }
 
     public function index()
     {
+        // ambil semua data event dari model
         $data = [
             'events' => $this->eventModel->getEvent(),
         ];
 
-        return 
-        view('layout/header', ['title' => 'Jvent'])
-        . view('event/index', $data)
-        . view('layout/footer');
+        return view('layout/header', ['title' => 'Jvent'])
+            . view('event/index', $data)
+            . view('layout/footer');
     }
 
-    public function filter($kategori_tiket = null, $lokasi = null)
+    public function filter($kategori_tiket = null, $sort = null)
     {
+        // ambil keyword dari input pencarian
         $keyword = $this->request->getVar('keyword');
-        $query = $this->eventModel; // untuk filter kategori
-        $sort = $lokasi;
-        $lokasi = null;
-        
+        // query builder untuk model event
+        $query = $this->eventModel;
+
+        // filter berdasarkan keyword
         if ($keyword) {
-            $query = $query->like('judul_event', $keyword)
+            // escape keyword untuk menghindari SQL injection
+            $keyword = trim($keyword);
+            // groupStart untuk menggabungkan kondisi LIKE dengan OR
+            $query = $query->groupStart()
+                        ->like('judul_event', $keyword)
                         ->orLike('lokasi_event', $keyword)
                         ->orLike('organizer', $keyword)
-                        ->orLike('kategori_tiket', $keyword);
-        }   
-        
-        if ($kategori_tiket && $kategori_tiket != 'all') {
+                        ->orLike('kategori_tiket', $keyword)
+                        ->groupEnd();
+        }
+
+        // filter berdasarkan kategori tiket
+        if ($kategori_tiket && $kategori_tiket !== 'all') {
             $query = $query->where('kategori_tiket', $kategori_tiket);
         }
 
-        if ($lokasi && $lokasi != 'all') {
-            $query = $query->like('lokasi_event', $lokasi);
+        // urutkan event berdasarkan tanggal terbaru atau terlama
+        if ($sort && $sort === 'terbaru') {
+            $query = $query->orderBy('tanggal_event', 'DESC');
+        } elseif ($sort && $sort === 'terlama') {
+            $query = $query->orderBy('tanggal_event', 'ASC');
         }
 
-        // urut berdasarkan tgl event
-        if ($sort && $sort == 'terbaru') {
-            $query = $query->orderBy('tanggal_event', 'DESC');
-        }
-        
+        // ambil data event sesuai dengan filter dan pagination
         $data = [
-            'events' => $query->paginate(8, 'event'),
+            'events' => $query->paginate(8, 'event_table'),
             'pager' => $this->eventModel->pager,
         ];
 
         return view('layout/header', ['title' => 'Filter Event', 'keyword' => $keyword])
-        . view('event/filter', $data)
-        . view('layout/footer');
+            . view('event/filter', $data)
+            . view('layout/footer');
     }
 
     public function create () {
-        $validation = \Config\Services::validation();
-        // jika ada flashdata dari validasi sebelumnya
-        if (session()->getFlashdata('validation')) {
-            $validation = session()->getFlashdata('validation');
+        // Cek apakah admin sudah login
+        if (!session()->has('username_admin')) {
+            return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
         }
 
-        return view('event/create', [
+        $data = [
             'title' => 'Form Tambah Data Event',
-            'validation' => $validation,
-        ]) . view('layout/footer');
+            'validation' => \Config\Services::validation(),
+        ];
+
+        return view('event/create', $data);
     }
 
     public function save () {
+        // cek apakah admin sudah login
+        $session = session();
+        if (!$session->has('id_admin')) {
+            return redirect()->to('/login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
+        // ambil input dari form untuk kategori tiket dan harga tiket
         $kategori_tiket = $this->request->getVar('kategori_tiket');
         $harga_input = $this->request->getPost('harga_tiket');
 
+        // validasi input untuk tiap field pada form tambah event
+        // rules untuk validasi input
         $rules = [
             'judul_event' => [
-                'rules' => 'required|is_unique[event.judul_event]',
+                'rules' => 'required|is_unique[event_table.judul_event]',
                 'errors' => [
                     'required' => 'Judul event harus diisi',
                     'is_unique' => 'Event sudah terdaftar',
@@ -133,46 +152,26 @@ class EventController extends BaseController
                 'errors' => [
                     'required' => 'deskripsi event harus diisi',
                 ]
-            ],
-            'sponsor' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => '{field} harus diisi',
-                ]
-            ],
-            'guest_star' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'guest star harus diisi',
-                ]
-            ],
-            'booth_list' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'booth list harus diisi',
-                ]
             ]
         ];
 
-        // validasi tiket
+        // validasi harga tiket jika kategori tiket berbayar
+        // jika kategori tiket adalah berbayar, maka harga tiket harus diisi
         if ($kategori_tiket === 'berbayar') {
             $rules['harga_tiket'] = 'required|numeric';
         }
         
-        // input tidak valid
+        // validasi input
         if (!$this->validate($rules)) { 
             // pesan kesalahan disimpan 
             $validation = \Config\Services::validation();
-            
+
             // input pengguna dan validasi yang didapat akan dikembalikan menjadi pesan
             return redirect()->back()->withInput()->with('validation', $validation);
-        }
-        
-        $session = session();
-        if (!$session->has('id_admin')) {
-            return redirect()->to('/login')->with('error', 'Silakan login terlebih dahulu.');
-        }
+        }        
 
+        // bersihkan input harga tiket dari titik ribuan
+        // jika kategori tiket adalah gratis, maka harga tiket di-set ke 0
         $harga_bersih = str_replace('.', '', $harga_input); // hilangkan titik ribuan
         $harga_tiket = ($kategori_tiket === 'gratis') ? 0 : (int) $harga_bersih;
         
@@ -211,50 +210,111 @@ class EventController extends BaseController
         // flash data
         $session->setFlashdata('pesan', 'Event berhasil ditambahkan...');
 
-        return redirect()->to('/event/search');
+        return redirect()->to('/dashboard');
     }
 
     public function detail($slug)
     {
+        // ambil daftar booth yang tersedia di event
+        $boothList = $this->boothListModel->findAll();
+        
+        // cek apakah event dengan slug tersebut ada
+        if (!$this->eventModel->getEvent($slug)) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Judul Event ' . $slug . ' tidak ditemukan');
+        }
+
+        // ambil daftar booth yang terkait dengan event dicari
+        // filter booth berdasarkan id_event yang sesuai dengan slug
+        $boothList = array_filter($boothList, function($booth) use ($slug) {
+            return $booth['id_event'] === $this->eventModel->getEvent($slug)['id_event'];
+        });
+
+        // ambil data event berdasarkan slug
         $events = $this->eventModel->getEvent($slug);
 
+        // simpan data event dan booth ke dalam array
+        $data = [
+            'events' => $events,
+            'booths' => $boothList,
+        ];
+
         // cek jika event tidak ada
-        if (empty($events)) {
+        if (empty($data['events']) && empty($data['booths'])) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Judul Event ' . $slug . ' tidak ditemukan');
         } 
 
+        // tampilkan view detail event
         return view('layout/header', ['title' => $slug])
-        . view('event/detail', ['events' => $events])
+        . view('event/detail', $data)
         . view('layout/footer');
     }
 
     public function delete ($id) {
+        // cek apakah admin sudah login
+        if (!session()->has('username_admin')) {
+            return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
+        }
+
+        // ambil data event berdasarkan id
+        $event = $this->eventModel->find($id);
+        
+        // cek apakah event tersebut ada, jika tidak ada, tampilkan error
+        if (!$event) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Event tidak ditemukan');
+        }
+
+        // hapus gambar event jika ada
+        if (!empty($event['gambar_event']) && file_exists(FCPATH . 'uploads/images/' . $event['gambar_event'])) {
+            unlink(FCPATH . 'uploads/images/' . $event['gambar_event']);
+        }
+
+        // hapus event dari database berdasarkan id
         $this->eventModel->delete($id);
 
         // flash data
         session()->setFlashdata('pesan', 'Event berhasil dihapus');
-        return redirect()->to('/event/filter');
+        
+        return redirect()->to('/dashboard');
     }
 
     public function edit ($slug) {
+        // cek apakah admin sudah login
+        if (!session()->has('username_admin')) {
+            return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
+        }
+
+        // ambil data event berdasarkan slug
         $data = [
+            'title' => 'Ubah Event ' . $slug,
             'validation' => \Config\Services::validation(),
             'events' => $this->eventModel->getEvent($slug),
         ];
 
-        return view('layout/header', ['title' => 'Update Event ' . $slug]) 
-        . view('event/edit', $data)
+        // cek apakah event dengan slug tersebut ada
+        if (!$data['events']) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Event dengan slug ' . $slug . ' tidak ditemukan');
+        }
+
+        // jika ada tampilkan view untuk mengedit event
+        return view('event/edit', $data)
         . view('layout/footer');
     }
 
     public function update ($id) {
-        // dd($this->request->getPost());
+        // cek apakah admin sudah login dengan session
+        $session = session();
+        if (!$session->has('id_admin')) {
+            return redirect()->to('/login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
+        // ambil kategori tiket dan harga tiket dari input
         $kategori_tiket = $this->request->getPost('kategori_tiket');
         $harga_input = $this->request->getPost('harga_tiket');
 
+        // rules untuk validasi input pada tiap field pada form edit event
         $rules= [
             'judul_event' => [
-                'rules' => 'required|is_unique[event.judul_event, id_event, ' . $id . ']',
+                'rules' => 'required|is_unique[event_table.judul_event, id_event, ' . $id . ']',
                 'errors' => [
                     'required' => 'Judul event harus diisi',
                     'is_unique' => 'Event sudah terdaftar',
@@ -303,28 +363,11 @@ class EventController extends BaseController
                 'errors' => [
                     'required' => 'deskripsi event harus diisi',
                 ]
-            ],
-            'sponsor' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => '{field} harus diisi',
-                ]
-            ],
-            'guest_star' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'guest star harus diisi',
-                ]
-            ],
-            'booth_list' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'booth list harus diisi',
-                ]
             ]
         ];
 
-        // validasi tiket
+        // validasi tiket jika kategori tiket berbayar
+        // jika kategori tiket adalah berbayar, maka harga tiket harus diisi
         if ($kategori_tiket === 'berbayar') {
             $rules['harga_tiket'] = 'required|numeric';
         }
@@ -338,8 +381,8 @@ class EventController extends BaseController
             return redirect()->to('/event/edit/' . $this->request->getVar('slug'))->withInput()->with('validation', $validation);
         }
 
-        $session = session();
-
+        // bersihkan input harga tiket dari titik ribuan
+        // jika kategori tiket adalah gratis, maka harga tiket di-set ke 0
         $harga_bersih = str_replace('.', '', $harga_input); // hilangkan titik ribuan
         $harga_tiket = ($kategori_tiket === 'gratis') ? 0 : (int) $harga_bersih;
 
@@ -364,10 +407,6 @@ class EventController extends BaseController
 
         // slug dari input judul event 
         $slug = url_title($this->request->getVar('judul_event'), '-', true);
-        
-        if (!$session->has('id_admin')) {
-            return redirect()->to('/login')->with('error', 'Silakan login terlebih dahulu.');
-        }
 
         // data diambil per key dan dikirim ke model
         $this->eventModel->save([
