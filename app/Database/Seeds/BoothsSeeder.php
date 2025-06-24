@@ -31,6 +31,6 @@ class BoothsSeeder extends Seeder
             ],
         ];
 
-        $this->db->table('booths_table')->insertBatch($data);
+        $this->db->table('booth')->insertBatch($data);
     }
 }

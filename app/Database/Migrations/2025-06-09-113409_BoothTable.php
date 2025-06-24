@@ -50,11 +50,11 @@ class BoothTable extends Migration
 
         $this->forge->addKey('id_booth', true);
         $this->forge->addForeignKey('id_event', 'event_table', 'id_event', 'CASCADE', 'CASCADE');
-        $this->forge->createTable('booth_table', true);
+        $this->forge->createTable('booth_list_table', true);
     }
 
     public function down()
     {
-        $this->forge->dropTable('booth_table', true);
+        $this->forge->dropTable('booth_list_table', true);
     }
 }

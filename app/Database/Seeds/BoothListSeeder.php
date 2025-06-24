@@ -29,6 +29,6 @@ class BoothListSeeder extends Seeder
             // ],
         ];
 
-        $this->db->table('booth_table')->insertBatch($data);
+        $this->db->table('booth_list_table')->insertBatch($data);
     }
 }

@@ -8,7 +8,7 @@ class AddColumnToBoothTable extends Migration
 {
     public function up()
     {
-        $this->forge->addColumn('booth_table', [
+        $this->forge->addColumn('booth_list_table', [
             'slug' => [
                 'type' => 'VARCHAR',
                 'constraint' => 100,
@@ -19,6 +19,6 @@ class AddColumnToBoothTable extends Migration
 
     public function down()
     {
-        $this->forge->dropColumn('booth_table', 'slug');
+        $this->forge->dropColumn('booth_list_table', 'slug');
     }
 }

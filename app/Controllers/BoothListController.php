@@ -36,8 +36,7 @@ class BoothListController extends BaseController
             ...$this->getAdminSession(), // spread array
         ];
 
-        return view('boothlist/create', $data)
-        . view('layout/footer');
+        return view('boothlist/create', $data);
     }
 
     public function saveBoothList()
