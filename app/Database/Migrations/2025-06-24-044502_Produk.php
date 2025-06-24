@@ -14,8 +14,7 @@ class Produk extends Migration
                 'auto_increment' => true,
             ],
             'id_booth' => [
-                'type'       => 'INT',
-                'unsigned'  => true,
+                'type'       => 'INT'
             ],
             'nama_produk' => [
                 'type'       => 'VARCHAR',
@@ -46,7 +45,7 @@ class Produk extends Migration
             ],
             ]);
             $this->forge->addKey('id_produk', true);
-            $this->forge->addForeignKey('id_booth', 'booth', 'id_booth', 'CASCADE', 'CASCADE');
+            $this->forge->addForeignKey('id_booth', 'booth_list_table', 'id_booth', 'CASCADE', 'CASCADE');
             $this->forge->createTable('produk', true);
     }
 
@@ -55,3 +54,5 @@ class Produk extends Migration
         $this->forge->dropTable('produk', true);
     }
 }
+
+?>
