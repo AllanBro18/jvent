@@ -51,9 +51,9 @@
             class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main">
             <?= old('lokasi_booth'); ?>
         </textarea>
-        <?php if (session('validation') && session('validation')->hasError('deskripsi_booth')) : ?>
+        <?php if (session('validation') && session('validation')->hasError('lokasi_booth')) : ?>
             <p class="mt-1 text-sm text-red-500">
-                <?= session('validation')->getError('deskripsi_booth'); ?>
+                <?= session('validation')->getError('lokasi_booth'); ?>
             </p>
             <?php endif; ?>
         </div>
@@ -86,9 +86,9 @@
                 <option value="merchandise" <?= old('status') == 'merchandise' ? 'selected' : '' ?>>Merchandise</option>
                 <option value="lainnya" <?= old('status') == 'lainnya' ? 'selected' : '' ?>>Lainnya</option>
             </select>
-            <?php if (session('validation') && session('validation')->hasError('status')) : ?>
+            <?php if (session('validation') && session('validation')->hasError('jenis_booth')) : ?>
                 <p class="mt-1 text-sm text-red-500">
-                <?= session('validation')->getError('status'); ?>
+                <?= session('validation')->getError('jenis_booth'); ?>
                 </p>
             <?php endif; ?>
         </div>

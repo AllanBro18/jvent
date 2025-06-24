@@ -1,0 +1,26 @@
+<?php 
+namespace App\Models;
+use CodeIgniter\Model;
+
+class ProdukModel extends Model {
+    protected $table = 'produk';
+    protected $primaryKey = 'id_produk';
+    protected $useTimestamps = true;
+    protected $allowedFields = [
+        'nama_produk', 
+        'deskripsi', 
+        'gambar_produk',
+        'harga_produk',
+        'stok',
+        'id_admin', 
+    ];
+
+    public function getProduk($id_produk = false) {
+        if ($id_produk === false) {
+            return $this->findAll();
+        }
+        return $this->where(['id_produk' => $id_produk])->first();
+    }
+}
+
+?>
