@@ -63,9 +63,10 @@ $routes->get('logout', 'Auth::logout');
 $routes->post('/admin/update/(:num)', 'Auth::update/$1');
 
 // Admin Dashboard
-$routes->get('/dashboard', 'Admin::dashboard', ['filter' => 'authGuard']);
+$routes->get('/dashboard/home', 'Admin::dashboard', ['filter' => 'authGuard']);
 // search bar pada halaman event
-$routes->post('/dashboard', 'Admin::searchAndFilter', ['filter' => 'authGuard']);
+$routes->post('/dashboard/home', 'Admin::searchAndFilter', ['filter' => 'authGuard']);
+$routes->get('/dashboard/event', 'Admin::event', ['filter' => 'authGuard']);
 $routes->get('/dashboard/booth', 'Admin::booth', ['filter' => 'authGuard']);
 $routes->get('/dashboard/admin', 'Admin::admin', ['filter' => 'authGuard']);
 $routes->get('/dashboard/boothlist', 'Admin::boothlist', ['filter' => 'authGuard']);

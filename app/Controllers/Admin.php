@@ -30,12 +30,29 @@ class Admin extends BaseController
         }
 
         $data = [
-            'title' => 'Dashboard Admin',
+            'title' => 'Dashboard Admin Home',
             'events' => $this->eventModel->getEvent(),
+            'booths' => $this->boothModel->getBooth(),
             ...$this->getAdminSession(), // spread array
         ];
 
         return view('admin/dashboard', $data);
+    }
+
+    public function event ()
+    {
+        // cek apakah admin sudah login
+        if (!session()->has('username_admin')) {
+            return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
+        }
+
+        $data = [
+            'title' => 'Dashboard Event',
+            'events' => $this->eventModel->getEvent(),
+            ...$this->getAdminSession(), // spread array
+        ];
+
+        return view('admin/event', $data);
     }
 
     public function searchAndFilter () {
