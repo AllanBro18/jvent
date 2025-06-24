@@ -31,6 +31,11 @@ class Produk extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => 255,
             ],
+            'status' => [
+                'type'       => 'ENUM',
+                'constraint' => ['tersedia', 'habis', 'preorder'],
+                'default'    => 'tersedia',
+            ],
             'stok' => [
                 'type'       => 'INT',
                 'default'    => 0,
@@ -45,7 +50,7 @@ class Produk extends Migration
             ],
             ]);
             $this->forge->addKey('id_produk', true);
-            $this->forge->addForeignKey('id_booth', 'booth_list_table', 'id_booth', 'CASCADE', 'CASCADE');
+            $this->forge->addForeignKey('id_booth', 'booth_table', 'id_booth', 'CASCADE', 'CASCADE');
             $this->forge->createTable('produk', true);
     }
 
