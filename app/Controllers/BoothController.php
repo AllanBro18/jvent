@@ -17,7 +17,7 @@ class BoothController extends BaseController
     {
         // ambil semua data booth dari model dengan pagination
         $data = [
-            'booths' => $this->boothModel->paginate(8, 'booths_table'),
+            'booths' => $this->boothModel->paginate(8, 'booth_table'),
             'pager' => $this->boothModel->pager,
         ];
 
