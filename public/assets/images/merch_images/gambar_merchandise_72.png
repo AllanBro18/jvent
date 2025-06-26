@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>BANPRESTO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/shared/css/common.css">
+  <link rel="stylesheet" href="/shared/css/bundle.css" />
+  <link rel="stylesheet" href="/shared/css/global.css" />
+  <link rel="stylesheet" href="/shared/css/style.css">
+  <script src="/shared/js/bundle.js"></script>
+  <script src="/shared/js/alert_en.js"></script>
+
+<!-- banpresto.jp に対する OneTrust Cookie 同意通知の始点 -->
+<script type="text/javascript" src="https://cdn-apac.onetrust.com/consent/d9960649-1ff1-4f55-8dfb-01810ccc54d9/OtAutoBlock.js" ></script>
+<script src="https://cdn-apac.onetrust.com/scripttemplates/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="d9960649-1ff1-4f55-8dfb-01810ccc54d9" ></script>
+<script type="text/javascript">
+function OptanonWrapper() { }
+</script>
+<!-- banpresto.jp に対する OneTrust Cookie 同意通知の終点 -->
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-80FGH1ZKYN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-80FGH1ZKYN');
+</script>
+<!-- Google tag (gtag.js) -->
+</head>
+
+<body>
+
+  <div class="wrap-all">
+
+    <main class="wrap-main">
+      <div class="l-inner">
+        <div class="wrap-img logo"><img src="/shared/images/logo.png" alt=""></div>
+        <p class="title">BANPRESTO Products<br>Official SNS</p>
+        <p class="lead">The followings are the official social medias of BANPRESTO.<br>
+          Please follow and check them!<br>
+          <br>
+          以下为BANPRESTO 的官方社交媒体一览，<br>
+          欢迎您前往并获取对应地区的最新情报！<br>
+          如果您喜欢我们的账号，请务必关注哦！<br>
+          <br>
+          敬請瀏覽以下各地區的BANPRESTO官方社群媒體。<br>
+          我們會透過社群媒體發佈當地的最新資訊。<br>
+          請務必追蹤我們！
+        </p>
+        <div class="wrap-content">
+          <p class="ttl">WORLD WIDE</p>
+          <div class="wrap">
+            <div class="wrap-list-brand">
+              <ul class="list-brand">
+                <li>
+                  <a href="https://www.facebook.com/BANPRESTOGL" target="_blank" class="wrap-brand icon fb">
+                    <p class="txt">BANPRESTO</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.instagram.com/banpresto_global/" target="_blank" class="wrap-brand icon insta">
+                    <p class="txt">BANPRESTO</p>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="wrap-content">
+          <p class="ttl">ASIA-PACIFIC</p>
+          <div class="wrap">
+            <p class="country pt1">Inland China</p>
+            <div class="wrap-list-brand">
+              <ul class="list-brand">
+                <li>
+                  <a href="#wechat" class="wrap-brand icon wechat popup -inline">
+                    <p class="txt">BANPRESTO<br class="u-br-sp">官方微信(中國)</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://weibo.com/u/7482378576" target="_blank" class="wrap-brand icon weibo">
+                    <p class="txt">BANPRESTO<br class="u-br-sp">官方微博(中國)</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://space.bilibili.com/481415736/video" target="_blank" class="wrap-brand icon bilibili">
+                    <p class="txt">BANPRESTO<br class="u-br-sp">官方Bilibili (中國)</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.xiaohongshu.com/user/profile/647b3d0000000000110031fa?xhsshare=CopyLink&appuid=631828a2000000002303b9ca&apptime=1724834938&share_id=a577254bb0984deaa9ba3e4edea7b6ce" target="_blank" class="wrap-brand icon xiaohongshu">
+                    <p class="txt">BANPRESTO<br class="u-br-sp">官方小红书</p>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="wrap">
+            <p class="country pt2">Taiwan</p>
+            <div class="wrap-list-brand">
+              <ul class="list-brand">
+                <li>
+                  <a href="https://bandaiprize.tw/cYlqm" target="_blank" class="wrap-brand icon fb">
+                    <p class="txt">Banpresto Fan Club Taiwan</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://maac.io/2KXOL" target="_blank" class="wrap-brand icon line">
+                    <p class="txt">BANPRESTO Taiwan</p>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="wrap">
+            <p class="country pt3">South Asia</p>
+            <div class="wrap-list-brand">
+              <ul class="list-brand">
+                <li>
+                  <a href="https://www.facebook.com/BPFC.southeeast.asia/" target="_blank" class="wrap-brand icon fb">
+                    <p class="txt">Banpresto Fan Club<br>Southeast Asia</p>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="wrap">
+            <p class="country pt4">Hong Kong</p>
+            <div class="wrap-list-brand">
+              <ul class="list-brand">
+                <li>
+                  <a href="https://www.facebook.com/BPFC.HK/" target="_blank" class="wrap-brand icon fb">
+                    <p class="txt">Banpresto Fan Club<br>Hong Kong</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.facebook.com/Qpos.hongkong" target="_blank" class="wrap-brand icon fb">
+                    <p class="txt">Banpresto Qposket<br>Fan Club Asia</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.instagram.com/banpresto_hongkong/" target="_blank" class="wrap-brand icon insta">
+                    <p class="txt">banpresto_hongkong</p>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="wrap">
+            <p class="country pt10">Australia</p>
+            <div class="wrap-list-brand">
+              <ul class="list-brand">
+                <li>
+                  <a href="https://www.facebook.com/profile.php?id=61568487864361" target="_blank" class="wrap-brand icon fb">
+                    <p class="txt">Banpresto Fan Club Australia</p>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="wrap-content">
+          <p class="ttl">AMERICAS</p>
+          <div class="wrap">
+            <p class="country pt5">USA</p>
+            <div class="wrap-list-brand">
+              <ul class="list-brand">
+                <li>
+                  <a href="https://x.com/banprestous" target="_blank" class="wrap-brand icon twitter">
+                    <p class="txt">Banpresto US</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.instagram.com/banprestous" target="_blank" class="wrap-brand icon insta">
+                    <p class="txt">banprestous</p>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="wrap">
+            <p class="country pt11">México</p>
+            <div class="wrap-list-brand">
+              <ul class="list-brand">
+                <li>
+                  <a href="https://www.facebook.com/bandainamcomexico" target="_blank" class="wrap-brand icon fb">
+                    <p class="txt">BANDAI NAMCO México</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.instagram.com/bandainamcomexico/" target="_blank" class="wrap-brand icon insta">
+                    <p class="txt">BANDAI NAMCO México</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.tiktok.com/@bandaiofficial?lang=es" target="_blank" class="wrap-brand icon tiktok">
+                    <p class="txt">BANDAI NAMCO México</p>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="wrap-content">
+          <p class="ttl">EMEA</p>
+          <div class="wrap">
+            <p class="country pt6">Italy</p>
+            <div class="wrap-list-brand">
+              <ul class="list-brand">
+                <li>
+                  <a href="https://www.facebook.com/bpfc.it/" target="_blank" class="wrap-brand icon fb">
+                    <p class="txt">Banpresto Italia</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.instagram.com/banprestoitalia/" target="_blank" class="wrap-brand icon insta">
+                    <p class="txt">Banpresto Italia</p>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="wrap">
+            <p class="country pt7">UK</p>
+            <div class="wrap-list-brand">
+              <ul class="list-brand">
+                <li>
+                  <a href="https://www.facebook.com/bandaiukcollect" target="_blank" class="wrap-brand icon fb">
+                    <p class="txt">Bandai UK Collect</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.instagram.com/bandai_uk_collect" target="_blank" class="wrap-brand icon insta">
+                    <p class="txt">Bandai UK Collect</p>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="wrap">
+            <p class="country pt8">Spain</p>
+            <div class="wrap-list-brand">
+              <ul class="list-brand">
+                <li>
+                  <a href="https://www.instagram.com/banprestospain/" target="_blank" class="wrap-brand icon insta">
+                    <p class="txt">Banpresto Spain</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://x.com/banprestospain" target="_blank" class="wrap-brand icon twitter">
+                    <p class="txt">Banpresto Spain</p>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="wrap">
+            <p class="country pt9">France</p>
+            <div class="wrap-list-brand">
+              <ul class="list-brand">
+                <li>
+                  <a href="https://www.instagram.com/bandai_collectibles_fr/" target="_blank" class="wrap-brand icon insta">
+                    <p class="txt">bandai_collectibles_fr</p>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="wrap-footer">
+      <div class="l-inner">
+        <div class="wrap-txt">
+          <p class="cookie"><a href="javascript:void(0)" class="ot-sdk-show-settings">Cookie Settings</a></p>
+          <p class="copyright"><span>&copy;</span>BANDAI SPIRITS 2013</p>
+        </div>
+        <div class="wrap-img"><img src="/shared/images/icon_copyright.png" alt="BANDAI"></div>
+      </div>
+    </footer>
+  </div>
+  <aside class="inline-popup mfp-hide wrap-pop-wechat" id="wechat">
+    <div class="wrap-pop-wechat-add">
+      <p class="logo-pop-wechat-add"><img src="/shared/images/logo.png" alt=""></p>
+      <p class="txt-pop-wechat-add">BANPRESTO　中国官方微信</p>
+      <p class="txt-pop-wechat-add-s">微信ID: BANPRESTO_CHINA</p>
+      <p class="img-pop-wechat-add"><img src="/shared/images/img_wechat_qr.jpg" alt=""></p>
+    </div>
+  </aside>
+</body>
+
+</html>
