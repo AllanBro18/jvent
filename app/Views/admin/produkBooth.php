@@ -89,6 +89,11 @@
                   <label for="deskripsi" class="block mb-2 text-sm font-normal text-gray-300">Deskripsi</label>
                   <textarea name="deskripsi" id="deskripsi" rows="2" class="w-full px-2 py-1 rounded bg-gray-800 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
                 </div>
+                <?php if (session('validation') && session('validation')->hasError('deskripsi_booth')) : ?>
+                  <p class="mt-1 text-sm text-red-500">
+                    <?= session('validation')->getError('deskripsi_booth'); ?>
+                  </p>
+                <?php endif; ?>
 
                 <div class="col-span-2 flex justify-end">
                   <button type="button" onclick="closeModal()" class="mr-2 px-4 py-2 rounded bg-gray-700 text-gray-300 hover:bg-gray-600">Batal</button>
@@ -229,9 +234,9 @@
     imagePreview.innerHTML = '';
     if (produkData.gambar_produk) {
       imagePreview.innerHTML = `
-            <p class="text-xs text-gray-300 mb-1">Gambar saat ini:</p>
-            <img src="<?= base_url('uploads/produk/') ?>/${produkData.gambar_produk}" alt="${produkData.nama_produk}" class="w-20 h-20 object-cover rounded">
-        `;
+        <p class="text-xs text-gray-300 mb-1">Gambar saat ini:</p>
+        <img src="<?= base_url('uploads/images/produk/') ?>/${produkData.gambar_produk}" alt="${produkData.nama_produk}" class="w-20 h-20 object-cover rounded">
+      `;
     }
 
     modal.classList.remove('hidden');

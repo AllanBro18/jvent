@@ -81,7 +81,7 @@ class ProdukController extends BaseController
             ]
         ];
         if (!$this->validate($rules)) {
-            dd($this->validator->getErrors());
+            session()->setFlashdata('error', 'Produk gagal ditambahkan.');
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
         // Handle file upload
@@ -115,13 +115,6 @@ class ProdukController extends BaseController
         };
 
         $rules = [
-            'id_booth' => [
-                'rules' => 'required|integer',
-                'errors' => [
-                    'required' => 'ID Booth harus diisi.',
-                    'integer' => 'ID Booth harus berupa angka.'
-                ]
-            ],
             'nama_produk' => [
                 'rules' => 'required|min_length[3]|max_length[100]',
                 'errors' => [
@@ -137,14 +130,14 @@ class ProdukController extends BaseController
                 ]
             ],
             'harga' => [
-                'rules' => 'required|decimal',
+                'rules' => 'required|numeric',
                 'errors' => [
                     'required' => 'Harga harus diisi.',
-                    'decimal' => 'Harga harus berupa angka desimal.'
+                    'numeric' => 'Harga harus berupa angka.'
                 ]
             ],
             'gambar_produk' => [
-                'rules' => 'uploaded[gambar_produk]|max_size[gambar_produk,500]|is_image[gambar_produk]|mime_in[gambar_produk,image/jpg,image/jpeg,image/png]',
+                'rules' => 'permit_empty|uploaded[gambar_produk]|max_size[gambar_produk,500]|is_image[gambar_produk]|mime_in[gambar_produk,image/jpg,image/jpeg,image/png]',
                 'errors' => [
                     'uploaded' => 'Pilih gambar event terlebih dahulu.',
                     'max_size' => 'Ukuran gambar terlalu besar (maks 500KB).',
@@ -155,31 +148,41 @@ class ProdukController extends BaseController
             'status' => [
                 'rules' => 'in_list[tersedia,habis,preorder]',
                 'errors' => [
+                    'required' => 'Status harus diisi',
                     'in_list' => 'Status harus berupa tersedia, habis, atau preorder.'
                 ]
             ],
             'stok' => [
-                'rules' => 'required|integer',
+                'rules' => 'required|numeric',
                 'errors' => [
                     'required' => 'Stok harus diisi.',
-                    'integer' => 'Stok harus berupa angka.'
+                    'numeric' => 'Stok harus berupa angka.'
                 ]
-            ]
+            ],
+            'id_booth' => [
+                'rules' => 'required|integer|is_not_unique[booth_table.id_booth]',
+                'errors' => [
+                    'required' => 'ID Booth harus diisi.',
+                    'is_not_unique' => 'Booth tidak ditemukan',
+                    'integer' => 'ID Booth harus berupa angka.'
+                ]
+            ],
         ];
+
         if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
+
         // Handle file upload
         $gambarProduk = $this->request->getFile('gambar_produk');
         if ($gambarProduk->isValid() && !$gambarProduk->hasMoved()) {
             $namaFile = $gambarProduk->getRandomName();
-            $gambarProduk->move('uploads/produk', $namaFile);
+            $gambarProduk->move('uploads/images/produk', $namaFile);
         } else {
             // If no new image is uploaded, keep the old one
             $produk = $this->produkModel->find($id);
             $namaFile = $produk['gambar_produk'];
         }
-
 
         $this->produkModel->save([
             'id_produk' => $id,
@@ -191,8 +194,13 @@ class ProdukController extends BaseController
             'status' => $this->request->getPost('status'),
             'stok' => $this->request->getPost('stok')
         ]);
+
+        // flash data sukses
+        session()->setFlashdata('success', 'Produk berhasil diperbarui');
+
+        return redirect()->to('/dashboard/produkbooth');
     }
-    
+
     public function delete($id)
     {
         if (!session()->has('username_admin')) {
@@ -210,6 +218,6 @@ class ProdukController extends BaseController
         } else {
             session()->setFlashdata('error', 'Produk tidak ditemukan.');
         }
-        return redirect()->to('/produk');
+        return redirect()->to('/dashboard/produkbooth');
     }
 }

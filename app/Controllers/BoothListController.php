@@ -173,6 +173,7 @@ class BoothListController extends BaseController
             return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
         }
 
+
         // validasi input untuk tiap field ubah data booth list
         $rules = [
             'nama_booth' => [ 
@@ -233,7 +234,7 @@ class BoothListController extends BaseController
 
         // ambil file gambar booth lama dan gambar booth terbaru
         $fileGambar = $this->request->getFile('gambar_booth');
-        $namaGambar = $this->request->getVar('gambar_booth_lama');
+        $namaGambar = $this->request->getVar('gambar_lama');
 
         // jika ada gambar baru di-upload
         if ($fileGambar && $fileGambar->isValid() && !$fileGambar->hasMoved()) {

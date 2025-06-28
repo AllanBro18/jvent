@@ -44,14 +44,14 @@
 
         <!-- Gambar Booth -->
         <div class="md:col-span-2">
-            <label for="gambar_event" class="block mb-2 text-white text-sm font-medium">Gambar Event Sebelumnya</label>
+            <label for="" class="block mb-2 text-white text-sm font-medium">Gambar Booth Sebelumnya</label>
             <!-- Preview Gambar Lama -->
             <?php if ($booth['gambar_booth']) : ?>
                 <div class="mb-2">
-                    <img src="/uploads/images/<?= $booth['gambar_booth'] ?>" alt="Gambar Event Lama" class="h-32 object-cover rounded-md">
+                    <img src="/uploads/images/<?= $booth['gambar_booth'] ?>" alt="Gambar Booth Lama" class="h-32 object-cover rounded-md">
                 </div>
             <?php endif; ?>
-            <label for="" class="block mb-2 text-white text-sm font-medium">
+            <label for="gambar_booth" class="block mb-2 text-white text-sm font-medium">
                 Upload gambar baru
             </label>
             <input
