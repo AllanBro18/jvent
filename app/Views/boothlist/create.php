@@ -99,8 +99,8 @@
             <label for="deskripsi_booth" class="block mb-2 text-white text-sm font-medium">Deskripsi Booth</label>
             <textarea 
                 name="deskripsi_booth" 
+                rows="4"
                 value="<?= old('deskripsi_booth'); ?>
-                rows="4" 
                 class="w-full px-4 py-2 bg-transparent border border-white text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-main">
                 <?= old('deskripsi_booth'); ?>
             </textarea>

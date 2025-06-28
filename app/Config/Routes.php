@@ -53,6 +53,14 @@ $routes->post('/boothlist/update/(:num)', 'BoothListController::updateBoothList/
 // delete booth
 $routes->delete('/boothlist/(:num)', 'BoothListController::deleteBoothList/$1', ['filter' => 'authGuard']);
 
+// CRUD Produk untuk tiap Booth
+// create produk
+$routes->post('/produkbooth/save', 'ProdukController::save', ['filter' => 'authGuard']);
+// update produk
+$routes->put('/produkbooth/update/(:num)', 'ProdukController::update/$1', ['filter' => 'authGuard']);
+// delete produk
+$routes->delete('/produkbooth/(:num)', 'ProdukController::delete/$1', ['filter' => 'authGuard']);
+
 
 // LOGIN Admin
 $routes->get('login', 'Auth::login');

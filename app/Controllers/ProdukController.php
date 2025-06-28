@@ -1,49 +1,44 @@
-<?php 
+<?php
+
 namespace App\Controllers;
+
 use App\Models\ProdukModel;
 
-class ProdukController extends BaseController{
+class ProdukController extends BaseController
+{
     protected $produkModel;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->produkModel = new ProdukModel();
     }
 
-    public function index() {
+    public function index()
+    {
         $data['produk'] = $this->produkModel->getProduk();
         return view('produk/index', $data);
     }
 
-    public function create() {
-
-        if (!session()->has('username_admin')) {
-            return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
-        }
-
-        $data = [
-            'title' => 'Tambah Produk',
-            'validation' => \Config\Services::validation(),
-        ];
-        return view('produk/create', $data);
-    }
-
-    public function save() {
+    public function save()
+    {
         if (!session()->has('username_admin')) {
             return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
         }
 
         $rules = [
             'id_booth' => [
-                'rules' => 'required|integer',
+                'rules' => 'required|integer|is_not_unique[booth_table.id_booth]',
                 'errors' => [
-                    'required' => 'ID Booth harus diisi.',
-                    'integer' => 'ID Booth harus berupa angka.'
+                    'required' => 'Booth harus dipilih.',
+                    'integer' => 'ID booth harus berupa angka.',
+                    'is_not_unique' => 'Booth yang dipilih tidak valid.',
                 ]
             ],
             'nama_produk' => [
-                'rules' => 'required|min_length[3]|max_length[100]',
+                'rules' => 'required|is_unique[produk.nama_produk]|min_length[3]|max_length[100]',
                 'errors' => [
                     'required' => 'Nama produk harus diisi.',
+                    'is_unique' => 'Nama produk sudah terdaftar',
                     'min_length' => 'Nama produk minimal 3 karakter.',
                     'max_length' => 'Nama produk maksimal 100 karakter.'
                 ]
@@ -55,21 +50,22 @@ class ProdukController extends BaseController{
                 ]
             ],
             'harga' => [
-                'rules' => 'required|decimal',
+                'rules' => 'required|numeric',
                 'errors' => [
                     'required' => 'Harga harus diisi.',
-                    'decimal' => 'Harga harus berupa angka desimal.'
+                    'numeric' => 'Harga harus berupa angka.'
                 ]
             ],
             'gambar_produk' => [
-                'rules' => 'uploaded[gambar_produk]|is_image[gambar_produk]|max_size[gambar_produk,500],mime_in[gambar_produk,image/jpg,image/jpeg,image/png]',
+                'label' => 'Gambar',
+                'rules' => 'uploaded[gambar_produk]|max_size[gambar_produk,500]|is_image[gambar_produk]|mime_in[gambar_produk,image/jpg,image/jpeg,image/png]',
                 'errors' => [
-                    'uploaded' => 'Gambar produk harus diunggah.',
-                    'is_image' => 'File yang diunggah harus berupa gambar.',
-                    'max_size' => 'Ukuran gambar maksimal 500KB.',
-                    'mime_in' => 'Format gambar harus JPG, JPEG, atau PNG.'
+                    'uploaded' => 'Pilih gambar event terlebih dahulu.',
+                    'max_size' => 'Ukuran gambar terlalu besar (maks 500KB).',
+                    'is_image' => 'Yang Anda pilih bukan gambar.',
+                    'mime_in' => 'Format gambar harus JPG, JPEG, atau PNG.',
                 ]
-                ],
+            ],
             'status' => [
                 'rules' => 'in_list[tersedia,habis,preorder]',
                 'errors' => [
@@ -85,6 +81,7 @@ class ProdukController extends BaseController{
             ]
         ];
         if (!$this->validate($rules)) {
+            dd($this->validator->getErrors());
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
         // Handle file upload
@@ -95,31 +92,25 @@ class ProdukController extends BaseController{
         } else {
             return redirect()->back()->withInput()->with('error', 'Gagal mengunggah gambar produk.');
         }
+
         $this->produkModel->save([
-            'id_booth' => $this->request->getPost('id_booth'),
             'nama_produk' => $this->request->getPost('nama_produk'),
             'deskripsi' => $this->request->getPost('deskripsi'),
             'harga' => $this->request->getPost('harga'),
             'gambar_produk' => $namaFile,
             'status' => $this->request->getPost('status'),
-            'stok' => $this->request->getPost('stok')
+            'stok' => $this->request->getPost('stok'),
+            'id_booth' => $this->request->getPost('id_booth'),
         ]);
         // Redirect with success message
         session()->setFlashdata('success', 'Produk berhasil ditambahkan.');
         // Redirect to produk index
-        return redirect()->to('/produk');
+        return redirect()->to('/dashboard/produk');
     }
 
-    public function edit($id) {
-        $data = [
-            'title' => 'Edit Produk',
-            'produk' => $this->produkModel->find($id),
-            'validation' => \Config\Services::validation()
-        ];
-        return view('produk/edit', $data);
-    }
-    public function update($id){
-        if(!session()->has('username_admin')) {
+    public function update($id)
+    {
+        if (!session()->has('username_admin')) {
             return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
         };
 
@@ -153,14 +144,14 @@ class ProdukController extends BaseController{
                 ]
             ],
             'gambar_produk' => [
-                'rules' => 'uploaded[gambar_produk]|is_image[gambar_produk]|max_size[gambar_produk,500],mime_in[gambar_produk,image/jpg,image/jpeg,image/png]',
+                'rules' => 'uploaded[gambar_produk]|max_size[gambar_produk,500]|is_image[gambar_produk]|mime_in[gambar_produk,image/jpg,image/jpeg,image/png]',
                 'errors' => [
-                    'uploaded' => 'Gambar produk harus diunggah.',
-                    'is_image' => 'File yang diunggah harus berupa gambar.',
-                    'max_size' => 'Ukuran gambar maksimal 500KB.',
-                    'mime_in' => 'Format gambar harus JPG, JPEG, atau PNG.'
+                    'uploaded' => 'Pilih gambar event terlebih dahulu.',
+                    'max_size' => 'Ukuran gambar terlalu besar (maks 500KB).',
+                    'is_image' => 'Yang Anda pilih bukan gambar.',
+                    'mime_in' => 'Format gambar harus JPG, JPEG, atau PNG.',
                 ]
-                ],
+            ],
             'status' => [
                 'rules' => 'in_list[tersedia,habis,preorder]',
                 'errors' => [
@@ -200,9 +191,10 @@ class ProdukController extends BaseController{
             'status' => $this->request->getPost('status'),
             'stok' => $this->request->getPost('stok')
         ]);
-
     }
-    public function delete($id) {
+    
+    public function delete($id)
+    {
         if (!session()->has('username_admin')) {
             return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
         }
@@ -221,4 +213,3 @@ class ProdukController extends BaseController{
         return redirect()->to('/produk');
     }
 }
-?>

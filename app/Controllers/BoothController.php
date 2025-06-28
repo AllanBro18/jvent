@@ -32,12 +32,17 @@ class BoothController extends BaseController
     public function detailBooth ($slug)
     {
         // ambil data booth berdasarkan slug
+        $produkBooth = $this->produkModel->findAll();
+
+        $produkBooth = array_filter($produkBooth, function ($produk) use ($slug) {
+            return $produk['id_booth'] === $this->boothModel->getBooth($slug)['id_booth'];
+        });
+
         $booth = $this->boothModel->getBooth($slug);
-        $produk = $this->produkModel->findAll();
 
         $data = [
             'booth' => $booth,
-            'produk' => $produk,
+            'produk' => $produkBooth,
         ];
 
         // jika tidak ditemukan, lempar exception

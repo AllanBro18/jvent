@@ -21,8 +21,8 @@
     <?php endif; ?>
     
     <?= $this->renderSection('content'); ?>
+
     <!-- dropdown bekerja -->
     <script src="<?= base_url('/assets/js/script.js') ?>"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </body>
 </html>

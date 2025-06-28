@@ -49,7 +49,7 @@ class BoothListController extends BaseController
         // validasi input untuk tiap field pada form booth list
         $rules = [
             'nama_booth' => [ 
-                'rules' => 'required|is_unique[booth_table.nama_booth]|min_length[3]|max_length[50]',
+                'rules' => 'required|is_unique[booth_list_table.nama_booth]|min_length[3]|max_length[50]',
                 'errors' => [
                     'required' => 'Nama booth harus diisi',
                     'is_unique' => 'Nama booth sudah terdaftar',

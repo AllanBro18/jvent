@@ -12,7 +12,7 @@ class ProdukModel extends Model {
         'gambar_produk',
         'harga_produk',
         'stok',
-        'id_admin', 
+        'id_booth', 
     ];
 
     public function getProduk($id_produk = false) {

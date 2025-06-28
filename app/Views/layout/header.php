@@ -45,7 +45,7 @@
                     </svg>
                     <span>Buat Event</span>
                 </a>
-                <a href="<?= base_url('/dashboard') ?>"
+                <a href="<?= base_url('/dashboard/home') ?>"
                 class="flex items-center space-x-1 text-sm text-white font-medium transition-all duration-300 px-3 py-2 rounded-lg hover:scale-105 hover:shadow-lg hover:backdrop-blur-sm bg-white/5 hover:bg-white/10">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-secondary-second" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -87,7 +87,7 @@
                     </svg>
                     <span>Buat Event</span>
                 </a>
-                <a href="<?= base_url('/dashboard') ?>"
+                <a href="<?= base_url('/dashboard/home') ?>"
                 class="flex items-center space-x-1 text-sm text-white font-medium transition-all duration-300 px-3 py-2 rounded-lg hover:scale-105 hover:shadow-lg hover:backdrop-blur-sm bg-white/5 hover:bg-white/10">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-secondary-second" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
