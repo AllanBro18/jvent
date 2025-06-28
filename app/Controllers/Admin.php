@@ -6,13 +6,17 @@ use App\Models\AdminModel;
 use App\Models\BoothListModel;
 use App\Models\EventModel;
 use App\Models\boothModel;
+use App\Models\ProdukModel;
 
 class Admin extends BaseController
 {
+    protected $adminModel;
+    
     protected $eventModel;
     protected $boothListModel;
+    
     protected $boothModel;
-    protected $adminModel;
+    protected $produkModel;
 
     public function __construct()
     {
@@ -20,6 +24,7 @@ class Admin extends BaseController
         $this->boothListModel = new BoothListModel();
         $this->boothModel = new BoothModel();
         $this->adminModel = new AdminModel();
+        $this->produkModel = new ProdukModel();
     }
 
     public function dashboard ()
@@ -124,8 +129,8 @@ class Admin extends BaseController
 
         $data = [
             'title' => 'Dashboard Manajemen Booth',
-            'booths' => $booths,
             'events' => $events,
+            'booths' => $booths,
             'selected_id_event' => $selected_id_event,
             ...$this->getAdminSession(), // spread array
         ];
@@ -160,5 +165,34 @@ class Admin extends BaseController
         ];
 
         return view('admin/booth', $data);
+    }
+
+    public function produkbooth () {
+        // cek apakah admin sudah login
+        if (!session()->has('username_admin')) {
+            return redirect()->to('/login')->with('error', 'Silahkan login terlebih dahulu');
+        }
+
+        $boothModel = $this->boothModel;
+        $produkModel = $this->produkModel;
+
+        $booths = $boothModel->getBooth();
+        $selected_id_booth = $this->request->getGet('id_booth');
+
+        if ($selected_id_booth) {
+            $produk = $produkModel->where('id_booth', $selected_id_booth)->findAll();
+        } else {
+            $produk = $produkModel->findAll();
+        }
+
+        $data = [
+            'title' => 'Dashboard Manajemen Booth',
+            'booths' => $booths,
+            'produk' => $produk,
+            'selected_id_booth' => $selected_id_booth,
+            ...$this->getAdminSession(), // spread array
+        ];
+
+        return view('admin/produkBooth', $data);
     }
 }

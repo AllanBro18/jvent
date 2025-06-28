@@ -10,7 +10,7 @@ class ProdukController extends BaseController{
     }
 
     public function index() {
-        $data['produk'] = $this->produkModel->findAll();
+        $data['produk'] = $this->produkModel->getProduk();
         return view('produk/index', $data);
     }
 

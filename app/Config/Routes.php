@@ -68,6 +68,7 @@ $routes->get('/dashboard/home', 'Admin::dashboard', ['filter' => 'authGuard']);
 $routes->post('/dashboard/home', 'Admin::searchAndFilter', ['filter' => 'authGuard']);
 $routes->get('/dashboard/event', 'Admin::event', ['filter' => 'authGuard']);
 $routes->get('/dashboard/booth', 'Admin::booth', ['filter' => 'authGuard']);
+$routes->get('/dashboard/produkbooth', 'Admin::produkbooth', ['filter' => 'authGuard']);
 $routes->get('/dashboard/admin', 'Admin::admin', ['filter' => 'authGuard']);
 $routes->get('/dashboard/boothlist', 'Admin::boothlist', ['filter' => 'authGuard']);
 $routes->get('/dashboard/info', 'Admin::info', ['filter' => 'authGuard']);

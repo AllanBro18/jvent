@@ -67,7 +67,7 @@ class Auth extends Controller
                 'email_admin' => $admin['email_admin'],
                 'logged_in' => true
             ]);
-            return redirect()->to('/dashboard');
+            return redirect()->to('/dashboard/home');
         } else {
             return redirect()->back()->with('error', 'Username atau Password Salah!');
         }

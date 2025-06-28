@@ -3,14 +3,17 @@
 namespace App\Controllers;
 
 use App\Models\BoothModel;
+use App\Models\ProdukModel;
 
 class BoothController extends BaseController
 {
     protected $boothModel;
+    protected $produkModel;
 
     public function __construct()
     {
         $this->boothModel = new BoothModel();
+        $this->produkModel = new ProdukModel();
     }
 
     public function index()
@@ -30,6 +33,12 @@ class BoothController extends BaseController
     {
         // ambil data booth berdasarkan slug
         $booth = $this->boothModel->getBooth($slug);
+        $produk = $this->produkModel->findAll();
+
+        $data = [
+            'booth' => $booth,
+            'produk' => $produk,
+        ];
 
         // jika tidak ditemukan, lempar exception
         if (!$booth) {
@@ -37,7 +46,7 @@ class BoothController extends BaseController
         }
 
         return view('layout/header', ['title' => 'Detail ' . $booth['nama_booth']])
-            . view('booth/detail', ['booth' => $booth])
+            . view('booth/detail', $data)
             . view('layout/footer');
     }
 
