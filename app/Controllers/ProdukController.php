@@ -84,6 +84,8 @@ class ProdukController extends BaseController
             session()->setFlashdata('error', 'Produk gagal ditambahkan.');
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
+
+        $harga = str_replace(',', '.', $this->request->getPost('harga'));
         // Handle file upload
         $gambarProduk = $this->request->getFile('gambar_produk');
         if ($gambarProduk->isValid() && !$gambarProduk->hasMoved()) {
@@ -96,7 +98,7 @@ class ProdukController extends BaseController
         $this->produkModel->save([
             'nama_produk' => $this->request->getPost('nama_produk'),
             'deskripsi' => $this->request->getPost('deskripsi'),
-            'harga' => $this->request->getPost('harga'),
+            'harga' => $harga,
             'gambar_produk' => $namaFile,
             'status' => $this->request->getPost('status'),
             'stok' => $this->request->getPost('stok'),
@@ -105,7 +107,7 @@ class ProdukController extends BaseController
         // Redirect with success message
         session()->setFlashdata('success', 'Produk berhasil ditambahkan.');
         // Redirect to produk index
-        return redirect()->to('/dashboard/produk');
+        return redirect()->to('/dashboard/produkbooth');
     }
 
     public function update($id)
@@ -170,6 +172,7 @@ class ProdukController extends BaseController
         ];
 
         if (!$this->validate($rules)) {
+            session()->setFlashdata('error', 'Produk gagal diubah.');
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 

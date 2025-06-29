@@ -10,7 +10,7 @@ class ProdukModel extends Model {
         'nama_produk', 
         'deskripsi', 
         'gambar_produk',
-        'harga_produk',
+        'harga',
         'stok',
         'id_booth', 
     ];

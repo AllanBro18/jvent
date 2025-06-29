@@ -15,7 +15,7 @@
 </style>
 <body class="bg-primary font-inter">
     <!-- PARSIAL -->
-    <?php if ($title === 'Dashboard Admin Home' || $title === 'Dashboard Event' || $title === 'Dashboard Info' || $title === 'Dashboard Pengaturan' || $title === 'Dashboard Manajemen Booth' || $title === 'Dashboard Booth'): ?>
+    <?php if ($title === 'Dashboard Admin Home' || $title === 'Dashboard Event' || $title === 'Dashboard Info' || $title === 'Dashboard Admin' || $title === 'Dashboard Pengaturan' || $title === 'Dashboard Manajemen Booth' || $title === 'Dashboard Booth'): ?>
         <?= $this->include('layout/sidebar2') ?> 
         <?= $this->include('layout/footer') ?> 
     <?php endif; ?>

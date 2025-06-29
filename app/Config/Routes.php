@@ -34,6 +34,7 @@ $routes->delete('/event/(:num)', 'EventController::delete/$1', ['filter' => 'aut
 // CRUD Booth
 // halaman booth
 $routes->get('/booth', 'BoothController::index');
+$routes->post('booth', 'BoothController::search');
 // create booth
 $routes->get('/booth/create', 'BoothController::createBooth', ['filter' => 'authGuard']);
 $routes->post('/booth/save', 'BoothController::saveBooth', ['filter' => 'authGuard']);

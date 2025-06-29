@@ -29,6 +29,36 @@ class BoothController extends BaseController
             . view('layout/footer');
     }
 
+    public function search ()
+    {
+        // ambil keyword dari input pencarian
+        $keyword = $this->request->getVar('keyword');
+        // query builder untuk model event
+        $query = $this->boothModel;
+
+        // filter berdasarkan keyword
+        if ($keyword) {
+            // escape keyword untuk menghindari SQL injection
+            $keyword = trim($keyword);
+            // groupStart untuk menggabungkan kondisi LIKE dengan OR
+            $query = $query->groupStart()
+                        ->like('nama_booth', $keyword)
+                        ->orLike('jenis_booth', $keyword)
+                        ->orLike('deskripsi_booth', $keyword)
+                        ->groupEnd();
+        }
+
+        // ambil data event sesuai dengan filter dan pagination
+        $data = [
+            'booths' => $query->paginate(8, 'booth_table'),
+            'pager' => $this->boothModel->pager,
+        ];
+
+        return view('layout/header', ['title' => 'Filter Booth', 'keyword' => $keyword])
+            . view('booth/index', $data)
+            . view('layout/footer');
+    }
+
     public function detailBooth ($slug)
     {
         // ambil data booth berdasarkan slug

@@ -210,7 +210,7 @@ class EventController extends BaseController
         // flash data
         $session->setFlashdata('pesan', 'Event berhasil ditambahkan...');
 
-        return redirect()->to('/dashboard');
+        return redirect()->to('/dashboard/event');
     }
 
     public function detail($slug)
@@ -274,7 +274,7 @@ class EventController extends BaseController
         // flash data
         session()->setFlashdata('pesan', 'Event berhasil dihapus');
         
-        return redirect()->to('/dashboard');
+        return redirect()->to('/dashboard/event');
     }
 
     public function edit ($slug) {
@@ -430,6 +430,6 @@ class EventController extends BaseController
         // flash data
         $session->setFlashdata('pesan', 'Event berhasil diubah...');
 
-        return redirect()->to('/dashboard');
+        return redirect()->to('/dashboard/event');
     }
 }
