@@ -83,11 +83,6 @@ $routes->get('/dashboard/boothlist', 'Admin::boothlist', ['filter' => 'authGuard
 $routes->get('/dashboard/info', 'Admin::info', ['filter' => 'authGuard']);
 $routes->get('/dashboard/pengaturan', 'Admin::pengaturan', ['filter' => 'authGuard']);
 
-// REGISTER Admin
-$routes->get('register', 'Auth::showRegister');
-// tambah data register admin
-$routes->post('register', 'Auth::register');
-
 // DETAIL
 // event
 $routes->get('/event/(:any)', 'EventController::detail/$1');

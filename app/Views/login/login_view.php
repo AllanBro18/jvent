@@ -10,9 +10,9 @@
 
         <!-- Flash Message -->
         <?php if (session()->getFlashdata('error')) : ?>
-        <div class="bg-red-500 text-white px-4 py-2 rounded text-sm">
-            <?= session()->getFlashdata('error') ?>
-        </div>
+            <div class="bg-red-500 text-white px-4 py-2 rounded text-sm">
+                <?= session()->getFlashdata('error') ?>
+            </div>
         <?php endif; ?>
 
         <!-- Login Form -->
@@ -22,23 +22,21 @@
                 name="username_admin"
                 placeholder="Username"
                 class="w-full px-4 py-3 rounded-md border border-gray-500 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-tertiary-soft"
-                value="<?= (old('username_admin') ? old('username_admin') : '') ?>"
-            >
+                value="<?= (old('username_admin') ? old('username_admin') : '') ?>">
             <?php if (session('validation') && session('validation')->hasError('username_admin')) : ?>
                 <p class="mt-1 text-sm text-red-500">
-                <?= session('validation')->getError('username_admin'); ?>
+                    <?= session('validation')->getError('username_admin'); ?>
                 </p>
             <?php endif; ?>
-            
+
             <input
                 type="password"
                 name="password_admin"
                 placeholder="Password"
-                class="w-full px-4 py-3 rounded-md border border-gray-500 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-tertiary-soft"
-            >
+                class="w-full px-4 py-3 rounded-md border border-gray-500 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-tertiary-soft">
             <?php if (session('validation') && session('validation')->hasError('password_admin')) : ?>
                 <p class="mt-1 text-sm text-red-500">
-                <?= session('validation')->getError('password_admin'); ?>
+                    <?= session('validation')->getError('password_admin'); ?>
                 </p>
             <?php endif; ?>
 
@@ -48,12 +46,6 @@
                 Login
             </button>
         </form>
-
-        <!-- Register Link -->
-        <p class="text-center text-sm text-gray-300">
-            Belum punya akun?
-            <a href="<?= base_url('/register') ?>" class="text-white underline">Daftar</a>
-        </p>
     </div>
 
 </section>
